@@ -1,0 +1,49 @@
+name: Sync to AcWing
+on:
+  schedule:
+    - cron: '15 22 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "xiaoran67"
+          git config --global user.email "327530006@qq.com"
+          git config --global init.defaultBranch main
+
+      - name: Verify credentials
+        run: |
+          if [ "${{ secrets.ACWING_USERNAME }}" != "xiaoran67" ]; then
+            echo "错误：ACWING_USERNAME 应为 xiaoran67"
+            exit 1
+          fi
+          if [ -z "${{ secrets.ACWING_PASSWORD }}" ]; then
+            echo "错误：未配置 ACWING_PASSWORD"
+            exit 1
+          fi
+
+      - name: Sync assets directory (force push always)
+        run: |
+          echo "当前北京时间: $(TZ='Asia/Shanghai' date +%Y-%m-%d\ %H:%M:%S)"
+          TARGET_PATH="./assets"
+          if [ ! -d "$TARGET_PATH" ]; then
+            echo "错误：未找到 $TARGET_PATH 目录！"
+            exit 1
+          fi
+          mkdir -p temp_sync && cd temp_sync
+          git init
+          git remote add origin https://${{ secrets.ACWING_USERNAME }}:${{ secrets.ACWING_PASSWORD }}@git.acwing.com/xiaoran67/source.git
+          git fetch origin main 2>/dev/null || true
+          git checkout main 2>/dev/null || git checkout -b main
+          cp -r ../assets ./
+          git add .
+          git commit --allow-empty -m "$(TZ='Asia/Shanghai' date +%Y-%m-%d\ %H:%M:%S)"
+          git push -u origin main --force
