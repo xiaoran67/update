@@ -1,0 +1,83 @@
+name: Sync to AcWing ①
+# 触发条件配置
+on:
+  # 定时任务：UTC时间22:15执行（对应北京时间次日6:15）
+  schedule:
+    - cron: '15 22 * * *'  # cron表达式格式：分 时 日 月 周
+  # 允许手动触发工作流
+  workflow_dispatch:
+
+# 定义工作流任务
+jobs:
+  # 任务名称：同步output目录
+  sync-output:
+    # 运行环境：最新版Ubuntu
+    runs-on: ubuntu-latest
+    
+    # 任务步骤
+    steps:
+      # 步骤1：检出出当前GitHub仓库代码
+      - name: Checkout code
+        uses: actions/checkout@v4  # 使用官方检出出动作
+        with:
+          fetch-depth: 0  # 拉取完整提交历史，确保能访问所有文件
+
+      # 步骤2：配置Git身份信息
+      - name: Configure Git
+        run: |
+          # 设置提交者姓名（需与AcWing用户名一致）
+          git config --global user.name "xiaoran67"
+          # 设置提交者邮箱
+          git config --global user.email "327530006@qq.com"
+          # 设置新仓库默认分支为main，避免警告
+          git config --global init.defaultBranch main
+
+      # 步骤3：验证AcWing账号凭据
+      - name: Verify credentials
+        run: |
+          # 检查用户名是否正确配置
+          if [ "${{ secrets.ACWING_USERNAME }}" != "xiaoran67" ]; then
+            echo "错误：ACWING_USERNAME 应为 xiaoran67"
+            exit 1
+          fi
+          # 检查密码是否已配置
+          if [ -z "${{ secrets.ACWING_PASSWORD }}" ]; then
+            echo "错误：未配置 ACWING_PASSWORD"
+            exit 1
+          fi
+
+      # 步骤4：同步output目录（核心逻辑）
+      - name: Sync output directory (force push always)
+        run: |
+          # 显示当前北京时间（用于验证时间配置正确性）
+          echo "当前北京时间: $(TZ='Asia/Shanghai' date +%Y-%m-%d\ %H:%M:%S)"
+          
+          # 定义目标目录路径（仓库根目录下的output）
+          TARGET_PATH="./output"
+          # 检查目标目录是否存在
+          if [ ! -d "$TARGET_PATH" ]; then
+            echo "错误：未找到 $TARGET_PATH 目录！"
+            exit 1
+          fi
+
+          # 创建并进入临时工作目录（避免污染原仓库）
+          mkdir -p temp_sync && cd temp_sync
+          
+          # 初始化临时Git仓库
+          git init
+          # 添加AcWing远程仓库地址（含认证信息）
+          git remote add origin https://${{ secrets.ACWING_USERNAME }}:${{ secrets.ACWING_PASSWORD }}@git.acwing.com/xiaoran67/source.git
+          
+          # 拉取远程main分支（忽略拉取失败，适用于新仓库）
+          git fetch origin main 2>/dev/null || true
+          # 切换到main分支，若不存在则创建
+          git checkout main 2>/dev/null || git checkout -b main
+
+          # 复制目标目录到临时仓库
+          cp -r ../output ./
+
+          # 提交变更（--allow-empty确保无变更时也能提交）
+          git add .
+          git commit --allow-empty -m "$(TZ='Asia/Shanghai' date +%Y-%m-%d\ %H:%M:%S)"
+          # 强制推送到远程main分支（-u设置上游跟踪）
+          git push -u origin main --force

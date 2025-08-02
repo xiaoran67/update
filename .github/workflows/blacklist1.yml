@@ -1,0 +1,59 @@
+name: Blacklist1 ☞ assets/Blacklist1
+on:
+  workflow_dispatch:
+
+jobs:
+  check_live_sources:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0  # 关键：获取完整历史
+
+      # 新增：强制同步远程代码（应对仓库重建）
+      - name: 强制同步远程代码
+        run: git fetch --prune && git reset --hard origin/main
+
+      - name: 设置Python环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 安装系统依赖
+        run: sudo apt update && sudo apt install -y ffmpeg
+
+      # 移除不必要的requirements检查
+      - name: 执行直播源检测
+        run: python assets/blacklist1/blacklist1.py
+
+      - name: 强制提交推送
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          
+          # 只添加结果文件
+          git add assets/blacklist1/whitelist_auto.txt
+          git add assets/blacklist1/whitelist_auto_tv.txt
+          git add assets/blacklist1/blacklist_auto.txt
+          git add assets/blacklist1/history/blacklist/*.txt
+          
+          # 检查是否有变更
+          if git diff --staged --quiet; then
+            echo "无变化，跳过推送"
+            exit 0
+          fi
+          
+          git commit -m ":8ball: $(date +'%Y%m%d_%H%M%S')"
+          
+          # 优化冲突处理
+          git pull origin main --rebase --autostash || {
+            echo "变基冲突，自动用远程最新代码覆盖本地";
+            git rebase --abort;
+            git pull origin main --force;
+          }
+          git push origin main --force-with-lease || git push origin main --force

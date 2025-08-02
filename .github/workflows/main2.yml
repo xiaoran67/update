@@ -1,0 +1,141 @@
+name: 'main2 ☞ output/subscribe ✔'
+on:
+  schedule:
+    - cron: '20 21 * * *'  # UTC时间每日17:20自动触发
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: '部署环境'
+        required: true
+        default: 'production'  # 手动触发默认环境
+
+env:
+  PYTHON_VERSION: '3.10'        # 指定使用的Python版本
+  RETAIN_DAYS: 7                # 历史归档保留天数（超期自动删除）
+  HISTORY_DIR: 'history/main2'  # 归档文件存储目录
+  FILES_TO_ARCHIVE: >-          # 需归档的文件列表（不含.m3u格式）
+    output/subscribe/full.txt
+    output/subscribe/simple.txt
+    output/subscribe/others.txt
+    output/subscribe/sports.html
+    output/subscribe/custom.txt
+
+jobs:
+  run_job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write          # 允许写入仓库内容
+      pull-requests: write     # 允许操作Pull Requests
+
+    steps:
+      - name: 拉取仓库代码
+        uses: actions/checkout@v4
+        with:
+          ref: main  # 拉取main分支代码
+
+      - name: 强制同步远程代码
+        run: git fetch --prune && git reset --hard origin/main  # 确保本地与远程代码完全一致
+
+      - name: 安装Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}  # 配置指定版本的Python环境
+
+      - name: 缓存依赖包
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip  # pip依赖的缓存路径
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}  # 基于依赖文件哈希的缓存键
+          restore-keys: |
+            ${{ runner.os }}-pip-  # 缓存恢复规则
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          # 安装核心依赖，失败时重试一次
+          pip install opencc-python-reimplemented pytz requests || { 
+            echo "依赖安装失败，重试一次"; 
+            pip install opencc-python-reimplemented pytz requests; 
+          }
+
+      - name: 同步代码并生成文件
+        run: |
+          # 配置Git提交身份信息
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git reset --hard HEAD  # 重置本地未提交的修改
+          # 拉取远程更新并处理冲突
+          git pull origin main --rebase || { 
+            echo "变基冲突，用远程代码覆盖本地";
+            git rebase --abort;
+            git pull origin main --force;
+          }
+          # 执行主脚本生成文件，失败时重试一次
+          python main2.py || { 
+            echo "首次生成失败，重试"; 
+            python main2.py || { exit 1; } 
+          }
+
+      - name: 校验文件完整性
+        run: |
+          # 定义需要校验的关键文件
+          critical_files=("output/subscribe/full.txt" "output/subscribe/custom.txt")
+          # 检查文件是否存在且内容非空
+          for file in "${critical_files[@]}"; do
+            if [ ! -s "$file" ]; then
+              echo "错误：$file 为空或不存在，终止流程"; exit 1;
+            fi
+          done
+          # 检查文件中是否包含核心内容
+          if ! grep -q "🌐央视频道,#genre#" "output/subscribe/full.txt"; then
+            echo "错误：核心内容缺失，终止流程"; exit 1;
+          fi
+
+      - name: 清理历史归档
+        run: |
+          mkdir -p ${{ env.HISTORY_DIR }}  # 创建归档目录（若不存在）
+          # 删除超过保留天数的归档文件（仅清理指定目录下的.zip文件）
+          find ${{ env.HISTORY_DIR }} -name "*.zip" -type f -mtime +${{ env.RETAIN_DAYS }} -delete
+
+      - name: 生成今日归档
+        run: |
+          # 检查目标文件是否有修改（无修改则跳过归档）
+          if git diff --quiet ${{ env.FILES_TO_ARCHIVE }}; then
+            echo "文件未修改，不生成新归档";
+          else
+            # 生成带时间戳的归档文件名（精确到秒）
+            current_datetime=$(date +"%Y%m%d_%H%M%S")
+            zip_filename="${{ env.HISTORY_DIR }}/${current_datetime}_archive.zip"
+            # 打包文件（-j：不保留原目录结构）
+            zip -j "${zip_filename}" ${{ env.FILES_TO_ARCHIVE }}
+            git add "${zip_filename}"  # 将归档文件加入版本控制
+            echo "新归档生成：${zip_filename}"
+          fi
+
+      - name: 提交并推送更改
+        run: |
+          # 添加需要提交的文件（含文本文件、.m3u文件和归档目录）
+          git add output/subscribe/full.txt output/subscribe/simple.txt output/subscribe/others.txt output/subscribe/sports.html output/subscribe/custom.txt \
+                  output/subscribe/full.m3u output/subscribe/simple.m3u output/subscribe/custom.m3u \
+                  ${{ env.HISTORY_DIR }}/
+          # 提交修改（无修改时不报错）
+          git commit -m ":apple: $(date +'%Y-%m-%d %H:%M:%S')" || echo "无修改需提交"
+          # 拉取远程更新并处理冲突
+          git pull origin main --rebase --autostash --allow-unrelated-histories || git pull origin main --force
+          # 推送修改（优先安全推送，失败时强制推送）
+          git push origin main --force-with-lease || git push origin main --force
+
+      - name: 保存生成的文件
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-files  # 构建产物名称
+          path: |  # 需要保存的文件（含所有生成文件和归档）
+            output/subscribe/full.txt
+            output/subscribe/simple.txt
+            output/subscribe/others.txt
+            output/subscribe/sports.html
+            output/subscribe/custom.txt
+            output/subscribe/full.m3u
+            output/subscribe/simple.m3u
+            output/subscribe/custom.m3u
+            ${{ env.HISTORY_DIR }}/*.zip
