@@ -1,0 +1,75 @@
+name: 订阅源自动更新 ☞ assets/snapshot
+
+on:
+  workflow_dispatch:  # 手动触发按钮
+  schedule:
+    - cron: '20 20 1 * *'  # 每月运行一次
+
+jobs:
+  safe-run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 拉取代码
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      # 新增：强制同步远程代码（应对仓库重建）
+      - name: 强制同步远程代码
+        run: git fetch --prune && git reset --hard origin/main
+
+      - name: 🐍 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 📦 安装依赖
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: 🚀 运行下载脚本（带哈希校验）
+        run: |
+          TODAY=$(date +'%Y-%m-%d')
+          mkdir -p assets/snapshot/$TODAY
+          python assets/snapshot/snapshot.py
+
+      - name: 🧹 清理 7 天前旧快照目录和ZIP文件
+        run: |
+          # 清理7天前的快照目录（20*-*-*格式的文件夹）
+          find assets/snapshot -type d -name "20*-*-*" -mtime +7 -exec rm -rf {} \;
+          # 清理7天前的ZIP文件（YYYYMMDD_HHMM_snapshot.zip格式）
+          find assets/snapshot -type f -name "20*_*_snapshot.zip" -mtime +7 -exec rm -f {} \;
+
+      - name: 🔍 检查是否有变化（含新增或删除）
+        id: check_changes
+        run: |
+          if [ -n "$(git status --porcelain assets/snapshot/)" ]; then
+              echo "should_commit=true" >> $GITHUB_OUTPUT
+          else
+              echo "should_commit=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: ✅ 提交变更（仅当有变化）
+        if: steps.check_changes.outputs.should_commit == 'true'
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          # 添加打包步骤
+          current_date=$(date +%Y-%m-%d)
+          current_datetime=$(date +"%Y%m%d_%H%M")
+          zip_filename="${current_datetime}_snapshot.zip"
+          zip -r "assets/snapshot/${zip_filename}" "assets/snapshot/${current_date}"
+          # 提交变更
+          git add assets/snapshot/
+          git commit -m "📦 $(date +'%Y-%m-%d %H:%M:%S')"
+          # 优化拉取逻辑，添加冲突处理
+          git pull origin main --rebase --autostash || {
+            echo "变基冲突，自动用远程最新代码覆盖本地";
+            git rebase --abort;
+            git pull origin main --force;
+          }
+          git push origin main --force-with-lease || git push origin main --force

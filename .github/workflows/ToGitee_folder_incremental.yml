@@ -1,0 +1,112 @@
+name: To Gitee ☞ folder incremental ✔
+
+on:
+  # UTC 时间22:05触发，北京时间次日6:05
+  schedule:
+    - cron: '5 22 * * *'
+  workflow_dispatch:
+    inputs:
+      source-folder:
+        description: '源文件夹'
+        required: false
+        default: 'output'
+      target-repo:
+        description: 'Gitee 仓库名'
+        required: false
+        default: 'update'
+      target-subdir:
+        description: 'Gitee 子目录'
+        required: false
+        default: 'output'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出源仓库
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        with:
+          path: src
+
+      # 2. 克隆目标仓库
+      - name: Clone Target
+        run: |
+          git clone --depth=1 \
+            "https://xiaoran67:${{ secrets.GITEE_ACCESS_TOKEN }}@gitee.com/xiaoran67/${{ inputs.target-repo || 'update' }}.git" \
+            target
+
+      # 3. 计算源文件夹哈希
+      - name: Hash Source
+        id: hash_src
+        run: |
+          cd src
+          SRC_HASH=$(find "${{ inputs.source-folder || 'output' }}" -type f -exec sha1sum {} + | sort | sha1sum | awk '{print $1}')
+          echo "SRC_HASH=$SRC_HASH" >> $GITHUB_ENV
+
+      # 4. 计算目标文件夹哈希
+      - name: Hash Target
+        id: hash_tgt
+        run: |
+          cd target
+          TGT_HASH=$(find "${{ inputs.target-subdir || 'output' }}" -type f -exec sha1sum {} + 2>/dev/null | sort | sha1sum | awk '{print $1}')
+          if [ -z "$TGT_HASH" ]; then
+            TGT_HASH="0000000000000000000000000000000000000000"
+          fi
+          echo "TGT_HASH=$TGT_HASH" >> $GITHUB_ENV
+
+      # 5. 比较哈希
+      - name: Compare
+        run: |
+          echo "源文件夹哈希: ${{ env.SRC_HASH }}"
+          echo "目标文件夹哈希: ${{ env.TGT_HASH }}"
+          if [ "${{ env.SRC_HASH }}" = "${{ env.TGT_HASH }}" ]; then
+            echo "✅ 内容一致，跳过同步"
+            echo "SYNC_NEEDED=false" >> $GITHUB_ENV
+          else
+            echo "🔄 内容不一致，执行增量同步"
+            echo "SYNC_NEEDED=true" >> $GITHUB_ENV
+          fi
+
+      # 6. 增量同步
+      - name: Incremental Sync
+        if: env.SYNC_NEEDED == 'true'
+        run: |
+          rsync -av --delete "src/${{ inputs.source-folder || 'output' }}/" "target/${{ inputs.target-subdir || 'output' }}/"
+
+      # 7. 检查目标仓库是否有变化
+      - name: Check Changes in Target
+        if: env.SYNC_NEEDED == 'true'
+        id: check_changes
+        run: |
+          cd target
+          git status --porcelain
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "CHANGES_DETECTED=true" >> $GITHUB_ENV
+          else
+            echo "CHANGES_DETECTED=false" >> $GITHUB_ENV
+          fi
+
+      # 8. 提交并推送（仅在检测到变化时）
+      - name: Commit and Push
+        if: env.SYNC_NEEDED == 'true' && env.CHANGES_DETECTED == 'true'
+        run: |
+          cd target
+          git config user.name "Auto Sync"
+          git config user.email "sync@noreply"
+          git add -A
+          git commit -m "🔄 $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
+          git push origin HEAD
+
+      # 9. 报告
+      - name: Report
+        run: |
+          if [ "$SYNC_NEEDED" = "true" ]; then
+            if [ "$CHANGES_DETECTED" = "true" ]; then
+              echo "✅ 已完成增量同步并推送更新"
+            else
+              echo "ℹ️ 增量同步未检测到文件变化（可能是哈希冲突但文件实际相同）"
+            fi
+          else
+            echo "ℹ️ 无需同步：源和目标内容一致"
+            fi

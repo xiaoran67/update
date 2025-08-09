@@ -1,0 +1,121 @@
+name: To AcWing ☞ folder incremental ✔
+
+on:
+  # UTC 时间 22:15 触发，北京时间次日 6:15（可根据需要调整 cron 表达式）
+  schedule:
+    - cron: '15 22 * * *'  
+  workflow_dispatch:
+    inputs:
+      source-folder:
+        description: '源文件夹'
+        required: false
+        default: 'output'
+      target-repo:
+        description: 'AcWing 仓库名'
+        required: false
+        default: 'source'
+      target-subdir:
+        description: 'AcWing 子目录'
+        required: false
+        default: 'output'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出源仓库（GitHub 代码）
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        with:
+          path: src  # 代码检出到 src 目录
+
+      # 2. 克隆目标仓库（AcWing Git 仓库）
+      - name: Clone Target
+        run: |
+          # 拼接 AcWing 仓库地址，使用 secrets 存储的账号密码认证
+          git clone --depth=1 \
+            "https://${{ secrets.ACWING_USERNAME }}:${{ secrets.ACWING_PASSWORD }}@git.acwing.com/xiaoran67/${{ inputs.target-repo || 'source' }}.git" \
+            target
+
+      # 3. 计算源文件夹哈希
+      - name: Hash Source
+        id: hash_src
+        run: |
+          cd src
+          # 基于源文件夹计算哈希，用于对比内容是否变化
+          SRC_HASH=$(find "${{ inputs.source-folder || 'output' }}" -type f -exec sha1sum {} + | sort | sha1sum | awk '{print $1}')
+          echo "SRC_HASH=$SRC_HASH" >> $GITHUB_ENV
+
+      # 4. 计算目标文件夹哈希
+      - name: Hash Target
+        id: hash_tgt
+        run: |
+          cd target
+          # 基于目标仓库里的子目录计算哈希
+          TGT_HASH=$(find "${{ inputs.target-subdir || 'output' }}" -type f -exec sha1sum {} + 2>/dev/null | sort | sha1sum | awk '{print $1}')
+          # 若目标目录不存在，哈希设为全 0
+          if [ -z "$TGT_HASH" ]; then
+            TGT_HASH="0000000000000000000000000000000000000000"
+          fi
+          echo "TGT_HASH=$TGT_HASH" >> $GITHUB_ENV
+
+      # 5. 比较哈希，判断是否需要同步
+      - name: Compare Hashes
+        run: |
+          echo "源文件夹哈希: ${{ env.SRC_HASH }}"
+          echo "目标文件夹哈希: ${{ env.TGT_HASH }}"
+          if [ "${{ env.SRC_HASH }}" = "${{ env.TGT_HASH }}" ]; then
+            echo "✅ 内容一致，跳过同步"
+            echo "SYNC_NEEDED=false" >> $GITHUB_ENV
+          else
+            echo "🔄 内容不一致，执行增量同步"
+            echo "SYNC_NEEDED=true" >> $GITHUB_ENV
+          fi
+
+      # 6. 增量同步（使用 rsync 同步差异内容）
+      - name: Incremental Sync
+        if: env.SYNC_NEEDED == 'true'
+        run: |
+          rsync -av --delete "src/${{ inputs.source-folder || 'output' }}/" "target/${{ inputs.target-subdir || 'output' }}/"
+
+      # 7. 检查目标仓库（AcWing）是否有变化
+      - name: Check Changes in Target
+        if: env.SYNC_NEEDED == 'true'
+        id: check_changes
+        run: |
+          cd target
+          # 查看 Git 工作区状态
+          git status --porcelain
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "CHANGES_DETECTED=true" >> $GITHUB_ENV
+          else
+            echo "CHANGES_DETECTED=false" >> $GITHUB_ENV
+          fi
+
+      # 8. 提交并推送到 AcWing 仓库（仅检测到变化时）
+      - name: Commit and Push to AcWing
+        if: env.SYNC_NEEDED == 'true' && env.CHANGES_DETECTED == 'true'
+        run: |
+          cd target
+          # 配置 Git 提交身份
+          git config user.name "Auto Sync"
+          git config user.email "sync@noreply"
+          # 暂存所有变化
+          git add -A
+          # 生成带北京时间的提交信息
+          git commit -m "🔄 $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
+          # 推送到 AcWing 仓库
+          git push origin HEAD
+
+      # 9. 同步结果报告
+      - name: Sync Report
+        run: |
+          if [ "$SYNC_NEEDED" = "true" ]; then
+            if [ "$CHANGES_DETECTED" = "true" ]; then
+              echo "✅ 已完成增量同步并推送更新到 AcWing 仓库"
+            else
+              echo "ℹ️ 增量同步执行，但未检测到文件变化（可能哈希冲突或文件无实际改动）"
+            fi
+          else
+            echo "ℹ️ 源与 AcWing 目标内容一致，无需同步"
+          fi
