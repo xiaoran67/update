@@ -1,6 +1,6 @@
 <div align="center">
   <img src="./static/images/logo.png" alt="logo"/>
-  <h1 align="center">TV-source</h1>
+  <h1 align="center">tv-source</h1>
 </div>
 
 <div align="center">A highly customizable IPTV interface update project 📺, with customizable channel menus, automatic live stream acquisition, speed testing, and validation to generate usable results, achieving 『✨instant playback experience🚀』</div>
