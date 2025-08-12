@@ -1,0 +1,94 @@
+name: 'freetv ☞ output/freetv'
+
+on:
+  schedule:
+    - cron: '10 20 * * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Daily Job(freetv)'
+        required: true
+        default: 'production'
+
+jobs:
+  run_job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 确保有写入权限
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        ref: main  # 明确拉取main分支
+
+    # 新增：强制同步远程代码（应对仓库重建）
+    - name: 强制同步远程代码
+      run: git fetch --prune && git reset --hard origin/main
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        
+    - name: Run Python script (首次生成文件)
+      run: python assets/freetv/freetv.py  # 脚本路径不变，仅输出路径改了
+
+    - name: Upload generated files
+      uses: actions/upload-artifact@v4
+      with:
+        name: freetv-generated-files
+        path: |
+          output/freetv/freetv_output.txt
+          output/freetv/freetv_output_cctv.txt
+          output/freetv/freetv_output_ws.txt
+          output/freetv/freetv_output_other.txt
+          
+    - name: Commit and push changes
+      run: |
+        # 配置Git用户信息
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        
+        # 强制重置工作区，放弃未提交修改
+        git reset --hard HEAD
+        
+        # 拉取远程最新代码（优化冲突处理）
+        git pull origin main --rebase --autostash || {
+          echo "变基冲突，自动用远程最新代码覆盖本地";
+          git rebase --abort;
+          git pull origin main --force;
+        }
+        
+        # 重新生成文件
+        python assets/freetv/freetv.py  # 脚本路径不变，仅输出路径改了
+        
+        # 确保history/freetv目录存在
+        mkdir -p history/freetv
+        
+        # 核心：清理3天前的旧归档文件
+        find history/freetv -name "*.zip" -type f -mtime +3 -delete
+        
+        # 提交主文件修改（路径改为output/freetv）
+        git add output/freetv/freetv_output.txt output/freetv/freetv_output_cctv.txt output/freetv/freetv_output_ws.txt output/freetv/freetv_output_other.txt
+        git commit -m ":tv: $(date +'%Y-%m-%d %H:%M:%S')" || echo "No main file changes to commit"
+        
+        # 生成并提交新的zip归档文件（源文件路径改为output/freetv）
+        current_datetime=$(date +'%Y-%m-%d %H:%M:%S')
+        zip_filename="history/freetv/${current_datetime}_freetv_output.zip"
+        zip -j "${zip_filename}" output/freetv/freetv_output.txt
+        git add "${zip_filename}"
+        git commit -m ":tv: ${current_datetime}" || echo "No zip file changes to commit"
+        
+        # 推送修改
+        git push origin main --force-with-lease || git push origin main --force
+        
+    - name: Push changes (fallback)
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main  # 明确指定推送分支

@@ -1,0 +1,16 @@
+# 这是接口黑名单列表，符合关键字的接口将被拦截，一个关键字一行
+# This is the interface blacklist list, the interface matching the keyword will be blocked, one keyword line
+
+# 用途：过滤含以下关键词的直播源条目（包括频道名或链接中含关键词的条目）
+# 格式：每行一个关键词/内容（无需区分名称或链接，纯文本即可）
+# 注释：以 # 开头的行为注释，不会被当作过滤关键词
+# 示例：
+# 测试频道 → 过滤所有含“测试频道”的条目
+# 无效链接 → 过滤所有含“无效链接”的条目
+
+# 以下为实际过滤关键词（删除或添加行即可）
+测试频道
+广告
+无效链接
+expired
+#genre#

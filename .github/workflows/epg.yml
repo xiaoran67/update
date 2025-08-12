@@ -1,0 +1,27 @@
+name: 节目指南更新 ☞ EPG Update output/
+on:
+  schedule:
+    - cron: '0 20 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  
+
+    - name: Update EPG Files
+      run: |
+        mkdir -p output  
+        rm -f output/e.xml && wget https://epg.112114.xyz/pp.xml -O output/e.xml  
+        git config --local user.name "github-actions[bot]"  
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"  
+        git add output/  
+        git commit -m "📑 $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')" || git commit --allow-empty -m "EPG Update (no changes)"  
+
+    - name: Push changes
+      run: git push origin main  
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  

@@ -1,0 +1,62 @@
+name: blacklist2 ☞ assets/blacklist2
+on: workflow_dispatch  # 手动触发
+
+jobs:
+  run_blacklist2:
+    runs-on: ubuntu-latest
+    permissions: { contents: write }  # 允许推送代码
+
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0  # 拉取完整历史，避免冲突
+
+      - name: 同步远程最新代码
+        run: git fetch --prune && git reset --hard origin/main  # 确保本地代码最新
+
+      - name: 配置Python环境
+        uses: actions/setup-python@v5
+        with: { python-version: '3.10' }  # 固定Python版本
+
+      - name: 安装依赖
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg  # 安装脚本必需的ffmpeg
+
+      - name: 创建输出目录
+        run: |
+          mkdir -p assets/blacklist2/
+          mkdir -p assets/blacklist2/history/blacklist
+          mkdir -p assets/blacklist2/blackhost  # 确保脚本输出目录存在
+
+      - name: 运行检测脚本
+        run: python assets/blacklist2/blacklist2.py  # 执行核心检测逻辑
+
+      - name: 推送结果文件
+        run: |
+          # 配置Git身份
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions Bot"
+          
+          # 添加所有输出文件（复刻1和3的成功逻辑）
+          git add assets/blacklist2/result.txt  # 核心结果文件（来自3的逻辑）
+          git add assets/blacklist2/whitelist_auto.txt
+          git add assets/blacklist2/whitelist_auto_tv.txt
+          git add assets/blacklist2/blacklist_auto.txt  # 白/黑名单文件（来自1的逻辑）
+          git add assets/blacklist2/history/blacklist/*.txt
+          git add assets/blacklist2/blackhost/*.txt  # 历史记录和统计文件（来自1的逻辑）
+          git add -f assets/blacklist2/url_statistics.log  # 日志文件（突破忽略配置）
+          
+          # 无变更则跳过推送
+          if git diff --staged --quiet; then
+            echo "无变更，跳过推送"
+            exit 0
+          fi
+          
+          # 提交并推送
+          git commit -m "✔️ $(date +'%Y-%m-%d %H:%M:%S')"
+          # 处理冲突：优先同步远程，失败则强制拉取
+          git pull origin main --rebase --autostash || { git rebase --abort; git pull origin main --force; }
+          # 安全推送，失败则强制推送
+          git push origin main --force-with-lease || git push origin main -f
+          echo "推送成功！"
