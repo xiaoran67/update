@@ -1,45 +1,72 @@
-name: 下载更新优质央卫列表
+name: 拆分IPTV为央视+卫视列表
 on:
-  workflow_dispatch:  # 支持手动触发
+  workflow_dispatch:  # 手动触发
   schedule:
-    - cron: '0 0 * * *'  # 定时任务：每天 UTC 0 点（北京时间 8 点）执行
-    # 如需调整时间，可修改 cron 表达式（格式：分 时 日 月 周，UTC时间）
-    # 例如：每天北京时间 2 点执行 → cron: '0 18 * * *'（UTC 18 点 = 北京时间 2 点+8小时）
+    - cron: '0 0 * * *'  # 每天UTC 0点（北京时间8点）自动运行，可调整
 
 jobs:
-  update-iptv:
+  split-iptv:
     runs-on: ubuntu-latest
     steps:
-      - name: 检出仓库代码
+      ### 1. 检出仓库代码 ###
+      - name: 检出仓库
         uses: actions/checkout@v4
         with:
-          persist-credentials: false
+          persist-credentials: false  # 禁用默认凭据，避免权限问题
 
-      - name: 下载目标文件
+      ### 2. 下载原始文件 ###
+      - name: 下载IPTV源文件
         run: |
-          curl -fSL "https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.1.txt" -o "temp_ipv4.txt"
-          if [ ! -f "temp_ipv4.txt" ]; then
-            echo "文件下载失败"
+          # 下载目标文件
+          curl -fSL "https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.1.txt" -o temp_ipv4.txt
+          # 检查下载是否成功
+          if [ ! -f temp_ipv4.txt ]; then
+            echo "错误：源文件下载失败！"
             exit 1
           fi
 
-      - name: 重命名并移动文件到目标目录
+      ### 3. 过滤分组信息（删除更新时间、分组标记）###
+      - name: 清理分组行
         run: |
-          mkdir -p "手工区"
-          mv "temp_ipv4.txt" "手工区/♪优质央视.txt"
-          if [ ! -f "手工区/♪优质央视.txt" ]; then
-            echo "文件移动失败"
+          # 删除含「更新时间」或「#genre#」的行（分组信息）
+          sed -e '/更新时间/d' -e '/#genre#/d' temp_ipv4.txt > temp_filtered.txt
+          # 检查清理后文件非空（防止源文件全是分组行）
+          if [ ! -s temp_filtered.txt ]; then
+            echo "错误：清理后无有效内容！"
             exit 1
           fi
 
-      - name: 提交并推送更新
+      ### 4. 拆分央视和卫视频道 ###
+      - name: 提取央视+卫视频道
         run: |
+          mkdir -p 手工区  # 确保目标目录存在
+          # 🔹 提取央视：仅保留行首以「CCTV」开头的行
+          grep "^CCTV" temp_filtered.txt > "手工区/♪优质央视.txt"
+          # 🔹 提取卫视：仅保留含「卫视」关键字的行
+          grep "卫视" temp_filtered.txt > "手工区/♪优质卫视.txt"
+          # 检查两个文件非空（避免空文件提交）
+          if [ ! -s "手工区/♪优质央视.txt" ]; then
+            echo "错误：央视文件为空！可能源文件无CCTV开头的行。"
+            exit 1
+          fi
+          if [ ! -s "手工区/♪优质卫视.txt" ]; then
+            echo "错误：卫视文件为空！可能源文件无含「卫视」的行。"
+            exit 1
+          fi
+
+      ### 5. 提交并推送更新 ###
+      - name: 提交到仓库
+        run: |
+          # 配置Git身份（必须，否则无法提交）
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add "手工区/♪优质央视.txt"
+          # 暂存两个文件
+          git add "手工区/♪优质央视.txt" "手工区/♪优质卫视.txt"
+          # 检查是否有实际变更
           if git diff --quiet --cached; then
-            echo "文件无更新，无需提交"
+            echo "文件无更新，无需提交。"
           else
-            git commit -m "🍀（$(date +'%Y-%m-%d %H:%M:%S')）"
+            # 提交并推送（使用GitHub Token授权）
+            git commit -m "自动拆分：央视+卫视频道更新（$(date +'%Y-%m-%d %H:%M:%S')）"
             git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
           fi
