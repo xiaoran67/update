@@ -40,6 +40,6 @@ jobs:
           if git diff --quiet --cached; then
             echo "文件无更新，无需提交"
           else
-            git commit -m "自动更新♪优质央视IPTV列表（$(date +'%Y-%m-%d %H:%M:%S')）"
+            git commit -m "🍀（$(date +'%Y-%m-%d %H:%M:%S')）"
             git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
           fi
