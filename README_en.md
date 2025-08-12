@@ -1,6 +1,6 @@
 <div align="center">
   <img src="./static/images/logo.png" alt="logo"/>
-  <h1 align="center">IPTV-API</h1>
+  <h1 align="center">TV-source</h1>
 </div>
 
 <div align="center">A highly customizable IPTV interface update project 📺, with customizable channel menus, automatic live stream acquisition, speed testing, and validation to generate usable results, achieving 『✨instant playback experience🚀』</div>
@@ -310,30 +310,3 @@ Taking the host path /etc/docker as an example:
 ## Changelog
 
 [Changelog](./CHANGELOG.md)
-
-## Appreciate
-
-<div>Development and maintenance are not easy, please buy me a coffee ~</div>
-
-| Alipay                                | Wechat                                    |
-|---------------------------------------|-------------------------------------------|
-| ![Alipay](./static/images/alipay.jpg) | ![Wechat](./static/images/appreciate.jpg) |
-
-## Follow
-
-Wechat public account search for Govin, or scan the code to receive updates and learn more tips:
-
-![Wechat public account](./static/images/qrcode.jpg)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=Guovin/iptv-api&type=Date)](https://star-history.com/#Guovin/iptv-api&Date)
-
-## Disclaimer
-
-This project is for learning and communication purposes only. All interface data comes from the internet. If there is
-any infringement, please contact us for removal.
-
-## License
-
-[MIT](./LICENSE) License &copy; 2024-PRESENT [Govin](https://github.com/guovin)
