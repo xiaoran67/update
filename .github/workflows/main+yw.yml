@@ -1,31 +1,28 @@
 name: 'main ☞ output/full.txt ✔ + 拆分央视/卫视'
 
 on:
-  #schedule:
-    #- cron: '00 21 * * *'  # 触发时间（UTC时间，可调整）
-    #- cron: '00 09 * * *'  # 触发时间（UTC时间，可调整）
+  schedule:
+    - cron: '00 21 * * *'  # UTC时间，可调整为北京时间需+8小时
+    - cron: '00 09 * * *'  # UTC时间，可调整
   workflow_dispatch:
     inputs:
       environment:
         description: '部署环境'
         required: true
-        default: 'production'  # 手动触发默认环境
+        default: 'production'
 
 env:
   PYTHON_VERSION: '3.10'        # Python版本
   RETAIN_DAYS: 7                # 归档保留天数
   HISTORY_DIR: 'history'        # 归档目录
-  FILES_TO_ARCHIVE: >-          # 需归档的文件（原有）
+  FILES_TO_ARCHIVE: >-          # 需归档的原有文件
     output/full.txt
     output/simple.txt
     output/others.txt
     output/sports.html
     output/custom.txt
-  # 新增外部IPTV处理配置
   IPTV_SOURCE_URL: "https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.1.txt"  # 源文件URL
-  TARGET_DIR: "手工区"          # 目标目录
-  CCTV_FILE: "${{ env.TARGET_DIR }}/♪优质央视.txt"    # 央视输出文件
-  SATELLITE_FILE: "${{ env.TARGET_DIR }}/♪优质卫视.txt"  # 卫视输出文件
+  TARGET_DIR: "手工区"          # 目标目录（央视/卫视文件存放处）
 
 jobs:
   run_job:
@@ -121,14 +118,14 @@ jobs:
           # 创建目标目录
           mkdir -p "${{ env.TARGET_DIR }}"
           # 提取央视（行首CCTV）
-          grep "^CCTV" temp_filtered.txt > "${{ env.CCTV_FILE }}"
-          if [ ! -s "${{ env.CCTV_FILE }}" ]; then
+          grep "^CCTV" temp_filtered.txt > "${{ env.TARGET_DIR }}/♪优质央视.txt"
+          if [ ! -s "${{ env.TARGET_DIR }}/♪优质央视.txt" ]; then
             echo "错误：央视文件为空！"
             exit 1
           fi
           # 提取卫视（含“卫视”关键字）
-          grep "卫视" temp_filtered.txt > "${{ env.SATELLITE_FILE }}"
-          if [ ! -s "${{ env.SATELLITE_FILE }}" ]; then
+          grep "卫视" temp_filtered.txt > "${{ env.TARGET_DIR }}/♪优质卫视.txt"
+          if [ ! -s "${{ env.TARGET_DIR }}/♪优质卫视.txt" ]; then
             echo "错误：卫视文件为空！"
             exit 1
           fi
@@ -136,12 +133,12 @@ jobs:
       ### 9. 校验新生成的央视/卫视频道文件 ###
       - name: 校验手工区文件
         run: |
-          if [ ! -s "${{ env.CCTV_FILE }}" ]; then
-            echo "错误：${{ env.CCTV_FILE }} 无效！"
+          if [ ! -s "${{ env.TARGET_DIR }}/♪优质央视.txt" ]; then
+            echo "错误：${{ env.TARGET_DIR }}/♪优质央视.txt 无效！"
             exit 1
           fi
-          if [ ! -s "${{ env.SATELLITE_FILE }}" ]; then
-            echo "错误：${{ env.SATELLITE_FILE }} 无效！"
+          if [ ! -s "${{ env.TARGET_DIR }}/♪优质卫视.txt" ]; then
+            echo "错误：${{ env.TARGET_DIR }}/♪优质卫视.txt 无效！"
             exit 1
           fi
 
@@ -151,20 +148,22 @@ jobs:
           mkdir -p ${{ env.HISTORY_DIR }}
           find ${{ env.HISTORY_DIR }} -name "*.zip" -type f -mtime +${{ env.RETAIN_DAYS }} -delete
 
-      ### 11. 生成今日归档（原有逻辑，自动包含新文件）###
+      ### 11. 生成今日归档（自动包含新文件）###
       - name: 生成今日归档
         run: |
+          # 检查文件是否变化（原有文件 + 手工区文件）
           if git diff --quiet ${{ env.FILES_TO_ARCHIVE }} "${{ env.TARGET_DIR }}/"; then
-            echo "文件未变，不生成归档";
+            echo "文件未修改，不生成归档";
           else
             current_datetime=$(date +"%Y%m%d_%H%M%S")
             zip_filename="${{ env.HISTORY_DIR }}/${current_datetime}_archive.zip"
+            # 打包原有文件 + 手工区文件（不保留目录结构）
             zip -j "${zip_filename}" ${{ env.FILES_TO_ARCHIVE }} "${{ env.TARGET_DIR }}/"*
             git add "${zip_filename}"
-            echo "新归档：${zip_filename}"
+            echo "新归档生成：${zip_filename}"
           fi
 
-      ### 12. 提交并推送所有更改（含原有文件+新文件）###
+      ### 12. 提交并推送所有更改 ###
       - name: 提交并推送更改
         run: |
           # 添加所有生成文件（原有+手工区+归档）
@@ -177,7 +176,7 @@ jobs:
           git pull origin main --rebase --autostash --allow-unrelated-histories || git pull origin main --force
           git push origin main --force-with-lease || git push origin main --force
 
-      ### 13. 保存所有生成文件（含新文件）###
+      ### 13. 保存生成的文件（含新文件）###
       - name: 保存生成的文件
         uses: actions/upload-artifact@v4
         with:
