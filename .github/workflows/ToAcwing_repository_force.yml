@@ -1,0 +1,119 @@
+name: To AcWing ☞ repository force ✔ 
+
+# 触发条件配置
+on:
+  # 定时任务：每天UTC时间22:25触发（北京时间次日早上6:25）
+  #schedule:
+    #- cron: '25 22 * * *'
+  # 支持手动触发，并可自定义目标仓库名
+  workflow_dispatch:
+    inputs:
+      target_repo_name:
+        description: '目标仓库名（默认source）'
+        required: false
+        default: 'source'
+
+jobs:
+  # 同步仓库任务
+  sync-repository:
+    runs-on: ubuntu-latest  # 使用最新的Ubuntu环境
+    timeout-minutes: 30     # 设置最大超时时间为30分钟
+
+    env:
+      # 从GitHub Secrets注入AcWing账号密码
+      ACWING_USERNAME: ${{ secrets.ACWING_USERNAME }}
+      ACWING_PASSWORD: ${{ secrets.ACWING_PASSWORD }}
+      TZ: Asia/Shanghai      # 设置时区为北京时间，方便时间戳显示
+      TARGET_REPO: ${{ github.event.inputs.target_repo_name || 'source' }}
+
+    steps:
+      # 1. 检出整个源仓库代码（含完整历史）
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0       # 拉取完整历史，不仅最新提交
+          path: source-repo    # 检出到source-repo文件夹
+
+      # 2. 配置Git全局用户信息和核心设置
+      - name: Configure Git
+        run: |
+          git config --global user.name "xiaoran67"
+          git config --global user.email "327530006@qq.com"
+          git config --global init.defaultBranch main    # 默认分支名为main
+          git config --global core.autocrlf false        # 禁止自动转换换行符，避免Windows/Linux差异
+          git config --global core.safecrlf false
+
+      # 3. 验证AcWing账号密码是否配置，缺少则终止流程
+      - name: Verify credentials
+        run: |
+          if [ -z "$ACWING_USERNAME" ]; then
+            echo "::error::ACWING_USERNAME 未配置"
+            exit 1
+          fi
+          
+          if [ -z "$ACWING_PASSWORD" ]; then
+            echo "::error::ACWING_PASSWORD 未配置"
+            exit 1
+          fi
+          
+          echo "验证通过：用户名 $ACWING_USERNAME"
+
+      # 4. 准备AcWing同步仓库
+      - name: Prepare AcWing repository
+        run: |
+          mkdir -p acwing-sync && cd acwing-sync   # 创建并进入工作目录
+          git init -q                             # 初始化空仓库（静默模式）
+          # 设置远程地址，带账号密码用于认证，仓库名使用自定义变量
+          git remote add origin https://$ACWING_USERNAME:$ACWING_PASSWORD@git.acwing.com/xiaoran67/${TARGET_REPO}.git
+          
+          # 尝试拉取远程main分支，判断仓库是否已有内容
+          if git fetch origin main --depth=1 2>/dev/null; then
+            echo "找到现有仓库，检出main分支"
+            git checkout -B main origin/main      # 切换或创建本地main分支，跟踪远程main
+          else
+            echo "创建新的main分支"
+            git checkout -b main                  # 新建main分支
+            # 空仓库时添加README，避免空仓库无法提交
+            echo "# $ACWING_USERNAME 的同步仓库" > README.md
+            git add README.md
+            git commit -m "初始提交"
+          fi
+
+      # 5. 同步文件内容（保持目标仓库与源仓库一致）
+      - name: Sync entire repository
+        run: |
+          cd acwing-sync
+          
+          # 备份.git目录，防止被覆盖丢失历史
+          cp -r .git ../.git-backup
+          
+          # 清空当前目录下所有文件，保留.git目录
+          find . -maxdepth 1 ! -name '.git' ! -name '.' -exec rm -rf {} +
+          
+          # 复制源仓库内容到当前目录（不包含.git）
+          cp -r ../source-repo/* .
+          
+          # 恢复.git目录，保证git版本信息完整
+          rm -rf .git
+          mv ../.git-backup .git
+          
+          # 添加所有变更（新增、修改、删除）
+          git add -A
+          
+          # 判断是否有变更，避免无意义提交
+          if git diff-index --quiet HEAD --; then
+            echo "没有变更，跳过提交"
+          else
+            # 提交变更，提交信息带北京时间时间戳
+            git commit -m "🔄 $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
+            
+            # 强制推送到远程main分支，覆盖目标仓库内容
+            git push -u origin main --force
+            echo "同步成功完成"
+          fi
+
+      # 6. 清理临时目录
+      - name: Cleanup
+        if: always()  # 无论成功失败都会执行
+        run: |
+          rm -rf acwing-sync .git-backup

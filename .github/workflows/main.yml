@@ -1,0 +1,151 @@
+name: 'Daily Update IPTV main ☞ ✔'
+on:
+  schedule:
+    - cron: '10 21 * * *'  # UTC时间每日17:10触发定时任务
+  workflow_dispatch:
+    branches: [main]  # 手动触发限定分支
+    inputs:
+      environment:
+        description: '部署环境'
+        required: true
+        default: 'production'  # 手动触发默认环境
+
+env:
+  PYTHON_VERSION: '3.12'  # 指定Python版本
+  RETAIN_DAYS: 7          # 历史归档保留天数（超期自动删除）
+  HISTORY_DIR: 'history'  # 归档文件存储目录（独立子目录区分脚本）
+  FILES_TO_ARCHIVE: output/result.txt output/result.m3u  # 需归档的文件列表
+
+jobs:
+  update_and_push:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120  # 任务超时时间（2小时）
+    permissions:
+      contents: write  # 允许写入仓库内容
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main  # 拉取main分支代码
+          fetch-depth: 0  # 拉取完整提交历史
+
+      - name: 强制拉取最新代码
+        run: git fetch --prune && git reset --hard origin/main  # 确保本地与远程代码完全同步
+
+      - name: Debug branch
+        run: |
+          echo "当前分支: $(git rev-parse --abbrev-ref HEAD)"  # 输出当前分支名称
+          echo "当前提交: $(git rev-parse HEAD)"  # 输出当前提交哈希
+
+      - name: 创建输出目录
+        run: mkdir -p output  # 确保output目录存在（若不存在则创建）
+
+      - name: 检测Chrome依赖配置
+        run: |
+          # 从配置读取是否启用浏览器驱动，写入环境变量
+          echo "OPEN_DRIVER=$(python -c '
+          try:
+            from utils.config import config
+            print(config.open_driver)
+          except:
+            print(False)')" >> $GITHUB_ENV
+
+      - name: 安装Chrome浏览器（如需）
+        if: env.OPEN_DRIVER == 'True'  # 仅启用浏览器驱动时执行
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable  # 安装稳定版Chrome
+
+      - name: 安装ChromeDriver（如需）
+        if: env.OPEN_DRIVER == 'True'  # 仅启用浏览器驱动时执行
+        uses: nanasess/setup-chromedriver@master  # 安装对应版本ChromeDriver
+
+      - name: 安装FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg  # 安装多媒体处理工具
+
+      - name: 配置Python 3.12环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'  # 指定Python版本
+          cache: 'pipenv'  # 启用pipenv依赖缓存
+
+      - name: 安装项目依赖
+        run: |
+          pip3 install --user pipenv  # 安装pipenv虚拟环境工具
+          pipenv --python 3.12  # 指定Python版本创建虚拟环境
+          pipenv install --deploy  # 从Pipfile.lock部署依赖
+          pipenv install pytz  # 安装时区处理依赖
+          # 启用浏览器驱动时额外安装selenium
+          if [[ ${{ env.OPEN_DRIVER }} == 'True' ]]; then
+            pipenv install selenium
+          fi
+
+      - name: 执行更新脚本
+        run: |
+          export FINAL_FILE=output/result.txt  # 定义输出文件路径环境变量
+          export CACHE_FILE=output/cache.pkl  # 定义缓存文件路径环境变量
+          pipenv run python main.py  # 使用pipenv虚拟环境运行主脚本
+
+      - name: 检查脚本执行结果
+        if: always()  # 无论前一步是否成功都执行
+        run: |
+          # 脚本退出码非0时输出错误并终止
+          if [[ $? -ne 0 ]]; then
+            echo "脚本运行失败，退出码: $?"
+            exit 1
+          fi
+
+      - name: 调试输出目录权限
+        run: |
+          echo "output 目录权限:"
+          ls -ld output/  # 输出目录权限信息
+          echo "文件列表:"
+          ls -l output/  # 输出目录内文件列表
+
+      - name: 清理历史归档
+        run: |
+          mkdir -p ${{ env.HISTORY_DIR }}  # 确保归档目录存在
+          # 删除超过保留天数的归档文件（仅清理.zip格式）
+          find ${{ env.HISTORY_DIR }} -name "*.zip" -type f -mtime +${{ env.RETAIN_DAYS }} -delete
+
+      - name: 生成今日归档
+        run: |
+          # 检查文件是否有修改（无修改则跳过）
+          if git diff --quiet ${{ env.FILES_TO_ARCHIVE }}; then
+            echo "文件未修改，跳过归档"
+            exit 0
+          fi
+          # 生成带时间戳的归档文件名
+          current_datetime=$(date +"%Y%m%d_%H%M%S")
+          zip_filename="${{ env.HISTORY_DIR }}/${current_datetime}_main.zip"
+          # 打包文件（-j 不保留目录结构，仅打包文件本身）
+          zip -j "${zip_filename}" ${{ env.FILES_TO_ARCHIVE }}
+          # 将归档文件加入Git版本控制
+          git add "${zip_filename}"
+          echo "新归档已生成: ${zip_filename}"
+
+      - name: 安全提交更改
+        run: |
+          # 配置Git提交身份信息
+          git config --local user.email "bot@github.com"
+          git config --local user.name "Stable Bot"
+
+          git add -A  # 添加所有变更（兜底）
+          git add -f output/result.txt output/result.m3u  # 强制添加关键输出文件
+
+          # 无可提交变更时退出
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m ":turtle: $(date +'%Y-%m-%d %H:%M:%S')"  # 提交带时间戳的变更
+          # 处理拉取冲突
+          git pull origin main --rebase --autostash --allow-unrelated-histories || {
+            echo "变基冲突，自动覆盖本地代码";
+            git rebase --abort;
+            git pull origin main --force;
+          }
+          # 推送变更（优先安全推送，失败时强制推送）
+          git push origin main --force-with-lease || git push origin main --force

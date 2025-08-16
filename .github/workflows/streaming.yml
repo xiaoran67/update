@@ -1,0 +1,51 @@
+name: 整理本地源 ☞ assets/streaming
+on:
+  # 自动定时更新
+  schedule:
+    - cron: '50 20 1 1 *'  # 每年运行一次
+  # 手动触发更新（点击即运行）
+  workflow_dispatch:
+
+jobs:
+  force-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 必须有写权限
+
+    steps:
+    - name: 拉取仓库代码
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # 拉取完整历史，避免冲突
+
+    # 新增：强制同步远程代码（应对仓库重建）
+    - name: 强制同步远程代码
+      run: git fetch --prune && git reset --hard origin/${{ github.ref_name }}
+
+    - name: 安装Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: 准备目录（确保依赖文件存在）
+      run: |
+        mkdir -p assets/streaming
+        touch assets/streaming/sources.txt 
+        touch assets/streaming/rename.txt 
+
+    - name: 运行脚本（强制生成新内容）
+      run: python3 assets/streaming/streaming.py  # 脚本会输出到同目录
+
+    - name: 强制推送（手动/自动触发均生效）
+      run: |
+        git config user.email "action@github.com"
+        git config user.name "GitHub Action Bot"
+        git add assets/streaming/  # 只提交 assets/streaming/ 目录的变化
+        git commit -m "${{ github.event_name == 'workflow_dispatch' && '🌴' || ':hot_pepper:' }} $(date '+%Y-%m-%d %H:%M:%S')" || git commit --allow-empty -m "无内容变更但强制提交"
+        # 优化拉取逻辑，添加冲突处理
+        git pull origin ${{ github.ref_name }} --rebase --autostash || {
+          echo "变基冲突，自动用远程最新代码覆盖本地";
+          git rebase --abort;
+          git pull origin ${{ github.ref_name }} --force;
+        }
+        git push origin ${{ github.ref_name }} --force-with-lease || git push origin ${{ github.ref_name }} --force  # 优化推送逻辑

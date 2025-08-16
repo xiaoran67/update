@@ -1,0 +1,59 @@
+name: whitelist blacklist³ ☞ ✔️
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run_blacklist3:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0  # 关键：获取完整提交历史，避免推送冲突
+
+      # 强制同步远程代码（应对仓库版本不一致）
+      - name: 强制同步远程代码
+        run: git fetch --prune && git reset --hard origin/main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 安装ffmpeg（脚本依赖它检测流信息）
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      # ↓↓ 核心修复：提前创建输出目录，避免脚本运行时因目录不存在报错 ↓↓
+      - name: 预创建输出目录
+        run: mkdir -p assets/blacklist3/  # 确保目录存在，即使已有也不报错
+
+      # 运行脚本
+      - run: python assets/blacklist3/blacklist3.py
+
+      - name: 强制推送结果文件
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions Bot"
+          
+          # 确保和脚本输出路径一致（假设是 assets/blacklist3/result.txt）
+          git add assets/blacklist3/result.txt
+          
+          # 无变更则跳过推送
+          if git diff --staged --quiet; then
+            echo "无结果文件变更，跳过推送"
+            exit 0
+          fi
+          
+          git commit -m "☑️ $(date +'%Y-%m-%d %H:%M:%S')"
+          
+          # 冲突处理：优先用远程最新代码覆盖
+          git pull origin main --rebase --autostash || {
+            echo "变基冲突，自动回退并强制拉取远程代码";
+            git rebase --abort;
+            git pull origin main --force;
+          }
+          git push origin main --force-with-lease || git push origin main -f
+          echo "推送成功！"
