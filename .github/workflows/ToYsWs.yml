@@ -1,0 +1,74 @@
+name: Update CCTV CSTV
+
+on:
+  schedule:
+    - cron: '40 20 * * *'  # 每天凌晨0点定时触发
+  workflow_dispatch:  # 手动触发（可自定义提交消息）
+    inputs:
+      commit_message:
+        description: '提交消息'
+        required: false
+        default: '优质央视、卫视'
+
+jobs:
+  process_streams:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Python环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: 安装依赖
+        run: pip install requests
+
+      - name: 运行直播源筛选脚本
+        run: |
+          python - <<EOF
+          import requests
+          import os
+
+          if not os.path.exists("手工区"):
+              os.makedirs("手工区")
+
+          url = "https://raw.githubusercontent.com/kakaxi-1/IPTV/main/ipv4.1.txt"
+          response = requests.get(url)
+          if response.status_code != 200:
+              print(f"获取文件失败，状态码：{response.status_code}")
+              exit(1)
+          content = response.text
+
+          cctv_lines = []
+          tv_lines = []
+          for line in content.splitlines():
+              # 筛选CCTV开头且不含分组标记的行（保留完整行）
+              if line.startswith("CCTV") and "#genre#" not in line:
+                  cctv_lines.append(line)
+              # 筛选含“卫视”且不含分组标记的行
+              elif "卫视" in line and "#genre#" not in line:
+                  tv_lines.append(line)
+
+          # 写入CCTV开头的行到“♪优质央视.txt”
+          with open("手工区/♪优质央视.txt", "w", encoding="utf-8") as f:
+              for line in cctv_lines:
+                  f.write(line + "\n")
+          # 写入卫视相关行到“♪优质卫视.txt”
+          with open("手工区/♪优质卫视.txt", "w", encoding="utf-8") as f:
+              for line in tv_lines:
+                  f.write(line + "\n")
+          EOF
+
+      - name: 提交并推送更改
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add 手工区/♪优质央视.txt 手工区/♪优质卫视.txt
+          if git diff --staged --quiet; then
+            echo "没有更改需要提交"
+          else
+            git commit -m "✔️ $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
+            git push
+          fi

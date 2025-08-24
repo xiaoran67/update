@@ -1,0 +1,86 @@
+name: To AcWing ☞ folder full ✔ 
+
+on:
+ # schedule:
+  #  - cron: '35 22 * * *'  # 每天北京时间6:35自动触发
+  workflow_dispatch:       # 手动触发入口
+    inputs:
+      source_folder:        # 自定义1：要同步的源文件夹（如output）
+        description: '源文件夹'
+        required: true
+        default: 'output'
+      target_repo_name:     # 自定义2：AcWing目标仓库名
+        description: '目标仓库名'
+        required: true
+        default: 'source'
+      target_subdir:        # 自定义3：同步到目标仓库的子目录
+        description: '目标子目录'
+        required: true
+        default: 'output'
+
+jobs:
+  sync-repository:
+    runs-on: ubuntu-latest  # 使用Ubuntu环境运行
+    timeout-minutes: 30     # 超时时间30分钟
+
+    env:
+      # 从Secrets获取AcWing账号密码（提前配置好）
+      ACWING_USERNAME: ${{ secrets.ACWING_USERNAME }}
+      ACWING_PASSWORD: ${{ secrets.ACWING_PASSWORD }}
+      TZ: Asia/Shanghai      # 时区设为北京时间
+      SOURCE: ${{ github.event.inputs.source_folder }}     # 接收源文件夹参数
+      TARGET_REPO: ${{ github.event.inputs.target_repo_name }}  # 接收目标仓库参数
+      TARGET_DIR: ${{ github.event.inputs.target_subdir }}  # 接收目标子目录参数
+
+    steps:
+      # 1. 把GitHub源仓库代码检出到source-repo目录
+      - name: 检出源仓库
+        uses: actions/checkout@v4
+        with:
+          path: source-repo
+
+      # 2. 配置Git（用户信息、默认分支等）
+      - name: 配置Git
+        run: |
+          git config --global user.name "xiaoran67"  # 设置提交用户名
+          git config --global user.email "327530006@qq.com"  # 设置提交邮箱
+          git config --global init.defaultBranch main  # 默认分支设为main
+          git config --global core.autocrlf false  # 禁止自动转换换行符
+
+      # 3. 初始化AcWing仓库连接（新建或拉取已有仓库）
+      - name: 准备AcWing仓库
+        run: |
+          mkdir -p acwing-sync && cd acwing-sync  # 创建工作目录
+          git init -q  # 静默初始化本地仓库
+          # 关联AcWing远程仓库（带账号密码自动认证）
+          git remote add origin https://$ACWING_USERNAME:$ACWING_PASSWORD@git.acwing.com/xiaoran67/$TARGET_REPO.git
+          # 拉取远程main分支，没有则新建本地main分支
+          git fetch origin main --depth=1 2>/dev/null && git checkout -B main origin/main || {
+            git checkout -b main  # 新建main分支
+            echo "# 同步仓库" > README.md  # 空仓库初始化README
+            git add README.md && git commit -m "初始提交"
+          }
+
+      # 4. 核心：按3个自定义参数同步文件夹
+      - name: 同步文件夹
+        run: |
+          cd acwing-sync
+          rm -rf $TARGET_DIR && mkdir -p $TARGET_DIR  # 先删旧目录再重建
+          cp -r ../source-repo/$SOURCE/* $TARGET_DIR/  # 复制源文件夹内容到目标子目录
+          
+          git add $TARGET_DIR  # 暂存目标子目录的变更
+          # 检查是否有实际变化，无变化则跳过提交
+          if git diff-index --quiet HEAD --; then
+            echo "无变更，跳过提交"
+            exit 0
+          fi
+          # 生成带北京时间的提交信息
+          commit_time=$(TZ='Asia/Shanghai' date +%Y-%m-%d\ %H:%M:%S)
+          git commit -m "🔄 $commit_time 同步 $SOURCE → $TARGET_DIR"
+          git push -u origin main --force  # 强制推送到AcWing（确保内容一致）
+          echo "✅ 同步成功"
+
+      # 5. 清理临时目录（无论成功失败都执行）
+      - name: 清理临时文件
+        if: always()
+        run: rm -rf acwing-sync

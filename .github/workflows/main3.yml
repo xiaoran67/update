@@ -1,0 +1,146 @@
+name: 'Daily Update main³ ☞ ✔'
+
+on:
+  schedule:
+    - cron: '30 21 * * *'  # UTC时间触发定时任务
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: '部署环境'
+        required: true
+        default: 'production'  # 手动触发时的默认环境
+
+env:
+  PYTHON_VERSION: '3.10'        # 使用的Python版本
+  RETAIN_DAYS: 7                # 历史归档保留天数
+  HISTORY_DIR: 'history/main3'  # 【修改】归档目录改为history/main3
+  FILES_TO_ARCHIVE: >-          # 需要归档的文件列表
+    output/custom3/full.txt
+    output/custom3/simple.txt
+    output/custom3/custom.txt
+    output/custom3/other.txt
+    output/custom3/sports.html
+
+jobs:
+  run_job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write          # 允许写入仓库内容
+      pull-requests: write     # 允许操作PR
+
+    steps:
+      - name: 拉取仓库代码
+        uses: actions/checkout@v4
+        with:
+          ref: main  # 拉取main分支代码
+
+      - name: 强制同步远程代码
+        run: git fetch --prune && git reset --hard origin/main  # 确保本地代码与远程一致
+
+      - name: 安装Python环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}  # 使用指定Python版本
+
+      - name: 缓存依赖包
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip  # 缓存pip依赖路径
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}  # 缓存键值
+          restore-keys: |
+            ${{ runner.os }}-pip-  # 缓存恢复规则
+
+      - name: 安装项目依赖
+        run: |
+          python -m pip install --upgrade pip  # 升级pip
+          # 安装核心依赖，失败时重试一次
+          pip install opencc-python-reimplemented pytz || { 
+            echo "依赖安装失败，重试一次"; 
+            pip install opencc-python-reimplemented pytz; 
+          }
+
+      - name: 同步代码并生成文件
+        run: |
+          # 配置Git提交信息
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          mkdir -p output/custom3  # 确保输出目录存在
+          git reset --hard HEAD  # 重置本地修改
+          # 拉取远程更新，处理冲突
+          git pull origin main --rebase || { 
+            echo "变基冲突，自动用远程最新代码覆盖本地";
+            git rebase --abort;
+            git pull origin main --force;
+          }
+          # 执行生成脚本，失败时重试一次
+          python main3.py || { 
+            echo "首次生成失败，重试"; 
+            python main3.py || { exit 1; } 
+          }
+
+      - name: 校验文件完整性
+        run: |
+          # 定义关键文件列表
+          critical_files=("output/custom3/full.txt" "output/custom3/custom.txt")
+          # 检查文件是否存在且非空
+          for file in "${critical_files[@]}"; do
+            if [ ! -s "$file" ]; then
+              echo "错误：$file 异常，终止流程"; exit 1;
+            fi
+          done
+          # 检查核心内容是否存在
+          if ! grep -q "🌐央视频道,#genre#" "output/custom3/full.txt"; then
+            echo "错误：核心内容缺失，终止流程"; exit 1;
+          fi
+
+      - name: 清理历史归档
+        run: |
+          mkdir -p ${{ env.HISTORY_DIR }}  # 创建history/main3目录
+          # 仅清理history/main3下超过7天的.zip文件
+          find ${{ env.HISTORY_DIR }} -name "*.zip" -type f -mtime +${{ env.RETAIN_DAYS }} -delete
+
+      - name: 生成今日归档
+        run: |
+          # 检查文件是否有修改
+          if git diff --quiet ${{ env.FILES_TO_ARCHIVE }}; then
+            echo "文件未修改，不生成新归档";
+          else
+            # 归档文件保存到history/main3
+            current_datetime=$(date +"%Y%m%d_%H%M%S")
+            zip_filename="${{ env.HISTORY_DIR }}/${current_datetime}_main3.zip"
+            zip -j "${zip_filename}" ${{ env.FILES_TO_ARCHIVE }}
+            git add "${zip_filename}"
+          fi
+
+      - name: 提交并推送更改
+        run: |
+          # 提交output/custom3和history/main3目录
+          git add output/custom3/ ${{ env.HISTORY_DIR }}/
+          # 提交修改（无修改时不报错）
+          git commit -m ":parrot: $(date +'%Y-%m-%d %H:%M:%S')" || true  
+          # 强制同步远程最新代码
+          git fetch origin main
+          git reset --hard origin/main  
+          # 尝试应用本地提交，冲突时强制推送
+          git cherry-pick HEAD@{1} || {
+            echo "冲突处理：强制推送本地内容到远程";
+            git push origin main --force;
+            exit 0;
+          }
+          # 安全推送，失败时强制推送
+          git push origin main --force-with-lease || git push origin main --force
+
+      - name: 保存生成的文件作为artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-files  # Artifact名称
+          path: |  # 包含history/main3下的归档
+            output/custom3/full.txt
+            output/custom3/full.m3u
+            output/custom3/simple.txt
+            output/custom3/simple.m3u
+            output/custom3/other.txt
+            output/custom3/sports.html
+            output/custom3/custom.txt
+            output/custom3/custom.m3u
+            ${{ env.HISTORY_DIR }}/*.zip

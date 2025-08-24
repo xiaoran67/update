@@ -1,0 +1,47 @@
+name: 订阅源文件去重复subscribe
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_message:
+        description: '提交消息'
+        required: false
+        default: '订阅源去重复'
+
+jobs:
+  deduplicate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Python环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: 运行去重脚本
+        run: |
+          python config/subscribe_dedup.py
+          cat config/subscribe_dedup.txt
+
+      - name: 上传去重后的文件
+        uses: actions/upload-artifact@v4
+        with:
+          name: deduped-subscribe
+          path: config/subscribe_dedup.txt
+          retention-days: 7
+
+      - name: 提交并推送更改
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add config/subscribe_dedup.txt
+          if git diff --staged --quiet; then
+            echo "没有更改需要提交"
+          else
+            git commit -m "✔️ $(date +'%Y-%m-%d %H:%M:%S')"
+            git push
+          fi    

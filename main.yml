@@ -1,0 +1,121 @@
+name: 'Update schedule'
+
+on:
+  schedule:
+    - cron: '0 22,10 * * *'
+  workflow_dispatch:
+    branches:
+      - master
+      - dev
+      - gd
+jobs:
+  push:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ 'ubuntu-latest' ]
+    steps:
+      - name: Set branch name
+        id: vars
+        run: echo "BRANCH_NAME=${{ github.repository_owner == 'Guovin' && 'gd' || 'master' }}" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+      - name: Run with setup-python 3.13
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+          update-environment: true
+          cache: 'pipenv'
+      - name: Check open_driver config
+        id: check_driver
+        run: |
+          echo "OPEN_DRIVER=$(python -c '
+          try:
+            from utils.config import config
+            open_driver = config.open_driver
+          except:
+            open_driver = False
+          print(open_driver)')" >> $GITHUB_ENV
+      - name: Set up Chrome
+        if: env.OPEN_DRIVER == 'True'
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
+      - name: Download chrome driver
+        if: env.OPEN_DRIVER == 'True'
+        uses: nanasess/setup-chromedriver@master
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install pipenv
+        run: pip3 install --user pipenv
+      - name: Install dependecies
+        run: pipenv --python 3.13 && pipenv install --deploy
+      - name: Install selenium
+        if: env.OPEN_DRIVER == 'True'
+        run: pipenv install selenium
+      - name: Update
+        run: pipenv run dev
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          if ! git diff --staged --quiet; then
+            git commit -m "Github Action Auto Updated"
+            git push --force
+          fi
+        env:
+          NODE_ENV: production
+  
+      - name: 运行测试（可选）
+        run: npm test
+  
+      - name: 创建Release包
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.version || 'v0.0.1' }}
+          release_name: Release ${{ github.event.inputs.version || 'v0.0.1' }}
+          body: |
+            本次发布内容：
+            - 修复了XXX问题
+            - 新增XXX功能
+          draft: false
+          prerelease: ${{ github.event.inputs.env == 'preview' }}
+  
+      - name: 上传构建产物
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./dist/app.zip  # 替换为实际构建产物路径
+          asset_name: app-${{ github.event.inputs.version || 'v0.0.1' }}.zip
+          asset_content_type: application/zip
+ 
+ 
+配置说明
+ 
+1. 触发条件（ on ）：
+-  workflow_dispatch ：支持手动触发，可自定义输入参数（如版本号、环境）。
+-  schedule ：通过Cron表达式设置定时任务，时区为UTC（需根据北京时间换算）。
+-  push ：指定分支推送时触发，可改为其他分支（如 develop ）。
+-  release ：创建GitHub Release时自动触发，适合版本发布场景。
+2. 任务流程（ jobs ）：
+- 先通过 actions/checkout 拉取代码， fetch-depth: 0 确保获取完整Git历史。
+- 安装依赖、构建项目、运行测试（根据项目技术栈调整命令，如Python用 pip install ，Java用 mvn package ）。
+- 使用 actions/create-release 创建GitHub Release，自动生成Tag和Release页面。
+- 最后上传构建产物（如ZIP包、Docker镜像）到Release中，供用户下载。
+3. 安全配置：
+-  GITHUB_TOKEN 由GitHub自动注入，无需手动创建，用于认证Release操作权限。
+ 
+常见使用场景
+ 
+- 手动发布：在GitHub的Actions页面选择 Release 工作流，输入版本号和环境，一键触发构建发布。
+- 定时更新：用于定时执行数据同步、日志清理等任务。
+- 代码触发：每次提交代码到主分支时，自动构建并测试，确保代码质量。
+ 
+如需调整细节（如替换为Docker构建、添加邮件通知等），可进一步说明需求。

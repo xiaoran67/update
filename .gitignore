@@ -1,0 +1,38 @@
+# 自动生成的排除规则 - 防止敏感文件上传
+# 基础排除
+*~
+.DS_Store
+*.log
+*.tmp
+*.bak
+# 开发环境文件
+__pycache__/
+.vscode/
+.idea/
+node_modules/
+# 敏感文件类型排除
+*.key
+*.pem
+*.crt
+*.env
+*.secret
+credentials*
+config*.json
+*.token
+*.kdbx
+*.ovpn
+*.pgp
+*.pkcs12
+*.jks
+*.keystore
+*.properties
+*.conf
+*.cfg
+# GitHub 推荐排除项
+.env
+.env.*
+secrets/
+credentials/
+private_keys/
+certificates/
+configs/local/

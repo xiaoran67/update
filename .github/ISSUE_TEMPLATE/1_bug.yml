@@ -1,0 +1,47 @@
+name: Bug report | 报告运行错误或异常
+description: Submit a report about errors or exceptions to help us improve | 提交关于错误或异常的报告以帮助我们改进
+title: "[Bug]: "
+labels: [ bug ]
+body:
+  - type: checkboxes
+    attributes:
+      label: Don't skip these steps | 不要跳过这些步骤
+      description: Before submitting a issue, please complete the following steps carefully | 提交问题前，请认真完成以下步骤
+      options:
+        - label: I understand that I will be **blocked** if I *intentionally* remove or skip any mandatory\* field | 我明白，如果我“故意”删除或跳过任何强制性的\*字段，我将被**限制**
+          required: true
+        - label: I am sure that this is a running error exception problem and will not submit any problems unrelated to this project | 我确定这是运行报错异常问题，不会提交任何与本项目无关的问题
+          required: true
+        - label: I have searched and double-checked that there are no similar issues that have been created | 我已经通过搜索并仔细检查过没有存在已经创建的类似问题
+          required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Occurrence environment | 触发环境
+      description: |
+        Select the environment that the Bug triggers | 选择该Bug触发的环境:
+      options:
+        - label: Workflow | 工作流
+          required: false
+        - label: GUI | 软件
+          required: false
+        - label: Docker
+          required: false
+        - label: Command line | 命令行
+          required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description | 具体描述
+      description: As for the specific description of the Bug, a good description will help to understand and solve it | 对于Bug的具体描述，好的描述有助于理解和解决
+      placeholder: Provide any additional information, any suggested solutions, and as much context and examples as possible | 提供任何附加信息，任何建议的解决方案，以及尽可能多的上下文和示例
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Error log | 报错日志
+      description: Provide detailed error logs of bugs, copy text or upload files as much as possible, do not take screenshots | 提供Bug的详细报错日志，尽量复制文本或上传文件，不要截图
+      placeholder: Enter error logs or upload files | 输入报错日志或上传文件
+    validations:
+      required: false

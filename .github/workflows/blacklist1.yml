@@ -1,0 +1,63 @@
+name: whitelist blacklist¹ ☞ ✔️
+on:
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  check_live_sources:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 开放写权限，确保能推送代码
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0  # 拉取完整历史，避免重定基冲突
+
+      - name: 强制同步远程最新代码
+        run: git fetch --prune && git reset --hard origin/main  # 确保本地代码与远程一致
+
+      - name: 设置Python环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'  # 固定Python版本，避免依赖问题
+
+      - name: 安装系统依赖（ffmpeg用于流媒体检测）
+        run: sudo apt update && sudo apt install -y ffmpeg  # 脚本必需依赖
+
+      - name: 执行直播源检测脚本
+        run: python assets/blacklist1/blacklist1.py  # 运行脚本1生成结果文件
+
+      - name: 提交并推送所有结果文件（含url_statistics.log）
+        run: |
+          # 配置Git身份（必填，否则提交失败）
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          
+          # 强制添加所有输出文件（重点包含url_statistics.log）
+          git add assets/blacklist1/whitelist_auto.txt          # 白名单
+          git add assets/blacklist1/whitelist_auto_tv.txt      # 电视白名单
+          git add assets/blacklist1/blacklist_auto.txt          # 黑名单
+          git add assets/blacklist1/history/blacklist/*.txt     # 历史记录
+          git add assets/blacklist1/blackhost/*.txt             # 故障主机统计
+          git add -f assets/blacklist1/url_statistics.log       # 强制添加日志文件（突破.gitignore）
+          
+          # 无变更时跳过推送（避免空提交）
+          if git diff --staged --quiet; then
+            echo "ℹ️ 无文件变更，无需推送"
+            exit 0
+          fi
+          
+          # 提交变更（含时间戳便于追溯）
+          git commit -m "✔️ $(date +'%Y-%m-%d %H:%M:%S')"
+          
+          # 处理冲突：优先重定基同步远程，失败则强制拉取最新代码
+          git pull origin main --rebase --autostash || {
+            echo "⚠️ 重定基失败，强制同步远程代码";
+            git reset --hard origin/main;
+          }
+          
+          # 安全推送：优先正常推送，失败则强制推送（确保结果能更新）
+          git push origin main --force-with-lease || git push origin main --force
+          echo "✅ 所有结果文件（含url_statistics.log）已成功推送"

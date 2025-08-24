@@ -1,0 +1,91 @@
+name: Update special ☞ ✔️ 
+
+on:
+  schedule:
+    - cron: '30 20 * * *'  # UTC时间每天22点（北京时间次日4点30分）执行
+  workflow_dispatch:      # 允许手动触发
+
+permissions:
+  contents: write         # 允许推送代码到仓库
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    name: 整理并更新特殊直播源
+
+    steps:
+      - name: 📦 拉取仓库代码
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 强制同步远程代码
+        run: git fetch --prune && git reset --hard origin/main
+
+      - name: 🐍 设置 Python 3.10 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 🔧 安装依赖（内置urllib，无需额外包）
+        run: python -m pip install --upgrade pip
+
+      - name: ▶️ 执行直播源整理脚本
+        run: python assets/special/special.py  # 从仓库根目录运行脚本
+
+      - name: 📋 验证输出结果
+        run: |
+          echo "输出文件内容检查："
+          if [ -f "output/special/live_special.txt" ]; then
+            echo "文件存在，内容行数：$(cat output/special/live_special.txt | wc -l)"
+            echo "前5行预览："
+            head -n 5 output/special/live_special.txt
+          else
+            echo "错误：未生成 output/special/live_special.txt"
+            exit 1
+          fi
+
+      - name: 📦 打包输出文件到历史记录（精确到秒）
+        run: |
+          # 创建历史记录目录
+          mkdir -p history/special
+          # 生成带日期时间（精确到秒）的文件名（格式：YYYYMMDD_HHMMSS_live_special.zip）
+          zip_filename="$(date +%Y%m%d_%H%M%S)_live_special.zip"
+          # 打包输出文件
+          zip -j history/special/$zip_filename output/special/live_special.txt
+          echo "已生成历史包：history/special/$zip_filename"
+
+      - name: 🧹 清理7天前的历史文件
+        run: |
+          # 保留最近7天的文件，删除更早的历史包
+          find history/special -name "*.zip" -type f -mtime +7 -delete
+          echo "已清理7天前的历史打包文件"
+
+      - name: 💾 提交并推送变更
+        run: |
+          git config --local user.email "bot@github.com"
+          git config --local user.name "Stable Bot"
+          # 跟踪所有相关文件和目录
+          git add \
+            assets/special/special.py \
+            assets/special/urls.txt \
+            assets/special/ExcludeList.txt \
+            assets/special/rename.txt \
+            output/special/ \
+            history/special/
+          
+          # 检查是否有变更
+          if git diff --staged --quiet; then
+            echo "⚠️ 无更新内容，跳过提交"
+            exit 0
+          fi
+          
+          git commit -m "🌾 $(date +'%Y-%m-%d %H:%M:%S')"
+          # 处理冲突并推送
+          git pull origin main --rebase --autostash || {
+            echo "变基冲突，自动用远程最新代码覆盖本地";
+            git rebase --abort;
+            git pull origin main --force;
+          }
+          git push origin main --force-with-lease || git push --force origin main
