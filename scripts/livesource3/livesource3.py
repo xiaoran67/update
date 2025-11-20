@@ -222,8 +222,8 @@ class ChannelManager:
             print(f"❌ 处理URL时发生错误 {url}: {e}")
             return 0
     
-    def generate_playlist(self, main_channels, local_channels, output_type='full'):
-        """生成播放列表"""
+    def generate_full_playlist(self, main_channels, local_channels):
+        """生成完整版播放列表 - 包含所有内容"""
         output_lines = []
         
         # 1. 主频道分类
@@ -262,21 +262,19 @@ class ChannelManager:
             output_lines.append('')
         
         # 3. 手工区和其他特殊分类
-        if output_type in ['full', 'custom']:
-            # 添加手工区中不在主频道和地方台的频道
-            manual_only_channels = []
-            for channel in self.channel_sources:
-                if (channel not in self.all_channels and 
-                    any(keyword in channel for keyword in ['香港', '澳门', '台湾', '凤凰', 'TVB'])):
-                    manual_only_channels.append(channel)
-            
-            if manual_only_channels:
-                output_lines.append("🌟手工区,#genre#")
-                for channel in sorted(manual_only_channels):
-                    sources = self.channel_sources.get(channel, [])
-                    for source in sources:
-                        output_lines.append(f"{channel},{source}")
-                output_lines.append('')
+        manual_only_channels = []
+        for channel in self.channel_sources:
+            if (channel not in self.all_channels and 
+                any(keyword in channel for keyword in ['香港', '澳门', '台湾', '凤凰', 'TVB'])):
+                manual_only_channels.append(channel)
+        
+        if manual_only_channels:
+            output_lines.append("🌟手工区,#genre#")
+            for channel in sorted(manual_only_channels):
+                sources = self.channel_sources.get(channel, [])
+                for source in sources:
+                    output_lines.append(f"{channel},{source}")
+            output_lines.append('')
         
         # 4. 添加其他信息
         beijing_time = datetime.now(beijing_tz)
@@ -287,6 +285,141 @@ class ChannelManager:
             f"更新时间,{formatted_time}",
             f"总频道数,{len([c for c in self.all_channels if c in self.channel_sources])}",
             f"直播源数,{sum(len(sources) for sources in self.channel_sources.values())}",
+            ""
+        ])
+        
+        return output_lines
+    
+    def generate_custom_playlist(self, main_channels, local_channels):
+        """生成定制版播放列表 - 精选内容"""
+        output_lines = []
+        
+        # 1. 精选主频道分类
+        output_lines.append("🎬主频道,#genre#")
+        
+        # 精选主频道分类
+        custom_main_categories = ['CCTV', '卫视', '数字付费']
+        for category in custom_main_categories:
+            if category in main_channels:
+                output_lines.append(f"📺{category},#genre#")
+                
+                sorted_channels = sorted(main_channels[category])
+                channel_count = 0
+                for channel in sorted_channels:
+                    sources = self.channel_sources.get(channel, [])
+                    if sources:
+                        # 定制版每个频道只取第一个源
+                        output_lines.append(f"{channel},{sources[0]}")
+                        channel_count += 1
+                        
+                output_lines.append(f"# {category}共{channel_count}个频道")
+                output_lines.append('')
+        
+        # 2. 精选地方台分类
+        output_lines.append("🏠地方台,#genre#")
+        
+        # 精选地方台分类
+        custom_local_categories = ['北京', '上海', '广东', '江苏', '浙江', '湖南', '湖北']
+        for category in custom_local_categories:
+            if category in local_channels:
+                output_lines.append(f"📍{category},#genre#")
+                
+                sorted_channels = sorted(local_channels[category])
+                channel_count = 0
+                for channel in sorted_channels:
+                    sources = self.channel_sources.get(channel, [])
+                    if sources:
+                        # 定制版每个频道只取第一个源
+                        output_lines.append(f"{channel},{sources[0]}")
+                        channel_count += 1
+                        
+                output_lines.append(f"# {category}共{channel_count}个频道")
+                output_lines.append('')
+        
+        # 3. 精选手工区
+        manual_only_channels = []
+        for channel in self.channel_sources:
+            if (channel not in self.all_channels and 
+                any(keyword in channel for keyword in ['凤凰', 'TVB'])):
+                manual_only_channels.append(channel)
+        
+        if manual_only_channels:
+            output_lines.append("🌟手工区,#genre#")
+            for channel in sorted(manual_only_channels):
+                sources = self.channel_sources.get(channel, [])
+                if sources:
+                    output_lines.append(f"{channel},{sources[0]}")
+            output_lines.append('')
+        
+        # 4. 添加其他信息
+        beijing_time = datetime.now(beijing_tz)
+        formatted_time = beijing_time.strftime("%Y%m%d %H:%M:%S")
+        
+        output_lines.extend([
+            "🕒更新时间,#genre#",
+            f"更新时间,{formatted_time}",
+            f"总频道数,{len([line for line in output_lines if ',' in line and '#genre#' not in line])}",
+            f"版本,定制精简版",
+            ""
+        ])
+        
+        return output_lines
+    
+    def generate_simple_playlist(self, main_channels, local_channels):
+        """生成精简版播放列表 - 最核心内容"""
+        output_lines = []
+        
+        # 1. 最核心的主频道
+        output_lines.append("🎬主频道,#genre#")
+        
+        # 只保留最核心的CCTV和卫视
+        core_main_categories = ['CCTV', '卫视']
+        for category in core_main_categories:
+            if category in main_channels:
+                output_lines.append(f"📺{category},#genre#")
+                
+                sorted_channels = sorted(main_channels[category])
+                channel_count = 0
+                for channel in sorted_channels:
+                    sources = self.channel_sources.get(channel, [])
+                    if sources:
+                        # 精简版每个频道只取第一个源
+                        output_lines.append(f"{channel},{sources[0]}")
+                        channel_count += 1
+                        
+                output_lines.append(f"# {category}共{channel_count}个频道")
+                output_lines.append('')
+        
+        # 2. 最核心的地方台
+        output_lines.append("🏠地方台,#genre#")
+        
+        # 只保留最核心的地方台
+        core_local_categories = ['北京', '上海', '广东']
+        for category in core_local_categories:
+            if category in local_channels:
+                output_lines.append(f"📍{category},#genre#")
+                
+                sorted_channels = sorted(local_channels[category])
+                channel_count = 0
+                for channel in sorted_channels:
+                    sources = self.channel_sources.get(channel, [])
+                    if sources:
+                        # 精简版每个频道只取第一个源
+                        output_lines.append(f"{channel},{sources[0]}")
+                        channel_count += 1
+                        
+                output_lines.append(f"# {category}共{channel_count}个频道")
+                output_lines.append('')
+        
+        # 3. 添加其他信息
+        beijing_time = datetime.now(beijing_tz)
+        formatted_time = beijing_time.strftime("%Y%m%d %H:%M:%S")
+        
+        output_lines.extend([
+            "🕒更新时间,#genre#",
+            f"更新时间,{formatted_time}",
+            f"总频道数,{len([line for line in output_lines if ',' in line and '#genre#' not in line])}",
+            f"版本,极简版",
             ""
         ])
         
@@ -478,25 +611,23 @@ def main():
     # 4. 生成各种版本的播放列表
     print("📄 生成播放列表...")
     
-    # 完整版
-    full_lines = channel_manager.generate_playlist(main_channels, local_channels, 'full')
+    # 完整版 - 包含所有内容
+    full_lines = channel_manager.generate_full_playlist(main_channels, local_channels)
     with open(CONFIG['output_files']['full'], 'w', encoding='utf-8') as f:
         f.write('\n'.join(full_lines))
     print(f"✅ 完整版生成: {len(full_lines)} 行")
     
-    # 精简版（只包含部分分类）
-    simple_main = {k: v for k, v in main_channels.items() if 'CCTV' in k or '卫视' in k}
-    simple_local = {k: v for k, v in local_channels.items() if any(prov in k for prov in ['北京', '上海', '广东', '湖北'])}
-    simple_lines = channel_manager.generate_playlist(simple_main, simple_local, 'simple')
-    with open(CONFIG['output_files']['simple'], 'w', encoding='utf-8') as f:
-        f.write('\n'.join(simple_lines))
-    print(f"✅ 精简版生成: {len(simple_lines)} 行")
-    
-    # 定制版（可以根据需要调整）
-    custom_lines = channel_manager.generate_playlist(main_channels, local_channels, 'custom')
+    # 定制版 - 精选内容，每个频道只取一个源
+    custom_lines = channel_manager.generate_custom_playlist(main_channels, local_channels)
     with open(CONFIG['output_files']['custom'], 'w', encoding='utf-8') as f:
         f.write('\n'.join(custom_lines))
     print(f"✅ 定制版生成: {len(custom_lines)} 行")
+    
+    # 精简版 - 最核心内容，每个频道只取一个源
+    simple_lines = channel_manager.generate_simple_playlist(main_channels, local_channels)
+    with open(CONFIG['output_files']['simple'], 'w', encoding='utf-8') as f:
+        f.write('\n'.join(simple_lines))
+    print(f"✅ 精简版生成: {len(simple_lines)} 行")
     
     # 5. 生成M3U文件
     def get_logo_by_channel_name(channel_name):
@@ -548,8 +679,8 @@ def main():
 
     print("🎵 生成M3U文件...")
     make_m3u(CONFIG['output_files']['full'], CONFIG['output_files']['full'].replace(".txt", ".m3u"))
-    make_m3u(CONFIG['output_files']['simple'], CONFIG['output_files']['simple'].replace(".txt", ".m3u"))
     make_m3u(CONFIG['output_files']['custom'], CONFIG['output_files']['custom'].replace(".txt", ".m3u"))
+    make_m3u(CONFIG['output_files']['simple'], CONFIG['output_files']['simple'].replace(".txt", ".m3u"))
     
     # 6. 生成统计信息
     timeend = datetime.now(beijing_tz)
@@ -572,8 +703,8 @@ def main():
     print(f"📁 主频道分类: {len(main_channels)}")
     print(f"🏠 地方台分类: {len(local_channels)}")
     print(f"📄 完整版行数: {len(full_lines)}")
-    print(f"📄 精简版行数: {len(simple_lines)}")
     print(f"📄 定制版行数: {len(custom_lines)}")
+    print(f"📄 精简版行数: {len(simple_lines)}")
     print("==========================================\n")
 
     # 最终检查所有输出文件
@@ -591,7 +722,7 @@ def main():
             all_files_ok = False
 
     # 检查M3U文件
-    for file_type in ['full', 'simple', 'custom']:
+    for file_type in ['full', 'custom', 'simple']:
         m3u_file = CONFIG['output_files'][file_type].replace(".txt", ".m3u")
         if os.path.exists(m3u_file):
             file_size = os.path.getsize(m3u_file)
