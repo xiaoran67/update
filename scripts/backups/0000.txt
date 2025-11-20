@@ -1,0 +1,173 @@
+现在我完全明白了！您的需求很清晰。让我重新设计一个更符合您实际使用习惯的方案：
+
+文件结构设计
+
+1. 主频道目录（只有频道名称）
+
+```
+主频道/
+├── 央视.txt
+├── 卫视.txt  
+├── 国际.txt
+└── 其他.txt
+```
+
+文件内容示例（央视.txt）：
+
+```
+CCTV-1
+CCTV-2
+CCTV-3
+CCTV-4
+CCTV-5
+...
+```
+
+2. 地方台目录（只有频道名称）
+
+```
+地方台/
+├── 湖北频道.txt
+├── 北京频道.txt
+├── 上海频道.txt
+├── 广东频道.txt
+└── ...（其他省份）
+```
+
+文件内容示例（湖北频道.txt）：
+
+```
+湖北影视
+湖北综合
+湖北经视
+湖北公共
+```
+
+3. 手工区目录（包含直播源）
+
+```
+手工区/
+├── 香港频道.txt
+├── 澳门频道.txt  
+├── 定制频道.txt
+└── 其他收藏.txt
+```
+
+文件内容示例（香港频道.txt）：
+
+```
+香港卫视,http://example.com/hk1.m3u8
+凤凰中文,http://example.com/fhzw.m3u8
+TVB翡翠,http://example.com/tvb.m3u8
+```
+
+核心处理逻辑
+
+```python
+import os
+from collections import defaultdict
+
+class ChannelManager:
+    def __init__(self, base_path):
+        self.base_path = base_path
+        self.channel_sources = defaultdict(list)  # 存储所有频道的直播源
+        
+    def load_main_channels(self):
+        """加载主频道（只有名称）"""
+        main_path = os.path.join(self.base_path, "主频道")
+        main_channels = []
+        
+        for file in os.listdir(main_path):
+            if file.endswith('.txt'):
+                with open(os.path.join(main_path, file), 'r', encoding='utf-8') as f:
+                    for line in f:
+                        channel_name = line.strip()
+                        if channel_name:
+                            main_channels.append(channel_name)
+        return main_channels
+    
+    def load_local_channels(self):
+        """加载地方台（只有名称）"""
+        local_path = os.path.join(self.base_path, "地方台")
+        local_channels = []
+        
+        for file in os.listdir(local_path):
+            if file.endswith('.txt'):
+                with open(os.path.join(local_path, file), 'r', encoding='utf-8') as f:
+                    for line in f:
+                        channel_name = line.strip()
+                        if channel_name:
+                            local_channels.append(channel_name)
+        return local_channels
+    
+    def load_manual_sources(self):
+        """加载手工区（包含直播源）"""
+        manual_path = os.path.join(self.base_path, "手工区")
+        
+        for file in os.listdir(manual_path):
+            if file.endswith('.txt'):
+                with open(os.path.join(manual_path, file), 'r', encoding='utf-8') as f:
+                    for line in f:
+                        if ',' in line:
+                            channel_name, source = line.strip().split(',', 1)
+                            if channel_name and source:
+                                # 去重添加
+                                if source not in self.channel_sources[channel_name]:
+                                    self.channel_sources[channel_name].append(source)
+    
+    def generate_playlist(self, output_file="output.m3u"):
+        """生成最终的播放列表"""
+        # 1. 获取所有频道名称（主频道+地方台）
+        main_channels = self.load_main_channels()
+        local_channels = self.load_local_channels()
+        
+        # 2. 加载手工区的直播源
+        self.load_manual_sources()
+        
+        # 3. 按字典排序
+        all_channels = sorted(set(main_channels + local_channels))
+        
+        # 4. 生成播放列表
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write('#EXTM3U\n')
+            
+            for channel in all_channels:
+                sources = self.channel_sources.get(channel, [])
+                if sources:  # 只在有直播源时才输出
+                    for source in sources:
+                        f.write(f'#EXTINF:-1,{channel}\n')
+                        f.write(f'{source}\n')
+        
+        print(f"播放列表已生成: {output_file}")
+        print(f"包含 {len(all_channels)} 个频道")
+```
+
+使用方法
+
+```python
+# 简单使用
+manager = ChannelManager("/storage/emulated/0/9999...")
+manager.generate_playlist()
+
+# 或者指定输出文件
+manager.generate_playlist("我的频道列表.m3u")
+```
+
+工作流程
+
+1. 扫描主频道 → 获取频道名称列表
+2. 扫描地方台 → 获取频道名称列表
+3. 扫描手工区 → 建立"频道名→直播源"的映射
+4. 合并去重 → 主频道+地方台的所有频道名称
+5. 字典排序 → 按频道名称排序
+6. 生成列表 → 只输出有直播源的频道
+
+优势
+
+· ✅ 主频道/地方台：纯频道名称，便于维护
+· ✅ 手工区：包含完整直播源信息
+· ✅ 自动去重：同名频道自动合并
+· ✅ 灵活增删：随时添加删除文件即可
+· ✅ 字典排序：输出整齐规范
+
+这样设计既保持了您的文件组织习惯，又实现了自动化的频道管理和列表生成！

@@ -1,0 +1,758 @@
+基于你的需求，我设计了一个灵活的架构方案，支持动态添加地方台和手工区分类。这样你可以轻松管理全国各省的地方台和自定义私人频道分类。
+
+方案设计
+
+1. 配置文件驱动
+
+使用配置文件来管理所有分类，而不是在代码中硬编码。
+
+2. 动态分类加载
+
+程序自动扫描目录结构，动态加载所有地方台和手工区分类。
+
+3. 统一的分发逻辑
+
+使用统一的分发逻辑处理所有分类，减少重复代码。
+
+实现方案
+
+步骤1：创建配置文件
+
+在 scripts/livesource3/ 目录下创建 config.json：
+
+```json
+{
+  "output_categories": {
+    "main_channels": [
+      {"name": "央视频道", "dict_file": "CCTV.txt", "output_name": "🌐央视频道"},
+      {"name": "卫视频道", "dict_file": "卫视频道.txt", "output_name": "📡卫视频道"},
+      {"name": "体育赛事", "dict_file": "体育赛事.txt", "output_name": "🏆体育赛事"}
+    ],
+    "local_channels": {
+      "enabled": true,
+      "auto_discover": true,
+      "manual_list": [
+        {"name": "湖北频道", "dict_file": "湖北频道.txt", "output_name": "☘️湖北频道"},
+        {"name": "广东频道", "dict_file": "广东频道.txt", "output_name": "☘️广东频道"}
+      ]
+    },
+    "manual_channels": {
+      "enabled": true,
+      "auto_discover": true,
+      "manual_list": [
+        {"name": "私人收藏", "file": "私人收藏.txt", "output_name": "⭐私人收藏"},
+        {"name": "高清频道", "file": "高清频道.txt", "output_name": "🖥️高清频道"}
+      ]
+    },
+    "special_channels": [
+      {"name": "AKTV", "dict_keywords": ["AKTV", "aktv"], "output_name": "🚀AKTV📶"}
+    ]
+  }
+}
+```
+
+步骤2：修改代码架构
+
+以下是完整的重构代码：
+
+```python
+import urllib.request
+from urllib.parse import urlparse
+import re
+import os
+import json
+from datetime import datetime, timedelta, timezone
+import random
+import opencc
+import socket
+import time
+import hashlib
+
+# ======= 配置区域 ========
+SOURCE_BASE = "scripts/livesource3"
+OUTPUT_BASE = "output/livesource3"
+
+CONFIG = {
+    'source_base': SOURCE_BASE,
+    'assets_dir': f"{SOURCE_BASE}",
+    'blacklist_dir': f"{SOURCE_BASE}/blacklist",
+    'main_channels_dir': f"{SOURCE_BASE}/主频道", 
+    'local_channels_dir': f"{SOURCE_BASE}/地方台",
+    'manual_dir': f"{SOURCE_BASE}/手工区",
+    'config_file': f"{SOURCE_BASE}/config.json",
+    
+    'output_base': OUTPUT_BASE,
+    'output_dir': OUTPUT_BASE,
+    'output_files': {
+        'full': f'{OUTPUT_BASE}/full.txt',
+        'simple': f'{OUTPUT_BASE}/simple.txt', 
+        'custom': f'{OUTPUT_BASE}/custom.txt',
+        'others': f'{OUTPUT_BASE}/others.txt'
+    },
+    
+    'request_timeout': 10,
+    'request_retries': 3,
+    'request_backoff_factor': 1.5,
+    
+    'removal_list': [
+        "_电信", "电信", "高清", "频道", "（HD）", "-HD", "英陆", "_ITV", "(北美)", "(HK)", 
+        "AKtv", "「IPV4」", "「IPV6」", "频陆", "备陆", "壹陆", "贰陆", "叁陆", "肆陆", 
+        "伍陆", "陆陆", "柒陆", "频晴", "频粤", "[超清]", "高清", "超清", "标清", "斯特",
+        "粤陆", "国陆", "肆柒", "频英", "频特", "频国", "频壹", "频贰", "肆贰", "频测",
+        "咪咕", "闽特", "高特", "频高", "频标", "汝阳"
+    ],
+    
+    'critical_files': ['full.txt', 'custom.txt'],
+    'url_patterns_to_skip': ['tvbus://', '/udp/', 'rtsp://', 'rtp://']
+}
+
+# ==================== 初始化设置 ====================
+os.makedirs(CONFIG['output_dir'], exist_ok=True)
+beijing_tz = timezone(timedelta(hours=8))
+timestart = datetime.now(beijing_tz)
+
+print(f"🚀 开始处理直播源 - 输入: {CONFIG['source_base']}, 输出: {CONFIG['output_base']}")
+
+# ==================== 核心工具函数 ====================
+def read_txt_to_array(file_name):
+    """读取文本文件到数组"""
+    try:
+        with open(file_name, 'r', encoding='utf-8') as file:
+            return [line.strip() for line in file if line.strip()]
+    except FileNotFoundError:
+        print(f"⚠️ 文件未找到: {file_name}")
+        return []
+    except Exception as e:
+        print(f"❌ 读取文件错误 {file_name}: {e}")
+        return []
+
+def traditional_to_simplified(text: str) -> str:
+    """繁体转简体"""
+    try:
+        converter = opencc.OpenCC('t2s')
+        return converter.convert(text)
+    except Exception as e:
+        print(f"❌ 繁简转换错误: {e}")
+        return text
+
+def read_blacklist_from_txt(file_path):
+    """读取黑名单"""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return [line.split(',')[1].strip() for line in file if ',' in line]
+    except Exception as e:
+        print(f"❌ 读取黑名单错误 {file_path}: {e}")
+        return []
+
+def get_url_hash(url):
+    """获取URL的哈希值用于去重"""
+    return hashlib.md5(url.encode('utf-8')).hexdigest()
+
+def should_skip_url(url):
+    """检查URL是否应该跳过"""
+    return any(pattern in url for pattern in CONFIG['url_patterns_to_skip'])
+
+def clean_channel_name(channel_name, removal_list):
+    """清理频道名称中的特定字符"""
+    for item in removal_list:
+        channel_name = channel_name.replace(item, "")
+    
+    if channel_name.endswith("HD"):
+        channel_name = channel_name[:-2]
+    if channel_name.endswith("台") and len(channel_name) > 3:
+        channel_name = channel_name[:-1]
+    
+    return channel_name.strip()
+
+def process_name_string(input_str):
+    """处理频道名称字符串"""
+    try:
+        parts = input_str.split(',')
+        processed_parts = []
+        
+        for part in parts:
+            if "CCTV" in part and "://" not in part:
+                part = part.replace("IPV6", "").replace("PLUS", "+").replace("1080", "")
+                filtered_str = ''.join(char for char in part if char.isdigit() or char in 'K+')
+                
+                if not filtered_str.strip():
+                    filtered_str = part.replace("CCTV", "")
+                
+                if len(filtered_str) > 2 and re.search(r'4K|8K', filtered_str):
+                    filtered_str = re.sub(r'(4K|8K).*', r'\1', filtered_str)
+                    if len(filtered_str) > 2: 
+                        filtered_str = re.sub(r'(4K|8K)', r'(\1)', filtered_str)
+                
+                processed_parts.append("CCTV" + filtered_str)
+            elif "卫视" in part:
+                processed_parts.append(re.sub(r'卫视「.*」', '卫视', part))
+            else:
+                processed_parts.append(part)
+        
+        return ','.join(processed_parts)
+    except Exception as e:
+        print(f"❌ 处理频道名称错误: {e}, 输入: {input_str}")
+        return input_str
+
+def clean_url(url):
+    """清理URL中的$符号及之后内容"""
+    try:
+        last_dollar_index = url.rfind('$')
+        return url[:last_dollar_index] if last_dollar_index != -1 else url
+    except Exception as e:
+        print(f"❌ 清理URL错误: {e}")
+        return url
+
+def convert_m3u_to_txt(m3u_content):
+    """M3U格式转TXT格式"""
+    try:
+        lines = m3u_content.split('\n')
+        txt_lines = []
+        channel_name = ""
+        
+        for line in lines:
+            if line.startswith("#EXTM3U"):
+                continue
+            elif line.startswith("#EXTINF"):
+                channel_name = line.split(',')[-1].strip()
+            elif line.startswith(("http", "rtmp", "p3p")):
+                if channel_name:
+                    txt_lines.append(f"{channel_name},{line.strip()}")
+            
+            if "#genre#" not in line and "," in line and "://" in line:
+                pattern = r'^[^,]+,[^\s]+://[^\s]+$'
+                if bool(re.match(pattern, line)):
+                    txt_lines.append(line)
+        
+        return '\n'.join(txt_lines)
+    except Exception as e:
+        print(f"❌ 转换M3U到TXT错误: {e}")
+        return m3u_content
+
+def get_http_response(url, timeout=None, retries=None, backoff_factor=None):
+    """带重试的HTTP请求"""
+    timeout = timeout or CONFIG['request_timeout']
+    retries = retries or CONFIG['request_retries']
+    backoff_factor = backoff_factor or CONFIG['request_backoff_factor']
+    
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    }
+    
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                data = response.read()
+                return data.decode('utf-8')
+        except urllib.error.HTTPError as e:
+            print(f"❌ [HTTP错误] 代码: {e.code}, URL: {url}")
+            break
+        except urllib.error.URLError as e:
+            print(f"⚠️ [URL错误] 原因: {e.reason}, 尝试: {attempt + 1}/{retries}")
+        except socket.timeout:
+            print(f"⏰ [超时] URL: {url}, 尝试: {attempt + 1}/{retries}")
+        except Exception as e:
+            print(f"⚠️ [异常] {type(e).__name__}: {e}, 尝试: {attempt + 1}/{retries}")
+        
+        if attempt < retries - 1:
+            sleep_time = backoff_factor * (2 ** attempt)
+            print(f"⏳ 等待 {sleep_time} 秒后重试...")
+            time.sleep(sleep_time)
+    
+    return None
+
+# ==================== 分类管理器 ====================
+class ChannelManager:
+    def __init__(self):
+        self.config = self.load_config()
+        self.all_categories = {}
+        self.initialize_categories()
+        
+    def load_config(self):
+        """加载配置文件"""
+        try:
+            with open(CONFIG['config_file'], 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"❌ 加载配置文件错误: {e}")
+            return {}
+    
+    def initialize_categories(self):
+        """初始化所有分类"""
+        # 主频道
+        for category in self.config.get('output_categories', {}).get('main_channels', []):
+            self.add_category(category['name'], 'main', category)
+        
+        # 地方台
+        local_config = self.config.get('output_categories', {}).get('local_channels', {})
+        if local_config.get('enabled', True):
+            # 手动配置的地方台
+            for category in local_config.get('manual_list', []):
+                self.add_category(category['name'], 'local', category)
+            
+            # 自动发现的地方台
+            if local_config.get('auto_discover', True):
+                self.auto_discover_local_channels()
+        
+        # 手工区
+        manual_config = self.config.get('output_categories', {}).get('manual_channels', {})
+        if manual_config.get('enabled', True):
+            # 手动配置的手工区
+            for category in manual_config.get('manual_list', []):
+                self.add_category(category['name'], 'manual', category)
+            
+            # 自动发现的手工区
+            if manual_config.get('auto_discover', True):
+                self.auto_discover_manual_channels()
+        
+        # 特殊频道
+        for category in self.config.get('output_categories', {}).get('special_channels', []):
+            self.add_category(category['name'], 'special', category)
+        
+        print(f"✅ 分类初始化完成: {len(self.all_categories)} 个分类")
+    
+    def add_category(self, name, category_type, config):
+        """添加一个分类"""
+        self.all_categories[name] = {
+            'type': category_type,
+            'config': config,
+            'lines': [],
+            'url_set': set(),
+            'dictionary': self.load_dictionary(config) if category_type in ['main', 'local', 'special'] else None
+        }
+        print(f"  📁 加载分类: {name} ({category_type})")
+    
+    def load_dictionary(self, config):
+        """加载字典文件"""
+        if config.get('dict_file'):
+            dict_path = f"{CONFIG['main_channels_dir']}/{config['dict_file']}" if 'main' in config.get('type', '') else f"{CONFIG['local_channels_dir']}/{config['dict_file']}"
+            dictionary = read_txt_to_array(dict_path)
+            print(f"    📖 字典: {config['dict_file']} ({len(dictionary)} 条)")
+            return dictionary
+        elif config.get('dict_keywords'):
+            return config['dict_keywords']
+        return []
+    
+    def auto_discover_local_channels(self):
+        """自动发现地方台分类"""
+        try:
+            for filename in os.listdir(CONFIG['local_channels_dir']):
+                if filename.endswith('.txt'):
+                    name = filename[:-4]  # 去掉.txt后缀
+                    if name not in self.all_categories:
+                        config = {
+                            'name': name,
+                            'dict_file': filename,
+                            'output_name': f"☘️{name}"
+                        }
+                        self.add_category(name, 'local', config)
+        except Exception as e:
+            print(f"❌ 自动发现地方台错误: {e}")
+    
+    def auto_discover_manual_channels(self):
+        """自动发现手工区分类"""
+        try:
+            for filename in os.listdir(CONFIG['manual_dir']):
+                if filename.endswith('.txt') and filename not in ['about.txt', '今日推台.txt', '今日推荐.txt']:
+                    name = filename[:-4]  # 去掉.txt后缀
+                    if name not in self.all_categories:
+                        config = {
+                            'name': name,
+                            'file': filename,
+                            'output_name': f"⭐{name}"
+                        }
+                        self.add_category(name, 'manual', config)
+        except Exception as e:
+            print(f"❌ 自动发现手工区错误: {e}")
+    
+    def process_channel_line(self, line):
+        """处理单行频道数据并分类"""
+        try:
+            if "#genre#" not in line and "#EXTINF:" not in line and "," in line and "://" in line:
+                channel_name = line.split(',')[0].strip()
+                channel_name = clean_channel_name(channel_name, CONFIG['removal_list'])
+                channel_name = traditional_to_simplified(channel_name)
+                channel_address = clean_url(line.split(',')[1].strip())
+                processed_line = channel_name + "," + channel_address
+
+                # 跳过黑名单和特定协议
+                if channel_address in combined_blacklist or should_skip_url(channel_address):
+                    return
+
+                url_hash = get_url_hash(channel_address)
+                
+                # 分发到各个分类
+                for category_name, category_data in self.all_categories.items():
+                    if category_data['type'] in ['main', 'local', 'special']:
+                        # 基于字典的分发
+                        if self.should_add_to_category(channel_name, url_hash, category_data):
+                            category_data['url_set'].add(url_hash)
+                            category_data['lines'].append(process_name_string(processed_line))
+                
+        except Exception as e:
+            print(f"❌ 处理频道行错误: {e}, 行内容: {line}")
+    
+    def should_add_to_category(self, channel_name, url_hash, category_data):
+        """判断是否应该添加到分类"""
+        if url_hash in category_data['url_set']:
+            return False
+            
+        dictionary = category_data['dictionary']
+        if not dictionary:
+            return False
+            
+        # 关键词匹配（用于特殊分类如AKTV）
+        if isinstance(dictionary, list) and all(isinstance(item, str) for item in dictionary):
+            for keyword in dictionary:
+                if keyword.lower() in channel_name.lower():
+                    return True
+        
+        # 精确匹配（用于主频道和地方台）
+        elif isinstance(dictionary, list):
+            return channel_name in dictionary
+            
+        return False
+    
+    def process_manual_channels(self):
+        """处理手工区频道"""
+        for category_name, category_data in self.all_categories.items():
+            if category_data['type'] == 'manual':
+                config = category_data['config']
+                file_path = f"{CONFIG['manual_dir']}/{config.get('file', category_name + '.txt')}"
+                
+                if os.path.exists(file_path):
+                    manual_data = read_txt_to_array(file_path)
+                    added_count = 0
+                    
+                    for line in manual_data:
+                        if ',' in line and "#genre#" not in line:
+                            try:
+                                url = line.split(',')[1].strip()
+                                url_hash = get_url_hash(url)
+                                if url_hash not in category_data['url_set']:
+                                    category_data['lines'].append(line)
+                                    category_data['url_set'].add(url_hash)
+                                    added_count += 1
+                            except Exception as e:
+                                print(f"⚠️ 处理手工频道行错误: {e}, 行: {line}")
+                    
+                    print(f"✅ 手工区处理完成: {category_name} ({added_count}个频道)")
+                else:
+                    print(f"⚠️ 手工区文件不存在: {file_path}")
+    
+    def get_output_lines(self, output_type='full'):
+        """获取输出行"""
+        output_lines = []
+        
+        # 主频道
+        for category in self.config.get('output_categories', {}).get('main_channels', []):
+            category_name = category['name']
+            if category_name in self.all_categories:
+                category_data = self.all_categories[category_name]
+                output_lines.extend([f"{category['output_name']},#genre#"] + 
+                                   self.sort_data(category_data['dictionary'], category_data['lines']) + ['\n'])
+        
+        # 地方台
+        local_channels = []
+        for category_name, category_data in self.all_categories.items():
+            if category_data['type'] == 'local':
+                local_channels.append((category_name, category_data))
+        
+        # 按名称排序
+        local_channels.sort(key=lambda x: x[0])
+        
+        for category_name, category_data in local_channels:
+            output_name = category_data['config'].get('output_name', f"☘️{category_name}")
+            output_lines.extend([f"{output_name},#genre#"] + 
+                               self.sort_data(category_data['dictionary'], category_data['lines']) + ['\n'])
+        
+        # 手工区
+        manual_channels = []
+        for category_name, category_data in self.all_categories.items():
+            if category_data['type'] == 'manual':
+                manual_channels.append((category_name, category_data))
+        
+        # 按名称排序
+        manual_channels.sort(key=lambda x: x[0])
+        
+        for category_name, category_data in manual_channels:
+            output_name = category_data['config'].get('output_name', f"⭐{category_name}")
+            output_lines.extend([f"{output_name},#genre#"] + sorted(category_data['lines']) + ['\n'])
+        
+        # 特殊频道
+        for category in self.config.get('output_categories', {}).get('special_channels', []):
+            category_name = category['name']
+            if category_name in self.all_categories:
+                category_data = self.all_categories[category_name]
+                output_lines.extend([f"{category['output_name']},#genre#"] + category_data['lines'] + ['\n'])
+        
+        return output_lines
+    
+    def sort_data(self, order, data):
+        """按指定顺序排序数据"""
+        try:
+            order_dict = {name: i for i, name in enumerate(order)}
+            def sort_key(line):
+                try:
+                    name = line.split(',')[0]
+                    return order_dict.get(name, len(order))
+                except:
+                    return len(order)
+            return sorted(data, key=sort_key)
+        except Exception as e:
+            print(f"⚠️ 排序数据错误: {e}")
+            return data
+    
+    def get_statistics(self):
+        """获取统计信息"""
+        stats = {}
+        for category_name, category_data in self.all_categories.items():
+            stats[category_name] = len(category_data['lines'])
+        return stats
+
+# ==================== 全局变量 ====================
+channel_manager = ChannelManager()
+combined_blacklist = set()
+others_lines, others_url_set = [], set()
+
+# ==================== 主处理流程 ====================
+def main():
+    global combined_blacklist
+    
+    print("🚀 开始处理直播源...")
+    
+    # 1. 加载黑名单
+    print("🔧 加载黑名单...")
+    blacklist_auto = read_blacklist_from_txt(f"{CONFIG['blacklist_dir']}/blacklist_auto.txt") 
+    blacklist_manual = read_blacklist_from_txt(f"{CONFIG['blacklist_dir']}/blacklist_manual.txt") 
+    combined_blacklist = set(blacklist_auto + blacklist_manual)
+    print(f"✅ 黑名单加载完成: {len(combined_blacklist)} 条记录")
+    
+    # 2. 处理URL源
+    urls = read_txt_to_array(f"{CONFIG['assets_dir']}/urls-daily.txt")
+    print(f"📡 发现 {len(urls)} 个URL源")
+    
+    for url in urls:
+        if url.startswith("http"):
+            # 处理日期变量
+            current_date_str = datetime.now(beijing_tz).strftime("%m%d")
+            yesterday_date_str = (datetime.now(beijing_tz) - timedelta(days=1)).strftime("%m%d")
+            
+            if "{MMdd}" in url:
+                url = url.replace("{MMdd}", current_date_str)
+            if "{MMdd-1}" in url:
+                url = url.replace("{MMdd-1}", yesterday_date_str)
+            
+            process_url(url)
+
+    # 3. 处理白名单
+    print("📋 处理白名单...")
+    whitelist_auto_lines = read_txt_to_array(f"{CONFIG['blacklist_dir']}/whitelist_auto.txt")
+    whitelist_count = 0
+    for whitelist_line in whitelist_auto_lines:
+        if ("#genre#" not in whitelist_line and "," in whitelist_line and 
+            "://" in whitelist_line):
+            whitelist_parts = whitelist_line.split(",")
+            try:
+                response_time = float(whitelist_parts[0].replace("ms", ""))
+            except ValueError:
+                response_time = 60000
+            if response_time < 2000:
+                channel_manager.process_channel_line(",".join(whitelist_parts[1:]))
+                whitelist_count += 1
+    print(f"✅ 白名单处理完成: {whitelist_count} 个高速源")
+
+    # 4. 处理手工区
+    print("🔧 处理手工区...")
+    channel_manager.process_manual_channels()
+
+    # 5. 处理AKTV（作为特殊频道已在分类管理器中处理）
+    print("🌐 处理AKTV...")
+    # AKTV已经在special_channels中配置，会自动处理
+
+    # 6. 生成版本信息
+    beijing_time = datetime.now(beijing_tz)
+    formatted_time = beijing_time.strftime("%Y%m%d %H:%M:%S")
+
+    def get_random_url(file_path):
+        """随机获取URL"""
+        urls = []
+        try:
+            with open(file_path, 'r', encoding='utf-8') as file:
+                for line in file:
+                    url = line.strip().split(',')[-1]
+                    urls.append(url)    
+        except Exception as e:
+            print(f"⚠️ 读取文件 {file_path} 时发生错误：{e}")
+        return random.choice(urls) if urls else ""
+
+    version = formatted_time + "," + get_random_url(f"{CONFIG['manual_dir']}/今日推台.txt")
+    about = "xiaoranmuze," + get_random_url(f"{CONFIG['manual_dir']}/今日推台.txt")
+    daily_mtv = "今日推荐," + get_random_url(f"{CONFIG['manual_dir']}/今日推荐.txt")
+    daily_mtv1 = "🔥低调," + get_random_url(f"{CONFIG['manual_dir']}/今日推荐.txt")
+    daily_mtv2 = "🔥使用," + get_random_url(f"{CONFIG['manual_dir']}/今日推荐.txt")
+    daily_mtv3 = "🔥禁止," + get_random_url(f"{CONFIG['manual_dir']}/今日推荐.txt")
+    daily_mtv4 = "🔥贩卖," + get_random_url(f"{CONFIG['manual_dir']}/今日推荐.txt")
+
+    # 7. 生成输出文件
+    print("📄 生成输出文件...")
+    
+    # 全部源 (full.txt)
+    all_lines_full = channel_manager.get_output_lines('full')
+    all_lines_full.extend(["🕒更新时间,#genre#"] + [version, about, daily_mtv, daily_mtv1, daily_mtv2, daily_mtv3, daily_mtv4] + 
+                         read_txt_to_array(f"{CONFIG['manual_dir']}/about.txt") + ['\n'])
+
+    # 精简源 (simple.txt) - 可以根据需要调整
+    all_lines_simple = channel_manager.get_output_lines('simple')
+    all_lines_simple.extend(["更新时间,#genre#"] + [version] + ['\n'])
+
+    # 定制源 (custom.txt) - 可以根据需要调整
+    all_lines_custom = channel_manager.get_output_lines('custom')
+    all_lines_custom.extend(["🕒更新时间,#genre#"] + [version, about, daily_mtv, daily_mtv1, daily_mtv2, daily_mtv3, daily_mtv4] + 
+                           read_txt_to_array(f"{CONFIG['manual_dir']}/about.txt") + ['\n'])
+
+    # 其它源 (others.txt)
+    all_lines_others = []
+    all_lines_others.extend(["其它源,#genre#"] + others_lines + ['\n'])
+
+    # 保存四个版本文件
+    output_data = {
+        'full': all_lines_full,
+        'simple': all_lines_simple,
+        'custom': all_lines_custom,
+        'others': all_lines_others
+    }
+
+    for file_type, lines in output_data.items():
+        file_path = CONFIG['output_files'][file_type]
+        try:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write('\n'.join(lines))
+            print(f"✅ {file_type}源已保存: {file_path}")
+            
+            if os.path.exists(file_path):
+                file_size = os.path.getsize(file_path)
+                lines_count = len(lines)
+                print(f"   📊 大小: {file_size} 字节, 行数: {lines_count}")
+                
+        except Exception as e:
+            print(f"❌ 保存{file_type}文件时发生错误：{e}")
+
+    # 8. 统计信息
+    timeend = datetime.now(beijing_tz)
+    elapsed_time = timeend - timestart
+    total_seconds = elapsed_time.total_seconds()
+    minutes = int(total_seconds // 60)
+    seconds = int(total_seconds % 60)
+
+    print("\n📊 =============== 执行统计 ===============")
+    print(f"⏰ 开始时间: {timestart.strftime('%Y-%m-%d %H:%M:%S')} (北京时间)")
+    print(f"⏰ 结束时间: {timeend.strftime('%Y-%m-%d %H:%M:%S')} (北京时间)")
+    print(f"⏱️ 执行时间: {minutes}分{seconds}秒")
+    print(f"📋 黑名单: {len(combined_blacklist)} 条")
+    print(f"📋 白名单: {len(whitelist_auto_lines)} 条")
+    
+    # 分类统计
+    stats = channel_manager.get_statistics()
+    for category_name, count in stats.items():
+        print(f"📺 {category_name}: {count} 个")
+    
+    print(f"📦 其它源: {len(others_lines)} 个")
+    print("==========================================\n")
+
+    print("🏁 处理完成！")
+
+def process_url(url):
+    """处理单个URL源"""
+    try:
+        print(f"🌐 处理URL: {url}")
+        others_lines.append(f"◆◆◆ {url}")
+        
+        response_text = get_http_response(url)
+        if not response_text:
+            print(f"❌ 获取URL内容失败: {url}")
+            others_lines.append(f"❌ 获取失败: {url}\n")
+            return
+
+        # 检查是否为M3U格式
+        is_m3u = response_text.startswith("#EXTM3U") or response_text.startswith("#EXTINF")
+        if get_url_file_extension(url) in [".m3u", ".m3u8"] or is_m3u:
+            response_text = convert_m3u_to_txt(response_text)
+
+        lines = response_text.split('\n')
+        valid_lines = 0
+        
+        for line in lines:
+            if ("#genre#" not in line and "," in line and "://" in line and 
+                not should_skip_url(line)):
+                
+                try:
+                    channel_name, channel_address = line.split(',', 1)
+                    
+                    # 处理带#号的加速源
+                    if "#" not in channel_address:
+                        channel_manager.process_channel_line(line)
+                        valid_lines += 1
+                    else:
+                        url_list = channel_address.split('#')
+                        for channel_url in url_list:
+                            channel_manager.process_channel_line(f'{channel_name},{channel_url}')
+                            valid_lines += 1
+                except Exception as e:
+                    print(f"⚠️ 处理行错误: {e}, 行: {line}")
+
+        print(f"✅ 处理完成: {valid_lines} 个有效频道")
+        others_lines.append(f"✅ 完成: {valid_lines} 个频道\n")
+
+    except Exception as e:
+        print(f"❌ 处理URL时发生错误 {url}: {e}")
+        others_lines.append(f"❌ 错误: {e}\n")
+
+if __name__ == "__main__":
+    main()
+```
+
+使用说明
+
+1. 添加新的地方台分类
+
+只需在地方台目录下添加新的字典文件，例如浙江频道.txt，程序会自动发现并处理。
+
+2. 添加新的手工区分类
+
+在手工区目录下添加新的频道文件，例如电影频道.txt，程序会自动发现并处理。
+
+3. 手动配置分类
+
+在config.json中可以手动配置分类的显示名称、排序等：
+
+```json
+{
+  "name": "浙江频道",
+  "dict_file": "浙江频道.txt", 
+  "output_name": "🍵浙江频道"
+}
+```
+
+4. 特殊分类配置
+
+对于像AKTV这样的特殊分类，可以使用关键词匹配：
+
+```json
+{
+  "name": "AKTV",
+  "dict_keywords": ["AKTV", "aktv"],
+  "output_name": "🚀AKTV📶"
+}
+```
+
+优势
+
+1. 高度灵活：通过配置文件管理所有分类
+2. 自动发现：程序自动扫描目录，无需修改代码
+3. 易于扩展：添加新的地方台或手工区分类只需添加文件
+4. 统一管理：所有分类使用相同的分发逻辑
+5. 统计清晰：每个分类都有独立的统计信息
+
+这个架构可以轻松支持全国各省的地方台和任意数量的手工区分类！

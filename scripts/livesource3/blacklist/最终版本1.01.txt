@@ -1,0 +1,289 @@
+基于您的脚本结构，我来设计一个符合您需求的频道管理系统。我会在您现有脚本的基础上进行扩展和优化。
+
+设计思路
+
+1. 文件结构
+
+```
+scripts/livesource3/
+├── 主频道/           # 只有频道名称
+│   ├── CCTV.txt
+│   ├── 卫视频道.txt
+│   ├── 国际频道.txt
+│   └── 其他.txt
+├── 地方台/           # 只有频道名称  
+│   ├── 湖北频道.txt
+│   ├── 北京频道.txt
+│   ├── 上海频道.txt
+│   └── ...
+├── 手工区/           # 包含完整直播源
+│   ├── 香港频道.txt
+│   ├── 澳门频道.txt
+│   ├── 定制频道.txt
+│   └── 今日推荐.txt
+└── 其他目录保持不变...
+```
+
+2. 核心代码实现
+
+在您现有脚本的基础上，我将添加以下核心功能：
+
+```python
+# ==================== 频道管理器类 ====================
+class ChannelManager:
+    def __init__(self, config):
+        self.config = config
+        self.channel_sources = {}  # 频道名 -> 直播源列表
+        self.all_channels = set()  # 所有频道名称
+        
+    def load_channel_names(self, directory):
+        """加载频道名称（主频道和地方台）"""
+        channel_names = {}
+        if not os.path.exists(directory):
+            print(f"⚠️ 目录不存在: {directory}")
+            return channel_names
+            
+        for filename in os.listdir(directory):
+            if filename.endswith('.txt'):
+                category = filename[:-4]  # 去掉.txt后缀
+                file_path = os.path.join(directory, filename)
+                channels = read_txt_to_array(file_path)
+                channel_names[category] = channels
+                self.all_channels.update(channels)
+                print(f"✅ 加载 {category}: {len(channels)} 个频道")
+                
+        return channel_names
+    
+    def load_manual_sources(self):
+        """加载手工区的直播源"""
+        manual_dir = self.config['manual_dir']
+        if not os.path.exists(manual_dir):
+            print(f"⚠️ 手工区目录不存在: {manual_dir}")
+            return
+            
+        for filename in os.listdir(manual_dir):
+            if filename.endswith('.txt'):
+                file_path = os.path.join(manual_dir, filename)
+                lines = read_txt_to_array(file_path)
+                
+                for line in lines:
+                    if ',' in line and "#genre#" not in line:
+                        try:
+                            channel_name, source = line.strip().split(',', 1)
+                            source = clean_url(source)  # 使用现有的clean_url函数
+                            
+                            # 跳过黑名单
+                            if source in combined_blacklist or should_skip_url(source):
+                                continue
+                                
+                            # 添加到频道源映射
+                            if channel_name not in self.channel_sources:
+                                self.channel_sources[channel_name] = []
+                            
+                            # URL去重
+                            url_hash = get_url_hash(source)
+                            existing_hashes = [get_url_hash(s) for s in self.channel_sources[channel_name]]
+                            
+                            if url_hash not in existing_hashes:
+                                self.channel_sources[channel_name].append(source)
+                                
+                        except Exception as e:
+                            print(f"⚠️ 解析手工区行错误: {e}, 行: {line}")
+        
+        print(f"✅ 手工区加载完成: {len(self.channel_sources)} 个频道有直播源")
+    
+    def generate_playlist(self, main_channels, local_channels, output_type='full'):
+        """生成播放列表"""
+        output_lines = []
+        
+        # 1. 主频道分类
+        for category, channels in main_channels.items():
+            output_lines.append(f"📺{category},#genre#")
+            
+            # 按字典排序
+            sorted_channels = sorted(channels)
+            for channel in sorted_channels:
+                sources = self.channel_sources.get(channel, [])
+                if sources:
+                    for source in sources:
+                        output_lines.append(f"{channel},{source}")
+                # 如果没有直播源，可以添加注释
+                # else:
+                #     output_lines.append(f"# {channel} (无直播源)")
+                    
+            output_lines.append('')  # 空行分隔
+        
+        # 2. 地方台分类  
+        for category, channels in local_channels.items():
+            output_lines.append(f"🏠{category},#genre#")
+            
+            sorted_channels = sorted(channels)
+            for channel in sorted_channels:
+                sources = self.channel_sources.get(channel, [])
+                if sources:
+                    for source in sources:
+                        output_lines.append(f"{channel},{source}")
+                        
+            output_lines.append('')
+        
+        # 3. 添加其他信息（版本、推荐等）
+        if output_type in ['full', 'custom']:
+            beijing_time = datetime.now(beijing_tz)
+            formatted_time = beijing_time.strftime("%Y%m%d %H:%M:%S")
+            version = f"{formatted_time},手工区/今日推荐"
+            
+            output_lines.extend([
+                "🕒更新时间,#genre#",
+                version,
+                "手工区/今日推荐," + get_random_url(f"{self.config['manual_dir']}/今日推荐.txt"),
+                ""
+            ])
+        
+        return output_lines
+
+# ==================== 集成到主流程 ====================
+def main_enhanced():
+    print("🚀 开始增强版频道处理...")
+    
+    # 初始化频道管理器
+    channel_manager = ChannelManager(CONFIG)
+    
+    # 1. 加载频道名称
+    print("📚 加载主频道和地方台名称...")
+    main_channels = channel_manager.load_channel_names(CONFIG['main_channels_dir'])
+    local_channels = channel_manager.load_channel_names(CONFIG['local_channels_dir'])
+    
+    print(f"✅ 频道名称加载完成: 主频道({len(main_channels)}类) 地方台({len(local_channels)}类)")
+    print(f"📊 总频道数: {len(channel_manager.all_channels)}")
+    
+    # 2. 处理URL源（保留原有逻辑）
+    print("🌐 处理网络源...")
+    urls = read_txt_to_array(f"{CONFIG['assets_dir']}/urls-daily.txt")
+    for url in urls:
+        if url.startswith("http"):
+            # 处理日期变量
+            current_date_str = datetime.now(beijing_tz).strftime("%m%d")
+            yesterday_date_str = (datetime.now(beijing_tz) - timedelta(days=1)).strftime("%m%d")
+            
+            if "{MMdd}" in url:
+                url = url.replace("{MMdd}", current_date_str)
+            if "{MMdd-1}" in url:
+                url = url.replace("{MMdd-1}", yesterday_date_str)
+            
+            process_url_to_manager(url, channel_manager)
+    
+    # 3. 加载手工区直播源
+    print("🔧 加载手工区直播源...")
+    channel_manager.load_manual_sources()
+    
+    # 4. 生成各种版本的播放列表
+    print("📄 生成播放列表...")
+    
+    # 完整版
+    full_lines = channel_manager.generate_playlist(main_channels, local_channels, 'full')
+    with open(CONFIG['output_files']['full'], 'w', encoding='utf-8') as f:
+        f.write('\n'.join(full_lines))
+    print(f"✅ 完整版生成: {len(full_lines)} 行")
+    
+    # 精简版（只包含部分分类）
+    simple_main = {k: v for k, v in main_channels.items() if k in ['CCTV', '卫视频道']}
+    simple_local = {k: v for k, v in local_channels.items() if k in ['湖北频道', '广东频道']}
+    simple_lines = channel_manager.generate_playlist(simple_main, simple_local, 'simple')
+    with open(CONFIG['output_files']['simple'], 'w', encoding='utf-8') as f:
+        f.write('\n'.join(simple_lines))
+    print(f"✅ 精简版生成: {len(simple_lines)} 行")
+    
+    # 5. 生成统计信息
+    total_sources = sum(len(sources) for sources in channel_manager.channel_sources.values())
+    channels_with_sources = len([c for c in channel_manager.all_channels if c in channel_manager.channel_sources])
+    
+    print("\n📊 =============== 频道统计 ===============")
+    print(f"📺 总频道数: {len(channel_manager.all_channels)}")
+    print(f"🔗 有直播源的频道: {channels_with_sources}")
+    print(f"📡 总直播源数: {total_sources}")
+    print(f"📁 主频道分类: {len(main_channels)}")
+    print(f"🏠 地方台分类: {len(local_channels)}")
+    print("==========================================\n")
+
+# ==================== 修改原有的process_url函数 ====================
+def process_url_to_manager(url, channel_manager):
+    """处理URL源并添加到频道管理器"""
+    try:
+        print(f"🌐 处理URL: {url}")
+        
+        response_text = get_http_response(url)
+        if not response_text:
+            print(f"❌ 获取URL内容失败: {url}")
+            return
+
+        # 检查是否为M3U格式
+        is_m3u = response_text.startswith("#EXTM3U") or response_text.startswith("#EXTINF")
+        if get_url_file_extension(url) in [".m3u", ".m3u8"] or is_m3u:
+            response_text = convert_m3u_to_txt(response_text)
+
+        lines = response_text.split('\n')
+        valid_lines = 0
+        
+        for line in lines:
+            if ("#genre#" not in line and "," in line and "://" in line and 
+                not should_skip_url(line)):
+                
+                try:
+                    channel_name, channel_address = line.split(',', 1)
+                    channel_name = clean_channel_name(channel_name, CONFIG['removal_list'])
+                    channel_name = traditional_to_simplified(channel_name)
+                    channel_address = clean_url(channel_address.strip())
+                    
+                    # 跳过黑名单
+                    if channel_address in combined_blacklist:
+                        continue
+                    
+                    # 添加到频道管理器
+                    if channel_name not in channel_manager.channel_sources:
+                        channel_manager.channel_sources[channel_name] = []
+                    
+                    # URL去重
+                    url_hash = get_url_hash(channel_address)
+                    existing_hashes = [get_url_hash(s) for s in channel_manager.channel_sources[channel_name]]
+                    
+                    if url_hash not in existing_hashes:
+                        channel_manager.channel_sources[channel_name].append(channel_address)
+                        valid_lines += 1
+                        
+                except Exception as e:
+                    print(f"⚠️ 处理行错误: {e}, 行: {line}")
+
+        print(f"✅ 处理完成: {valid_lines} 个有效频道")
+
+    except Exception as e:
+        print(f"❌ 处理URL时发生错误 {url}: {e}")
+
+# ==================== 在main函数中调用 ====================
+if __name__ == "__main__":
+    # 可以选择使用原有流程或增强流程
+    use_enhanced = True  # 设置为False使用原有流程
+    
+    if use_enhanced:
+        main_enhanced()
+    else:
+        main()  # 原有流程
+```
+
+主要优势
+
+1. 灵活的文件管理：
+   · 主频道/地方台：纯频道名称，便于维护
+   · 手工区：完整直播源，支持跨分类合并
+2. 智能分发：
+   · 自动合并同名频道的多个直播源
+   · 支持跨分类（地方台+手工区）合并
+   · 自动去重，避免重复源
+3. 保持兼容：
+   · 与您现有脚本完全兼容
+   · 可以随时切换回原有流程
+   · 保留所有现有功能
+4. 统计清晰：
+   · 详细的频道和直播源统计
+   · 便于监控和维护
+
+这个设计既保持了您现有的工作流程，又增加了更灵活的频道管理功能。您觉得这个方案如何？需要我详细解释某个部分吗？
