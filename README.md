@@ -32,7 +32,7 @@
 
 
 
-## Actions [![update](https://github.com/xiaoran67/update/actions/workflows/blacklist.yml/badge.svg)](https://github.com/xiaoran67/update/actions/workflows/livesource.yml)
+## Actions [![update](https://github.com/xiaoran67/update/actions/workflows/livesource.yml/badge.svg)](https://github.com/xiaoran67/update/actions/workflows/livesource.yml)
 ## Actions [![update](https://github.com/xiaoran67/update/actions/workflows/Cross-repositoryMulti-PlatformSync.yml/badge.svg)](https://github.com/xiaoran67/update/actions/workflows/Cross-repositoryMulti-PlatformSync.yml)
 ## Actions [![update](https://github.com/xiaoran67/update/actions/workflows/Cross-repositorySynchronization.yml/badge.svg)](https://github.com/xiaoran67/update/actions/workflows/Cross-repositorySynchronization.yml)
 ## Actions [![update](https://github.com/xiaoran67/update/actions/workflows/update_clash_Sub.yml/badge.svg)](https://github.com/xiaoran67/update/actions/workflows/update_clash_Sub.yml)
