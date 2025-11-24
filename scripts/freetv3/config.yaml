@@ -1,0 +1,25 @@
+project:
+  name: "FreeTV"
+  version: "1.0.0"
+
+sources:
+  urls:
+    - "https://freetv.fun/test_channels_original_new.txt"
+  
+  data_files:
+    channel_list: "data/channel_list.txt"
+    cctv_list: "data/cctv_list.txt"
+    ws_list: "data/ws_list.txt"
+    rename_rules: "data/rename_rules.txt"
+
+output:
+  path: "../../output/freetv/"
+  files:
+    - "complete.m3u"
+    - "complete.txt"
+    - "cctv_only.m3u"
+    - "cctv_only.txt"
+    - "satellite.m3u"
+    - "satellite.txt"
+    - "others.m3u"
+    - "others.txt"
