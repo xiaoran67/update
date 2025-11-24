@@ -1,0 +1,111 @@
+name: Generate and Deploy Live Sources
+
+on:
+  push:
+    branches: [ main, master ]
+  schedule:
+    # 每天运行两次（UTC时间 02:00 和 14:00，对应北京时间 10:00 和 22:00）
+    - cron: '0 2,14 * * *'
+  workflow_dispatch:
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install opencc-python-reimplemented
+
+    - name: Run live source generator
+      run: |
+        python scripts/livesource1/livesource1.py
+      env:
+        PYTHONUNBUFFERED: 1
+        # 设置超时避免网络请求卡住
+        REQUEST_TIMEOUT: 30
+
+    - name: Check generated files
+      run: |
+        echo "📁 生成的直播源文件:"
+        ls -la output/livesource1/
+        echo ""
+        echo "📊 文件详情:"
+        for file in output/livesource1/*.txt output/livesource1/*.m3u; do
+          if [ -f "$file" ]; then
+            lines=$(wc -l < "$file" 2>/dev/null || echo "0")
+            size=$(du -h "$file" | cut -f1)
+            echo "  📄 $file: $lines 行, $size"
+          fi
+        done
+
+    - name: Configure Git
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+
+    - name: Check for changes
+      id: check-changes
+      run: |
+        git add output/livesource1/
+        if git diff --staged --quiet; then
+          echo "changes=false" >> $GITHUB_OUTPUT
+          echo "📭 没有检测到新的直播源变化"
+        else
+          echo "changes=true" >> $GITHUB_OUTPUT
+          echo "📬 检测到直播源更新，准备提交"
+          
+          # 显示具体变化
+          echo "🔄 文件变化详情:"
+          git diff --staged --name-only
+        fi
+
+    - name: Commit and push changes
+      if: steps.check-changes.outputs.changes == 'true'
+      run: |
+        git add output/livesource1/
+        git commit -m "🤖 $(TZ='Asia/Shanghai' date +%Y-%m-%d\ %H:%M:%S)"
+        
+        # 重试机制
+        for i in 1 2 3; do
+          echo "🔄 尝试推送 ($i/3)..."
+          if git push; then
+            echo "✅ 推送成功"
+            break
+          else
+            echo "⚠️ 推送失败，等待重试..."
+            sleep 10
+            git pull --rebase
+          fi
+        done
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: live-sources
+        path: output/livesource1/
+        retention-days: 5
+
+    - name: Success notification
+      if: success()
+      run: |
+        echo "🎉 直播源生成和部署完成！"
+        echo "⏰ 更新时间: $(TZ='Asia/Shanghai' date +%Y-%m-%d\ %H:%M:%S)"
+        echo "📁 输出文件已保存至: output/livesource1/"
+        if [ "${{ steps.check-changes.outputs.changes }}" == "true" ]; then
+          echo "🔄 已自动提交更改到仓库"
+        else
+          echo "📭 无新变化，跳过提交"
+        fi

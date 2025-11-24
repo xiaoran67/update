@@ -1,0 +1,117 @@
+name: 'Update FreeTV ☞ ✔️'
+
+on:
+  schedule:
+    - cron: '00 20 * * *'
+  workflow_dispatch:
+
+env:
+  HISTORY_DIR: 'history/freetv'
+
+jobs:
+  run_job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: 📥 拉取仓库代码
+      uses: actions/checkout@v4
+      with:
+        ref: main
+
+    - name: 🔄 同步最新代码
+      run: |
+        git fetch --prune
+        git reset --hard origin/main
+
+    - name: 🐍 配置Python环境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: 📦 安装Python依赖
+      run: |
+        pip install --upgrade pip
+        pip install pyyaml
+
+    - name: 🚀 执行FreeTV脚本
+      run: |
+        python scripts/freetv/freetv.py
+
+    - name: 🔍 验证输出文件
+      run: |
+        # 直接列出文件，避免复杂的多行字符串
+        files="output/freetv/complete.m3u output/freetv/complete.txt output/freetv/cctv_only.m3u output/freetv/cctv_only.txt output/freetv/satellite.m3u output/freetv/satellite.txt output/freetv/others.m3u output/freetv/others.txt"
+        
+        for file in $files; do
+          if [ ! -f "$file" ]; then
+            echo "❌ 错误：输出文件 $file 未生成"
+            exit 1
+          fi
+          echo "✅ 文件 $file 已成功生成"
+        done
+
+    - name: 💾 上传生成文件制品
+      uses: actions/upload-artifact@v4
+      with:
+        name: freetv-output
+        path: |
+          output/freetv/complete.m3u
+          output/freetv/complete.txt
+          output/freetv/cctv_only.m3u
+          output/freetv/cctv_only.txt
+          output/freetv/satellite.m3u
+          output/freetv/satellite.txt
+          output/freetv/others.m3u
+          output/freetv/others.txt
+
+    - name: 🗑️ 清理过期历史归档
+      run: |
+        mkdir -p ${{ env.HISTORY_DIR }}
+        # 清理3天前的归档
+        find ${{ env.HISTORY_DIR }} -name "*.zip" -type f -mtime +3 -delete
+        echo "✅ 过期归档清理完成"
+
+    - name: 🔍 检测文件变更
+      id: check_changes
+      run: |
+        git add .
+        if git diff --staged --quiet; then
+          echo "changes_detected=false" >> $GITHUB_OUTPUT
+          echo "🟡 未检测到文件变更"
+        else
+          echo "changes_detected=true" >> $GITHUB_OUTPUT
+          echo "🟢 检测到文件变更"
+        fi
+
+    - name: 📦 创建本次变更归档
+      if: steps.check_changes.outputs.changes_detected == 'true'
+      run: |
+        mkdir -p ${{ env.HISTORY_DIR }}
+        current_datetime=$(date +'%Y%m%d_%H%M%S')
+        zip_filename="${{ env.HISTORY_DIR }}/${current_datetime}_freetv.zip"
+        
+        # 直接列出要归档的文件
+        zip -j "$zip_filename" \
+          output/freetv/complete.m3u \
+          output/freetv/complete.txt \
+          output/freetv/cctv_only.m3u \
+          output/freetv/cctv_only.txt \
+          output/freetv/satellite.m3u \
+          output/freetv/satellite.txt \
+          output/freetv/others.m3u \
+          output/freetv/others.txt
+        
+        echo "✅ 创建归档: $zip_filename"
+
+    - name: 💾 提交变更到仓库
+      if: steps.check_changes.outputs.changes_detected == 'true'
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add output/freetv/ ${{ env.HISTORY_DIR }}/
+        commit_time=$(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')
+        git commit -m "📺 FreeTV频道更新 $commit_time"
+        git push origin main
+        echo "🎉 FreeTV频道列表更新完成！"

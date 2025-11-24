@@ -1,0 +1,96 @@
+name: Update CCTV CSTV
+
+on:
+  schedule:
+    - cron: '40 20 * * *'  # 每天凌晨0点定时触发（UTC+8转换后）
+  workflow_dispatch:  # 手动触发（可自定义提交消息）
+    inputs:
+      commit_message:
+        description: '提交消息'
+        required: false
+        default: '优质央视、卫视'
+
+jobs:
+  process_streams:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Python环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: 安装依赖
+        run: pip install requests
+
+      - name: 运行直播源筛选脚本
+        run: |
+          python - <<EOF
+          import requests
+          import os
+
+          # 创建scripts/livesource/手工区目录（若不存在）
+          if not os.path.exists("scripts/livesource/手工区"):
+              os.makedirs("scripts/livesource/手工区")
+
+          # 三个数据源列表（按指定顺序配置）
+          urls = [
+              "https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/iptv.txt",  # 第一个
+              "https://raw.githubusercontent.com/kakaxi-1/IPTV/refs/heads/main/ipv4.txt",  # 第二个
+              "https://raw.githubusercontent.com/develop202/migu_video/refs/heads/main/interface.txt"  # 第三个
+          ]
+
+          # 过滤空URL（避免处理无效地址）
+          urls = [url for url in urls if url.strip()]
+
+          cctv_lines = []
+          tv_lines = []
+
+          # 遍历所有数据源
+          for url in urls:
+              try:
+                  response = requests.get(url, timeout=10)
+                  response.raise_for_status()  # 抛出HTTP错误
+                  content = response.text
+                  
+                  # 筛选目标行
+                  for line in content.splitlines():
+                      line_stripped = line.strip()
+                      if not line_stripped:
+                          continue  # 跳过空行
+                      # 筛选CCTV开头且不含分组标记的行（兼容不同格式的直播源）
+                      if line_stripped.startswith("CCTV") and "#genre#" not in line_stripped:
+                          if line_stripped not in cctv_lines:  # 去重
+                              cctv_lines.append(line_stripped)
+                      # 筛选含“卫视”且不含分组标记的行
+                      elif "卫视" in line_stripped and "#genre#" not in line_stripped:
+                          if line_stripped not in tv_lines:  # 去重
+                              tv_lines.append(line_stripped)
+              except Exception as e:
+                  print(f"处理URL {url} 时出错：{str(e)}")
+                  continue
+
+          # 写入文件（确保UTF-8编码，末尾添加换行符）
+          with open("scripts/livesource/手工区/优质央视.txt", "w", encoding="utf-8") as f:
+              f.write("\n".join(cctv_lines) + "\n")
+          with open("scripts/livesource/手工区/优质卫视.txt", "w", encoding="utf-8") as f:
+              f.write("\n".join(tv_lines) + "\n")
+
+          print(f"筛选完成：央视{len(cctv_lines)}条，卫视{len(tv_lines)}条")
+          EOF
+
+      - name: 提交并推送更改
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add scripts/livesource/手工区/优质央视.txt scripts/livesource/手工区/优质卫视.txt
+          if git diff --staged --quiet; then
+            echo "没有更改需要提交"
+          else
+            # 优先使用手动触发的提交消息，否则用默认值
+            COMMIT_MSG="${{ github.event.inputs.commit_message || '✔️ 自动更新优质央视、卫视直播源' }}"
+            git commit -m "$COMMIT_MSG $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
+            git push
+          fi
