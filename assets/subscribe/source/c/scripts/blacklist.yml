@@ -1,0 +1,59 @@
+name: ⚫ Whitelist Blacklist Automation ⚪
+on:
+  workflow_dispatch:
+  # 每周自动运行一次（周一凌晨2点 UTC）
+  schedule:
+    - cron: '0 2 * * 1'
+jobs:
+  check_live_sources:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 🔄 Sync Latest Code
+        run: git fetch --prune && git reset --hard origin/main
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Install Dependencies
+        run: sudo apt update && sudo apt install -y ffmpeg
+
+      - name: 🔍 Execute Detection Script
+        run: python assets/livesource/blacklist/blacklist.py
+
+      - name: 💾 Commit Results
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          
+          git add assets/livesource/blacklist/whitelist_auto.txt
+          git add assets/livesource/blacklist/whitelist_auto_tv.txt
+          git add assets/livesource/blacklist/blacklist_auto.txt
+          git add assets/livesource/blacklist/history/blacklist/*.txt
+          git add assets/livesource/blacklist/blackhost/*.txt
+          git add -f assets/livesource/blacklist/url_statistics.log
+          
+          if git diff --staged --quiet; then
+            echo "ℹ️ No changes detected"
+            exit 0
+          fi
+          
+          git commit -m "🛡️ $(date +'%Y-%m-%d %H:%M:%S')"
+          
+          git pull origin main --rebase --autostash || {
+            echo "🔄 Rebase failed, force syncing"
+            git reset --hard origin/main
+          }
+          
+          git push origin main --force-with-lease || git push origin main --force
+          echo "✅ Results pushed successfully"

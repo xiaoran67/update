@@ -1,0 +1,19 @@
+# 完整检测统计日志
+# 生成时间: 20251215 07:21:42
+===== 检测开始: 20251215 07:02:12 =====
+处理远程URL: https://raw.githubusercontent.com/xiaoran67/update/refs/heads/main/output/full.txt
+远程订阅统计: 19883,https://raw.githubusercontent.com/xiaoran67/update/refs/heads/main/output/full.txt
+处理远程URL: https://raw.githubusercontent.com/xiaoran67/update/refs/heads/main/output/result.txt
+处理URL[https://raw.githubusercontent.com/xiaoran67/update/refs/heads/main/output/result.txt]失败: HTTP Error 404: Not Found
+脚本目录: /home/runner/work/update/update/assets/livesource/blacklist
+本地black文件行数: 7789
+初始总行数（远程+本地）: 27672
+分解#后行数: 27672
+去$后行数: 27672
+去重后行数: 20544
+并发线程数: 30
+检测结果: 成功11303条, 失败9241条
+结果文件保存: /home/runner/work/update/update/assets/livesource/blacklist/whitelist_auto.txt, /home/runner/work/update/update/assets/livesource/blacklist/whitelist_auto_tv.txt, /home/runner/work/update/update/assets/livesource/blacklist/blacklist_auto.txt
+历史记录保存: /home/runner/work/update/update/assets/livesource/blacklist/history/blacklist/20251215_07_21_42_whitelist_auto.txt, /home/runner/work/update/update/assets/livesource/blacklist/history/blacklist/20251215_07_21_42_blacklist_auto.txt
+执行时间: 19分30秒 (开始: 20251215_07_02_12, 结束: 20251215_07_21_42)
+故障主机统计保存: /home/runner/work/update/update/assets/livesource/blacklist/blackhost/20251215_07_21_42_blackhost_count.txt

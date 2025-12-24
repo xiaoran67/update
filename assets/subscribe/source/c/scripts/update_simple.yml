@@ -1,0 +1,52 @@
+name: 🚀 Update simple
+on:
+  push:
+    paths:
+      - "output/*.txt"  # 监听 output 目录下的 .txt 文件变更
+  schedule:
+    - cron: '50 21 * * *'  
+  workflow_dispatch:
+    inputs:
+      keep_lines:
+        description: '每组保留重复频道数'
+        required: false
+        default: '1'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  
+
+    steps:
+      - name: 拉取代码（锁定 main 分支）
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: 强制同步远程代码
+        run: git fetch --prune && git reset --hard origin/main
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: 执行脚本（处理 output 目录下的文件）
+        env:
+          KEEP_LINES: ${{ github.event.inputs.keep_lines || '1' }}  
+        run: python assets/simple/simple.py  # 脚本路径根据实际调整
+
+      - name: 提交变更
+        run: |
+          mkdir -p output/simple  # 确保输出目录存在
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Action"
+          git add -f output/simple/  # 提交 output/simple 目录
+          git commit -m "📡 $(date +'%Y-%m-%d %H:%M:%S')"  
+          git push origin main --force-with-lease || git push origin main --force  
+
+      - name: 调试输出
+        run: echo "✅ 执行完成，触发源：${{ github.event_name }}"
+
+

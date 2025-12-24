@@ -1,0 +1,242 @@
+name: '🔄 GitHub → GitHub 67☞37 update'
+# Cross-repository synchronization（时间戳+大小双校验）
+# 跨仓库同步（高效增量+覆盖）🔄🔀♻️⚡🚀🌐🔧✅
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: '源仓库信息（用户/仓库名@分支）'
+        type: string
+        required: true
+        default: 'xiaoran67/update@main'
+      source_folder:
+        description: '源仓库同步路径（留空=根目录）'
+        type: string
+        required: false
+        default: ''
+      source_token_name:
+        description: '源仓库Token的Secret名称'
+        type: string
+        required: false
+        default: 'XIAORAN67_GITHUB_TOKEN'
+      
+      target:
+        description: '目标仓库信息（用户/仓库名@分支）'
+        type: string
+        required: true
+        default: 'xiaoran37/update@main'
+      target_folder:
+        description: '目标仓库接收路径（留空=根目录）'
+        type: string
+        required: false
+        default: ''
+      target_private:
+        description: '目标仓库是否私有'
+        type: boolean
+        required: true
+        default: false
+      target_token_name:
+        description: '目标仓库Token的Secret名称'
+        type: string
+        required: false
+        default: 'XIAORAN37_GITHUB_TOKEN'
+      
+      sync_strategy:
+        description: '同步策略'
+        type: choice
+        required: true
+        options:
+          - '增量'
+          - '覆盖'
+        default: '增量'
+      commit_template:
+        description: '提交信息模板'
+        type: choice
+        required: true
+        options:
+          - '仅时间'
+          - '同步说明'
+          - '自定义'
+        default: '仅时间'
+      custom_commit_msg:
+        description: '自定义提交信息（选“自定义”时填写）'
+        type: string
+        required: false
+        default: ''
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 解析配置（严格格式校验）
+      - name: 🧩 解析配置信息
+        id: parse_config
+        run: |
+          # 源仓库格式校验
+          if ! echo "${INPUT_SOURCE}" | grep -qE '^[a-zA-Z0-9-]+/[a-zA-Z0-9-]+@[a-zA-Z0-9-]+$'; then
+            echo "错误：源仓库格式应为 用户名/仓库名@分支" && exit 1
+          fi
+          IFS='/@' read -r source_user source_repo source_branch <<< "${INPUT_SOURCE}"
+          echo "source_user=${source_user}" >> $GITHUB_ENV
+          echo "source_repo=${source_repo}" >> $GITHUB_ENV
+          echo "source_branch=${source_branch}" >> $GITHUB_ENV
+          
+          # 目标仓库格式校验
+          if ! echo "${INPUT_TARGET}" | grep -qE '^[a-zA-Z0-9-]+/[a-zA-Z0-9-]+@[a-zA-Z0-9-]+$'; then
+            echo "错误：目标仓库格式应为 用户名/仓库名@分支" && exit 1
+          fi
+          IFS='/@' read -r target_user target_repo target_branch <<< "${INPUT_TARGET}"
+          echo "target_user=${target_user}" >> $GITHUB_ENV
+          echo "target_repo=${target_repo}" >> $GITHUB_ENV
+          echo "target_branch=${target_branch}" >> $GITHUB_ENV
+          
+          echo "source_token_name=${INPUT_SOURCE_TOKEN_NAME}" >> $GITHUB_ENV
+          echo "target_token_name=${INPUT_TARGET_TOKEN_NAME}" >> $GITHUB_ENV
+        env:
+          INPUT_SOURCE: ${{ inputs.source }}
+          INPUT_TARGET: ${{ inputs.target }}
+          INPUT_SOURCE_TOKEN_NAME: ${{ inputs.source_token_name }}
+          INPUT_TARGET_TOKEN_NAME: ${{ inputs.target_token_name }}
+
+      # 2. 校验Token（避免无权限）
+      - name: 🔑 校验Token存在性
+        run: |
+          if [ -z "${{ secrets[inputs.source_token_name] }}" ]; then
+            echo "错误：源仓库Token（${{ inputs.source_token_name }}）不存在" && exit 1
+          fi
+          if [ -z "${{ secrets[inputs.target_token_name] }}" ]; then
+            echo "错误：目标仓库Token（${{ inputs.target_token_name }}）不存在" && exit 1
+          fi
+
+      # 3. 检查/创建目标仓库（自动初始化）
+      - name: 📦 检查并创建目标仓库
+        run: |
+          TARGET_TOKEN="${{ secrets[env.target_token_name] }}"
+          REPO_CHECK_URL="https://api.github.com/repos/${{ env.target_user }}/${{ env.target_repo }}"
+          REPO_EXISTS=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token $TARGET_TOKEN" "$REPO_CHECK_URL")
+          
+          if [ "$REPO_EXISTS" -eq 404 ]; then
+            echo "ℹ️ 目标仓库不存在，开始创建..."
+            CREATE_BODY=$(jq -n --arg name "${{ env.target_repo }}" --argjson private ${{ inputs.target_private }} --arg default_branch "${{ env.target_branch }}" '{
+              "name": $name, "private": $private, "auto_init": true, "default_branch": $default_branch
+            }')
+            CREATE_RESPONSE=$(curl -s -w "%{http_code}" -o create_result.json -X POST -H "Authorization: token $TARGET_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/user/repos" -d "$CREATE_BODY")
+            if [ "$CREATE_RESPONSE" -ne 201 ]; then
+              echo "❌ 目标仓库创建失败：$(cat create_result.json)" && exit 1
+            fi
+          elif [ "$REPO_EXISTS" -ne 200 ]; then
+            echo "❌ 检查仓库状态失败，HTTP码：$REPO_EXISTS" && exit 1
+          fi
+
+      # 4. 检出源/目标仓库（确保最新代码）
+      - name: 📥 检出源仓库
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.source_user }}/${{ env.source_repo }}
+          ref: ${{ env.source_branch }}
+          path: source_repo
+          token: ${{ secrets[inputs.source_token_name] }}
+          fetch-depth: 0
+          clean: true
+
+      - name: 📥 检出目标仓库
+        run: |
+          TARGET_TOKEN="${{ secrets[env.target_token_name] }}"
+          git clone --branch ${{ env.target_branch }} "https://$TARGET_TOKEN@github.com/${{ env.target_user }}/${{ env.target_repo }}.git" target_repo
+          cd target_repo && git pull origin ${{ env.target_branch }} && cd ..
+          # 递归创建目标目录（即使多层级不存在）
+          mkdir -p "target_repo/${{ inputs.target_folder }}"
+
+      # 5. 安装依赖（仅rsync+jq，轻量高效）
+      - name: 🛠️ 安装依赖
+        run: |
+          sudo apt-get update && sudo apt-get install -y rsync jq
+
+      # 6. 核心同步（时间戳+大小双校验，高效精准）
+      - name: 🚀 执行同步（时间戳+大小双校验）
+        run: |
+          # 定义源/目标路径
+          SOURCE_PATH="source_repo/${{ inputs.source_folder }}"
+          [ -z "${{ inputs.source_folder }}" ] && SOURCE_PATH="source_repo"
+          TARGET_PATH="target_repo/${{ inputs.target_folder }}"
+          [ -z "${{ inputs.target_folder }}" ] && TARGET_PATH="target_repo"
+          mkdir -p "$TARGET_PATH"
+          
+          # 关键：统一时区+保留源文件时间戳（避免后续误判）
+          export TZ='Asia/Shanghai'
+          
+          if [ "${{ inputs.sync_strategy }}" = "增量" ]; then
+            # rsync核心逻辑：时间戳不同 或 文件大小不同 → 同步（精准高效）
+            # --times：保留源文件时间戳，--exclude：仅排除.git目录
+            rsync -av --times --exclude=".git/" "${SOURCE_PATH}/" "${TARGET_PATH}/"
+          else
+            # 覆盖同步：全量替换+清空目标多余文件
+            rsync -av --delete --force --times --exclude=".git/" "${SOURCE_PATH}/" "${TARGET_PATH}/"
+          fi
+          
+          # 检测变化（含新增目录/文件）
+          cd target_repo
+          if git status --porcelain | grep -q .; then
+            echo "CHANGES_DETECTED=true" >> $GITHUB_ENV
+          else
+            echo "CHANGES_DETECTED=false" >> $GITHUB_ENV
+          fi
+
+      # 7. 推送更新（容错处理）
+      - name: 📤 推送更新到目标仓库
+        if: env.CHANGES_DETECTED == 'true'
+        run: |
+          cd target_repo
+          # 二次确认变更（避免空提交）
+          if ! git status --porcelain | grep -q .; then
+            echo "ℹ️ 无实际变更，跳过提交"
+            exit 0
+          fi
+          
+          # 配置Git身份
+          git config user.name "Sync Bot"
+          git config user.email "sync@noreply.github.com"
+          git add . --force  # 强制添加新增目录/文件
+          
+          # 生成提交信息
+          CURRENT_DATE=$(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')
+          SRC_INFO="${{ env.source_user }}/${{ env.source_repo }}:${{ env.source_branch }}[${{ inputs.source_folder || '根目录' }}]"
+          TGT_INFO="${{ env.target_user }}/${{ env.target_repo }}:${{ env.target_branch }}[${{ inputs.target_folder || '根目录' }}]"
+          
+          if [ "${{ inputs.commit_template }}" = "仅时间" ]; then
+            COMMIT_MSG="🚀 ${CURRENT_DATE}"
+          elif [ "${{ inputs.commit_template }}" = "同步说明" ]; then
+            COMMIT_MSG="🔄 同步（时间戳+大小校验） ${SRC_INFO} → ${TGT_INFO}（${CURRENT_DATE}）"
+          else
+            COMMIT_MSG="${{ inputs.custom_commit_msg }}"
+            [ -z "$COMMIT_MSG" ] && COMMIT_MSG="🚀 ${CURRENT_DATE}"
+          fi
+          
+          # 提交并推送（覆盖策略强制推送）
+          git commit -m "$COMMIT_MSG"
+          PUSH_URL="https://${{ secrets[env.target_token_name] }}@github.com/${{ env.target_user }}/${{ env.target_repo }}.git"
+          git push "$PUSH_URL" ${{ env.target_branch }} ${{ inputs.sync_strategy == '覆盖' && '--force' || '' }}
+
+      # 8. 输出同步结果
+      - name: 📊 同步结果汇总
+        run: |
+          if [ "$CHANGES_DETECTED" = "true" ]; then
+            echo "✅ 同步完成！"
+            echo "📌 源仓库：${{ env.source_user }}/${{ env.source_repo }}:${{ env.source_branch }}"
+            echo "📌 目标仓库：${{ env.target_user }}/${{ env.target_repo }}:${{ env.target_branch }}"
+            echo "📌 同步路径：${{ inputs.source_folder || '根目录' }} → ${{ inputs.target_folder || '根目录' }}"
+          else
+            echo "ℹ️ 源文件与目标文件完全一致（时间戳+大小匹配），无需同步"
+          fi
+
+      # 9. 全局错误处理（无变更时正常退出）
+      - name: 🔍 全局异常处理
+        if: failure()
+        run: |
+          if [ "$CHANGES_DETECTED" = "false" ]; then
+            echo "ℹ️ 无变更，流程正常结束"
+            exit 0
+          else
+            echo "❌ 同步失败，请查看日志排查问题"
+            exit 1
+          fi

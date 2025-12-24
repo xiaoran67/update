@@ -1,0 +1,384 @@
+name: '🚀 GitHub ↔ Gitee ④'
+
+on:
+  workflow_dispatch:
+    inputs:
+      sync_mode:
+        description: '同步模式'
+        required: true
+        type: choice
+        options:
+          - '增量'
+          - '覆盖'
+        default: '增量'
+      
+      source_folder:
+        description: 'GitHub源文件夹路径（留空=根目录）'
+        required: false
+        default: ''
+        type: string
+      
+      target_folder:
+        description: 'Gitee目标文件夹路径（留空=根目录）'
+        required: false
+        default: ''
+        type: string
+      
+      commit_message:
+        description: '提交信息（可用变量：{time} {date}）'
+        required: false
+        default: '🔄 从GitHub同步 {date} {time}'
+        type: string
+
+env:
+  # 源仓库（GitHub）
+  GITHUB_USER: 'xiaoran67'
+  GITHUB_REPO: 'core'
+  GITHUB_BRANCH: 'main'
+  GITHUB_TOKEN_SECRET: 'XIAORAN67_GITHUB_TOKEN'
+  
+  # 目标仓库（Gitee）
+  GITEE_USER: 'xiaoran67'
+  GITEE_REPO: 'core'
+  GITEE_BRANCH: 'master'
+  GITEE_TOKEN_SECRET: 'XIAORAN67_GITEE_TOKEN'
+
+jobs:
+  github-to-gitee-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      # 1. 显示同步信息
+      - name: 📋 显示同步配置
+        run: |
+          echo "========================================"
+          echo "🚀 GitHub → Gitee 同步配置"
+          echo "========================================"
+          echo "📥 源仓库 (GitHub):"
+          echo "   用户: ${{ env.GITHUB_USER }}"
+          echo "   仓库: ${{ env.GITHUB_REPO }}"
+          echo "   分支: ${{ env.GITHUB_BRANCH }}"
+          echo "   Token: ${{ env.GITHUB_TOKEN_SECRET }}"
+          echo ""
+          echo "📤 目标仓库 (Gitee):"
+          echo "   用户: ${{ env.GITEE_USER }}"
+          echo "   仓库: ${{ env.GITEE_REPO }}"
+          echo "   分支: ${{ env.GITEE_BRANCH }}"
+          echo "   Token: ${{ env.GITEE_TOKEN_SECRET }}"
+          echo ""
+          echo "⚙️ 同步设置:"
+          echo "   模式: ${{ github.event.inputs.sync_mode }}"
+          echo "   源文件夹: ${{ github.event.inputs.source_folder || '根目录' }}"
+          echo "   目标文件夹: ${{ github.event.inputs.target_folder || '根目录' }}"
+          echo "========================================"
+
+      # 2. 校验Token
+      - name: 🔑 校验Token
+        run: |
+          echo "=== 校验Token ==="
+          
+          # 检查GitHub Token
+          if [ -z "${{ secrets[env.GITHUB_TOKEN_SECRET] }}" ]; then
+            echo "❌ GitHub Token不存在: ${{ env.GITHUB_TOKEN_SECRET }}"
+            echo "请在GitHub仓库的Settings → Secrets → Actions中添加:"
+            echo "名称: ${{ env.GITHUB_TOKEN_SECRET }}"
+            echo "值: GitHub个人访问令牌（需要有repo权限）"
+            exit 1
+          fi
+          
+          # 检查Gitee Token
+          if [ -z "${{ secrets[env.GITEE_TOKEN_SECRET] }}" ]; then
+            echo "❌ Gitee Token不存在: ${{ env.GITEE_TOKEN_SECRET }}"
+            echo "请在GitHub仓库的Settings → Secrets → Actions中添加:"
+            echo "名称: ${{ env.GITEE_TOKEN_SECRET }}"
+            echo "值: Gitee私人令牌（访问: https://gitee.com/profile/personal_access_tokens）"
+            exit 1
+          fi
+          
+          echo "✅ Token校验通过"
+
+      # 3. 安装必要工具
+      - name: 🛠️ 安装工具
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync git curl tree
+
+      # 4. 从GitHub检出源仓库
+      - name: 📥 从GitHub检出源仓库
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.GITHUB_USER }}/${{ env.GITHUB_REPO }}
+          ref: ${{ env.GITHUB_BRANCH }}
+          path: github_repo
+          token: ${{ secrets[env.GITHUB_TOKEN_SECRET] }}
+          fetch-depth: 1
+          clean: true
+
+      # 5. 显示源仓库内容
+      - name: 📁 查看源仓库内容
+        run: |
+          echo "=== GitHub源仓库内容 ==="
+          echo "路径: $(pwd)/github_repo"
+          echo "文件数: $(find github_repo -type f | wc -l)个文件"
+          echo "大小: $(du -sh github_repo | cut -f1)"
+          echo ""
+          echo "目录结构:"
+          tree -L 2 github_repo || ls -la github_repo/
+
+      # 6. 从Gitee克隆目标仓库
+      - name: 📥 克隆Gitee目标仓库
+        run: |
+          echo "=== 克隆Gitee目标仓库 ==="
+          GITEE_TOKEN="${{ secrets[env.GITEE_TOKEN_SECRET] }}"
+          
+          # Gitee的URL格式：https://用户名:token@gitee.com/用户名/仓库名.git
+          GITEE_URL="https://${{ env.GITEE_USER }}:$GITEE_TOKEN@gitee.com/${{ env.GITEE_USER }}/${{ env.GITEE_REPO }}.git"
+          echo "Gitee URL: https://${{ env.GITEE_USER }}:****@gitee.com/${{ env.GITEE_USER }}/${{ env.GITEE_REPO }}.git"
+          
+          # 尝试克隆目标仓库
+          set +e
+          echo "正在克隆Gitee仓库..."
+          git clone --branch ${{ env.GITEE_BRANCH }} --depth=1 "$GITEE_URL" gitee_repo 2>&1 | tee clone.log
+          CLONE_STATUS=$?
+          set -e
+          
+          if [ $CLONE_STATUS -eq 0 ]; then
+            echo "✅ Gitee仓库克隆成功"
+          else
+            echo "⚠️ Gitee仓库克隆失败，错误信息:"
+            cat clone.log
+            echo ""
+            echo "尝试初始化空仓库..."
+            rm -rf gitee_repo
+            mkdir -p gitee_repo
+            cd gitee_repo
+            git init
+            git remote add origin "$GITEE_URL"
+            git checkout -b ${{ env.GITEE_BRANCH }} || git checkout -b main
+            cd ..
+            echo "✅ 已初始化空仓库"
+          fi
+          
+          # 确保目标文件夹存在
+          if [ -n "${{ github.event.inputs.target_folder }}" ]; then
+            TARGET_FOLDER=$(echo "${{ github.event.inputs.target_folder }}" | sed 's|^/||' | sed 's|/$||')
+            mkdir -p "gitee_repo/$TARGET_FOLDER"
+            echo "创建目标文件夹: gitee_repo/$TARGET_FOLDER"
+          fi
+
+      # 7. 执行文件同步
+      - name: 🔄 执行文件同步
+        run: |
+          echo "=== 执行文件同步 ==="
+          
+          # 构建源路径和目标路径
+          SOURCE_PATH="github_repo"
+          TARGET_PATH="gitee_repo"
+          
+          # 处理源文件夹
+          if [ -n "${{ github.event.inputs.source_folder }}" ]; then
+            SOURCE_FOLDER=$(echo "${{ github.event.inputs.source_folder }}" | sed 's|^/||' | sed 's|/$||')
+            SOURCE_PATH="github_repo/$SOURCE_FOLDER"
+          fi
+          
+          # 处理目标文件夹
+          if [ -n "${{ github.event.inputs.target_folder }}" ]; then
+            TARGET_FOLDER=$(echo "${{ github.event.inputs.target_folder }}" | sed 's|^/||' | sed 's|/$||')
+            TARGET_PATH="gitee_repo/$TARGET_FOLDER"
+          fi
+          
+          echo "源路径: $SOURCE_PATH"
+          echo "目标路径: $TARGET_PATH"
+          
+          # 检查源路径是否存在
+          if [ ! -e "$SOURCE_PATH" ]; then
+            echo "❌ 源路径不存在: $SOURCE_PATH"
+            echo "GitHub仓库内容:"
+            find github_repo -type f | head -20
+            exit 1
+          fi
+          
+          # 确保目标目录存在
+          mkdir -p "$TARGET_PATH"
+          
+          # 设置时区
+          export TZ='Asia/Shanghai'
+          
+          # 显示同步前统计
+          echo "同步前统计:"
+          echo "- 源目录文件数: $(find "$SOURCE_PATH" -type f | wc -l)"
+          echo "- 目标目录文件数: $(find "$TARGET_PATH" -type f | wc -l)"
+          
+          # 执行同步
+          if [ "${{ github.event.inputs.sync_mode }}" = "增量" ]; then
+            echo "🔄 增量同步模式（保留目标仓库的额外文件）"
+            rsync -av --times --exclude=".git/" "$SOURCE_PATH/" "$TARGET_PATH/"
+          else
+            echo "🔄 覆盖同步模式（使Gitee与GitHub完全一致）"
+            rsync -av --delete --force --times --exclude=".git/" "$SOURCE_PATH/" "$TARGET_PATH/"
+          fi
+          
+          echo "✅ 文件同步完成"
+          
+          # 显示同步后统计
+          echo "同步后统计:"
+          echo "- 目标目录文件数: $(find "$TARGET_PATH" -type f | wc -l)"
+          echo "- 目标目录大小: $(du -sh "$TARGET_PATH" | cut -f1)"
+
+      # 8. 检查文件变化
+      - name: 🔍 检查Gitee仓库变化
+        id: check_changes
+        run: |
+          echo "=== 检查文件变化 ==="
+          cd gitee_repo
+          
+          # 配置Git用户信息
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          # 检查git状态
+          git status --porcelain
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "🔄 检测到文件变化，需要提交"
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            
+            # 显示变化详情
+            echo "=== 变化详情 ==="
+            git status -s
+            echo "变化文件数: $(git status -s | wc -l)"
+          else
+            echo "✅ 无文件变化，无需提交"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          fi
+
+      # 9. 提交并推送到Gitee
+      - name: 📤 提交到Gitee
+        if: steps.check_changes.outputs.changes_detected == 'true'
+        run: |
+          echo "=== 提交到Gitee ==="
+          cd gitee_repo
+          
+          # 再次确认Git配置
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          # 生成提交信息
+          CURRENT_TIME=$(TZ='Asia/Shanghai' date +'%H:%M:%S')
+          CURRENT_DATE=$(TZ='Asia/Shanghai' date +'%Y-%m-%d')
+          COMMIT_MSG="${{ github.event.inputs.commit_message }}"
+          
+          # 替换模板变量
+          COMMIT_MSG="${COMMIT_MSG//\{time\}/$CURRENT_TIME}"
+          COMMIT_MSG="${COMMIT_MSG//\{date\}/$CURRENT_DATE}"
+          
+          echo "提交信息: $COMMIT_MSG"
+          
+          # 添加所有文件并提交
+          git add -A
+          git commit -m "$COMMIT_MSG"
+          
+          # 显示提交信息
+          echo "✅ 提交完成"
+          echo "提交哈希: $(git log -1 --format='%H')"
+          echo "提交信息: $(git log -1 --format='%s')"
+
+      # 10. 推送到Gitee
+      - name: 🚀 推送到Gitee
+        if: steps.check_changes.outputs.changes_detected == 'true'
+        run: |
+          echo "=== 推送到Gitee ==="
+          cd gitee_repo
+          
+          GITEE_TOKEN="${{ secrets[env.GITEE_TOKEN_SECRET] }}"
+          GITEE_URL="https://${{ env.GITEE_USER }}:$GITEE_TOKEN@gitee.com/${{ env.GITEE_USER }}/${{ env.GITEE_REPO }}.git"
+          
+          echo "推送URL: https://${{ env.GITEE_USER }}:****@gitee.com/${{ env.GITEE_USER }}/${{ env.GITEE_REPO }}.git"
+          
+          # 根据同步模式决定是否强制推送
+          if [ "${{ github.event.inputs.sync_mode }}" = "覆盖" ]; then
+            echo "🔄 覆盖模式，使用强制推送"
+            git push "$GITEE_URL" HEAD:${{ env.GITEE_BRANCH }} --force
+          else
+            echo "🔄 增量模式，使用普通推送"
+            git push "$GITEE_URL" HEAD:${{ env.GITEE_BRANCH }}
+          fi
+          
+          echo "✅ 推送完成"
+
+      # 11. 生成同步报告
+      - name: 📊 生成同步报告
+        run: |
+          echo "========================================"
+          echo "📊 GitHub → Gitee 同步报告"
+          echo "========================================"
+          
+          if [ "${{ steps.check_changes.outputs.changes_detected }}" = "true" ]; then
+            echo "✅ 同步完成 - 已提交并推送"
+            cd gitee_repo
+            COMMIT_HASH=$(git log -1 --format='%H' 2>/dev/null || echo '无提交')
+            COMMIT_MSG=$(git log -1 --format='%s' 2>/dev/null || echo '无提交')
+            echo "📝 提交哈希: $COMMIT_HASH"
+            echo "📝 提交信息: $COMMIT_MSG"
+          else
+            echo "ℹ️ 同步完成 - 无文件变化"
+          fi
+          
+          echo ""
+          echo "📥 源仓库 (GitHub):"
+          echo "   仓库: ${{ env.GITHUB_USER }}/${{ env.GITHUB_REPO }}"
+          echo "   分支: ${{ env.GITHUB_BRANCH }}"
+          echo "   文件夹: ${{ github.event.inputs.source_folder || '根目录' }}"
+          
+          echo ""
+          echo "📤 目标仓库 (Gitee):"
+          echo "   仓库: ${{ env.GITEE_USER }}/${{ env.GITEE_REPO }}"
+          echo "   分支: ${{ env.GITEE_BRANCH }}"
+          echo "   文件夹: ${{ github.event.inputs.target_folder || '根目录' }}"
+          
+          echo ""
+          echo "⚙️ 同步配置:"
+          echo "   模式: ${{ github.event.inputs.sync_mode }}"
+          
+          echo ""
+          echo "📈 文件统计:"
+          echo "   GitHub文件数: $(find github_repo -type f | wc -l)"
+          echo "   Gitee文件数: $(find gitee_repo -type f | wc -l)"
+          
+          echo ""
+          echo "⏰ 完成时间: $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
+          echo "========================================"
+
+      # 12. 错误处理
+      - name: 🚨 错误处理
+        if: failure()
+        run: |
+          echo "========================================"
+          echo "❌ 同步失败"
+          echo "========================================"
+          echo ""
+          echo "常见问题排查:"
+          echo ""
+          echo "1. 🔑 Token问题:"
+          echo "   - GitHub Token: ${{ env.GITHUB_TOKEN_SECRET }}"
+          echo "     访问: https://github.com/settings/tokens"
+          echo "     需要权限: repo"
+          echo ""
+          echo "   - Gitee Token: ${{ env.GITEE_TOKEN_SECRET }}"
+          echo "     访问: https://gitee.com/profile/personal_access_tokens"
+          echo "     需要权限: projects"
+          echo ""
+          echo "2. 📦 仓库权限:"
+          echo "   - GitHub仓库: ${{ env.GITHUB_USER }}/${{ env.GITHUB_REPO }}"
+          echo "   - Gitee仓库: ${{ env.GITEE_USER }}/${{ env.GITEE_REPO }}"
+          echo ""
+          echo "3. 🌐 网络问题:"
+          echo "   - 检查GitHub Actions网络连接"
+          echo "   - 确保没有IP限制"
+          echo ""
+          echo "4. 📁 路径问题:"
+          echo "   - 源文件夹: ${{ github.event.inputs.source_folder || '根目录' }}"
+          echo "   - 目标文件夹: ${{ github.event.inputs.target_folder || '根目录' }}"
+          echo ""
+          echo "💡 提示: 可以尝试先手动在Gitee创建仓库"
+          echo "========================================"

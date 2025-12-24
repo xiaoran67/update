@@ -1,0 +1,250 @@
+name: 🤖 Live Source Auto Backup
+
+on:
+  schedule:
+    - cron: '0 17 * * *'  # 北京时间凌晨1点
+  workflow_dispatch:
+    inputs:
+      cleanup_days:
+        description: '清理天数（默认7）'
+        required: false
+        default: '7'
+  push:
+    branches:
+      - main
+    paths:
+      - 'output/**'
+
+jobs:
+  backup-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout with write permissions
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+        
+    - name: Setup Beijing timezone
+      run: |
+        sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+        echo "🕐 北京时间: $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
+        
+    - name: Create live source backup
+      id: backup
+      run: |
+        # 确保目录存在
+        mkdir -p history
+        
+        # 检查是否有txt文件需要备份
+        if [ -d "output" ] && [ "$(find output -name '*.txt' -type f 2>/dev/null | wc -l)" -gt 0 ]; then
+          BEIJING_TIME=$(TZ='Asia/Shanghai' date +"%Y%m%d_%H%M%S")
+          ZIP_NAME="livesource_$BEIJING_TIME.zip"
+          
+          echo "📦 开始创建备份: $ZIP_NAME"
+          
+          # 统计文件信息
+          TXT_COUNT=$(find output -name '*.txt' -type f | wc -l)
+          echo "📄 源文件数量: $TXT_COUNT"
+          
+          # 创建备份
+          cd output
+          zip -qr "../history/$ZIP_NAME" *.txt
+          cd ..
+          
+          # 获取备份信息
+          BACKUP_SIZE=$(du -h "history/$ZIP_NAME" | cut -f1)
+          BACKUP_FILES=$(unzip -l "history/$ZIP_NAME" 2>/dev/null | grep -c "\.txt$" || echo "N/A")
+          
+          echo "✅ 备份完成"
+          echo "📊 备份信息:"
+          echo "  - 文件: $ZIP_NAME"
+          echo "  - 大小: $BACKUP_SIZE"
+          echo "  - 包含文件数: $BACKUP_FILES"
+          
+          # 输出备份信息供后续步骤使用
+          echo "zip_name=$ZIP_NAME" >> $GITHUB_OUTPUT
+          echo "backup_time=$BEIJING_TIME" >> $GITHUB_OUTPUT
+          echo "file_count=$BACKUP_FILES" >> $GITHUB_OUTPUT
+          echo "has_backup=true" >> $GITHUB_OUTPUT
+        else
+          echo "ℹ️ 没有找到需要备份的txt文件"
+          echo "has_backup=false" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Cleanup old backups
+      id: cleanup
+      run: |
+        # 确定清理天数
+        CLEANUP_DAYS="${{ github.event.inputs.cleanup_days || '7' }}"
+        echo "🧹 开始清理${CLEANUP_DAYS}天前的旧备份..."
+        
+        # 验证输入是否为有效数字
+        if ! [[ "$CLEANUP_DAYS" =~ ^[0-9]+$ ]] || [ "$CLEANUP_DAYS" -le 0 ]; then
+          echo "⚠️ 警告: 清理天数 '$CLEANUP_DAYS' 无效，使用默认值 7"
+          CLEANUP_DAYS="7"
+        fi
+        
+        # 根据文件名中的时间进行清理
+        if [ -d "history" ]; then
+          # 获取当前时间（Unix时间戳）
+          CURRENT_TS=$(date +%s)
+          # 计算清理截止时间（秒数）
+          CUTOFF_TS=$((CURRENT_TS - CLEANUP_DAYS * 24 * 60 * 60))
+          
+          echo "当前时间戳: $CURRENT_TS"
+          echo "清理截止时间戳: $CUTOFF_TS（${CLEANUP_DAYS}天前）"
+          
+          # 初始化计数器
+          REMOVED_COUNT=0
+          
+          # 遍历所有备份文件
+          for zipfile in history/livesource_*.zip; do
+            if [ -f "$zipfile" ]; then
+              # 从文件名中提取时间
+              FILENAME=$(basename "$zipfile")
+              # 提取日期部分：livesource_20251214_091849.zip -> 20251214
+              FILE_DATE=$(echo "$FILENAME" | grep -oE '[0-9]{8}' | head -1)
+              
+              if [ -n "$FILE_DATE" ]; then
+                # 将日期转换为Unix时间戳（YYYYMMDD -> YYYY-MM-DD）
+                YEAR=${FILE_DATE:0:4}
+                MONTH=${FILE_DATE:4:2}
+                DAY=${FILE_DATE:6:2}
+                FILE_TS=$(date -d "${YEAR}-${MONTH}-${DAY}" +%s 2>/dev/null || echo "0")
+                
+                if [ "$FILE_TS" != "0" ] && [ "$FILE_TS" -lt "$CUTOFF_TS" ]; then
+                  echo "删除: $FILENAME (日期: ${YEAR}-${MONTH}-${DAY}, 时间戳: $FILE_TS)"
+                  rm -f "$zipfile"
+                  REMOVED_COUNT=$((REMOVED_COUNT + 1))
+                else
+                  echo "保留: $FILENAME (日期: ${YEAR}-${MONTH}-${DAY})"
+                fi
+              fi
+            fi
+          done
+          
+          if [ $REMOVED_COUNT -gt 0 ]; then
+            echo "✅ 清理完成，删除了 $REMOVED_COUNT 个文件"
+          else
+            echo "✅ 没有需要清理的旧文件"
+          fi
+          
+          echo "removed_count=$REMOVED_COUNT" >> $GITHUB_OUTPUT
+        else
+          echo "ℹ️ history目录不存在，跳过清理"
+          echo "removed_count=0" >> $GITHUB_OUTPUT
+        fi
+        
+        echo "cleanup_days=$CLEANUP_DAYS" >> $GITHUB_OUTPUT
+        
+    - name: Auto Commit and Push
+      id: commitpush
+      run: |
+        # 配置git用户
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        
+        # 检查是否有变更
+        git status --porcelain > /tmp/git_changes.txt
+        if [ ! -s /tmp/git_changes.txt ]; then
+          echo "📭 没有检测到变更"
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+        
+        echo "🔄 检测到变更:"
+        cat /tmp/git_changes.txt
+        
+        # 添加变更
+        git add .
+        
+        # 获取北京时间
+        BEIJING_TIME=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
+        
+        # 格式化提交时间（用于提交信息）
+        COMMIT_TIME=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
+        
+        # 生成提交信息（使用 🤖 表情和纯时间戳）
+        COMMIT_MSG="🤖 $COMMIT_TIME"
+        
+        echo "📝 提交信息: $COMMIT_MSG"
+        
+        # 提交变更
+        git commit -m "$COMMIT_MSG"
+        
+        # 推送到远程仓库
+        echo "🚀 推送到远程仓库..."
+        git push
+        
+        echo "✅ 提交并推送成功"
+        echo "has_changes=true" >> $GITHUB_OUTPUT
+        echo "commit_message=$COMMIT_MSG" >> $GITHUB_OUTPUT
+        
+    - name: Send summary notification
+      if: steps.commitpush.outputs.has_changes == 'true'
+      run: |
+        echo "📢 任务执行摘要"
+        echo "========================"
+        
+        # 显示时间信息 - 修正时区显示
+        UTC_TIME=$(date -u '+%Y-%m-%d %H:%M:%S')  # 使用 -u 参数获取UTC时间
+        BEIJING_TIME=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
+        echo "🌐 UTC时间: $UTC_TIME"
+        echo "🇨🇳 北京时间: $BEIJING_TIME"
+        echo "🤖 提交信息: ${{ steps.commitpush.outputs.commit_message }}"
+        
+        echo ""
+        echo "📊 备份状态:"
+        if [ "${{ steps.backup.outputs.has_backup }}" = "true" ]; then
+          echo "✅ 创建了新备份: ${{ steps.backup.outputs.zip_name }}"
+          echo "   文件数: ${{ steps.backup.outputs.file_count }}"
+        else
+          echo "ℹ️ 本次未创建新备份"
+        fi
+        
+        echo ""
+        echo "🗑️ 清理状态:"
+        echo "   清理设置: 保留最近 ${{ steps.cleanup.outputs.cleanup_days || '7' }} 天的备份"
+        if [ "${{ steps.cleanup.outputs.removed_count }}" != "0" ]; then
+          echo "   清理文件: ${{ steps.cleanup.outputs.removed_count }} 个"
+        else
+          echo "   清理文件: 无"
+        fi
+        
+        echo ""
+        echo "📁 当前备份文件列表:"
+        if [ -d "history" ]; then
+          ls -lh history/livesource_*.zip 2>/dev/null | head -5 || echo "暂无备份文件"
+          TOTAL=$(ls history/livesource_*.zip 2>/dev/null | wc -l)
+          echo "总计: $TOTAL 个备份文件"
+        else
+          echo "history目录不存在"
+        fi
+        
+        echo ""
+        echo "📄 Output目录txt文件内容:"
+        if [ -d "output" ]; then
+          TXT_FILES=$(find output -name "*.txt" -type f 2>/dev/null | wc -l)
+          if [ $TXT_FILES -gt 0 ]; then
+            echo "找到 $TXT_FILES 个txt文件:"
+            echo "----------------------------------------"
+            for txtfile in output/*.txt; do
+              if [ -f "$txtfile" ]; then
+                FILENAME=$(basename "$txtfile")
+                FILESIZE=$(du -h "$txtfile" | cut -f1)
+                LINECOUNT=$(wc -l < "$txtfile" 2>/dev/null || echo "N/A")
+                echo "📄 $FILENAME (大小: $FILESIZE, 行数: $LINECOUNT)"
+                echo "----------------------------------------"
+              fi
+            done
+          else
+            echo "output目录中没有txt文件"
+          fi
+        else
+          echo "output目录不存在"
+        fi
+        
+        echo ""
+        echo "⏰ 下次运行: 明天 01:00 (北京时间)"
