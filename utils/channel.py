@@ -1,0 +1,1069 @@
+import asyncio
+import base64
+import gzip
+import json
+import logging
+import math
+import os
+import pickle
+import re
+from collections import defaultdict
+from logging import INFO
+
+from bs4 import NavigableString
+
+import utils.constants as constants
+from updates.epg.tools import write_to_xml, compress_to_gz
+from utils.alias import Alias
+from utils.config import config
+from utils.db import get_db_connection, return_db_connection
+from utils.i18n import t
+from utils.ip_checker import IPChecker
+from utils.speed import (
+    get_speed,
+    get_speed_result,
+    get_sort_result,
+    check_ffmpeg_installed_status
+)
+from utils.tools import (
+    format_name,
+    get_name_value,
+    check_url_by_keywords,
+    get_total_urls,
+    add_url_info,
+    resource_path,
+    get_name_urls_from_file,
+    get_logger,
+    get_datetime_now,
+    get_url_host,
+    check_ipv_type_match,
+    convert_to_m3u,
+    custom_print,
+    get_name_uri_from_dir,
+    get_resolution_value,
+    get_public_url
+)
+from utils.types import ChannelData, OriginType, CategoryChannelData, TestResult, WhitelistMaps
+from utils.whitelist import is_url_whitelisted, get_whitelist_url, get_whitelist_total_count
+
+channel_alias = Alias()
+ip_checker = IPChecker()
+frozen_channels = set()
+location_list = config.location
+isp_list = config.isp
+max_delay = config.speed_test_timeout * 1000
+min_resolution_value = config.min_resolution_value
+open_history = config.open_history
+open_local = config.open_local
+open_rtmp = config.open_rtmp
+retain_origin = ["whitelist", "hls"]
+
+
+def format_channel_data(url: str, origin: OriginType) -> ChannelData:
+    """
+    Format the channel data
+    """
+    url_partition = url.partition("$")
+    url = url_partition[0]
+    info = url_partition[2]
+    if info and info.startswith("!"):
+        origin = "whitelist"
+        info = info[1:]
+    return {
+        "id": hash(url),
+        "url": url,
+        "host": get_url_host(url),
+        "origin": origin,
+        "ipv_type": None,
+        "extra_info": info
+    }
+
+
+def check_channel_need_frozen(info: TestResult) -> bool:
+    """
+    Check if the channel need to be frozen
+    """
+    delay = info.get("delay", 0)
+    if (delay == -1 or delay > max_delay) or info.get("speed", 0) == 0:
+        return True
+    if info.get("resolution"):
+        if get_resolution_value(info["resolution"]) < min_resolution_value:
+            return True
+    return False
+
+
+def get_channel_data_from_file(channels, file, whitelist_maps, blacklist,
+                               local_data=None, hls_data=None) -> CategoryChannelData:
+    """
+    Get the channel data from the file
+    """
+    current_category = ""
+
+    for line in file:
+        line = line.strip()
+        if "#genre#" in line:
+            current_category = line.partition(",")[0]
+        else:
+            name_value = get_name_value(
+                line, pattern=constants.demo_txt_pattern, check_value=False
+            )
+            if name_value and name_value[0]:
+                name = name_value[0]["name"]
+                url = name_value[0]["value"]
+                category_dict = channels[current_category]
+                if name not in category_dict:
+                    category_dict[name] = []
+                    for whitelist_url in get_whitelist_url(whitelist_maps, name):
+                        category_dict[name].append(format_channel_data(whitelist_url, "whitelist"))
+                    if hls_data and name in hls_data:
+                        for hls_url in hls_data[name]:
+                            category_dict[name].append(format_channel_data(hls_url, "hls"))
+                    if open_local and local_data:
+                        alias_names = channel_alias.get(name)
+                        alias_names.update([name, format_name(name)])
+                        for alias_name in alias_names:
+                            if alias_name in local_data:
+                                for local_url in local_data[alias_name]:
+                                    if not check_url_by_keywords(local_url, blacklist):
+                                        category_dict[name].append(format_channel_data(local_url, "local"))
+                            elif alias_name.startswith("re:"):
+                                raw_pattern = alias_name[3:]
+                                try:
+                                    pattern = re.compile(raw_pattern)
+                                    for local_name in local_data:
+                                        if re.match(pattern, local_name):
+                                            for local_url in local_data[local_name]:
+                                                if not check_url_by_keywords(local_url, blacklist):
+                                                    category_dict[name].append(format_channel_data(local_url, "local"))
+                                except re.error:
+                                    pass
+                if url:
+                    if is_url_whitelisted(whitelist_maps, url, name):
+                        category_dict[name].append(format_channel_data(url, "whitelist"))
+                    elif open_local and not check_url_by_keywords(url, blacklist):
+                        category_dict[name].append(format_channel_data(url, "local"))
+    return channels
+
+
+def get_channel_items(whitelist_maps, blacklist) -> CategoryChannelData:
+    """
+    Get the channel items from the source file
+    """
+    user_source_file = resource_path(config.source_file)
+    channels = defaultdict(lambda: defaultdict(list))
+    hls_data = None
+    if config.open_rtmp:
+        hls_data = get_name_uri_from_dir(constants.hls_path)
+    local_data = get_name_urls_from_file(config.local_file)
+    whitelist_count = get_whitelist_total_count(whitelist_maps)
+    blacklist_count = len(blacklist)
+    if whitelist_count:
+        print(t("msg.whitelist_found").format(count=whitelist_count))
+    if blacklist_count:
+        print(t("msg.blacklist_found").format(count=blacklist_count))
+
+    if os.path.exists(user_source_file):
+        with open(user_source_file, "r", encoding="utf-8") as file:
+            channels = get_channel_data_from_file(
+                channels, file, whitelist_maps, blacklist, local_data, hls_data
+            )
+
+    if config.open_history:
+        if os.path.exists(constants.cache_path):
+            try:
+                with gzip.open(constants.cache_path, "rb") as file:
+                    old_result = pickle.load(file)
+                    for cate, data in channels.items():
+                        if cate in old_result:
+                            for name, info_list in data.items():
+                                urls = [
+                                    url
+                                    for item in info_list
+                                    if (url := item["url"])
+                                ]
+                                if name in old_result[cate]:
+                                    channel_data = channels[cate][name]
+                                    for info in old_result[cate][name]:
+                                        if info:
+                                            info_url = info["url"]
+                                            try:
+                                                if info["origin"] in retain_origin or check_url_by_keywords(info_url,
+                                                                                                            blacklist):
+                                                    continue
+                                                if check_channel_need_frozen(info):
+                                                    frozen_channels.add(info_url)
+                                                    continue
+                                            except:
+                                                pass
+                                            if info_url not in urls:
+                                                channel_data.append(info)
+
+                                    if not channel_data:
+                                        for info in old_result[cate][name]:
+                                            old_result_url = info["url"]
+                                            if info and info[
+                                                "origin"] not in retain_origin and old_result_url not in urls and not check_url_by_keywords(
+                                                old_result_url, blacklist):
+                                                channel_data.append(info)
+                                                frozen_channels.discard(old_result_url)
+
+                                    channel_urls = {d["url"] for d in channel_data}
+                                    if channel_urls.issubset(frozen_channels):
+                                        frozen_channels.difference_update(channel_urls)
+
+            except Exception as e:
+                print(t("msg.error_load_cache").format(info=e))
+                pass
+    return channels
+
+
+def format_channel_name(name):
+    """
+    Format the channel name with sub and replace and lower
+    """
+    return channel_alias.get_primary(name)
+
+
+def channel_name_is_equal(name1, name2):
+    """
+    Check if the channel name is equal
+    """
+    name1_format = format_channel_name(name1)
+    name2_format = format_channel_name(name2)
+    return name1_format == name2_format
+
+
+def get_channel_results_by_name(name, data):
+    """
+    Get channel results from data by name
+    """
+    format_name = format_channel_name(name)
+    results = data.get(format_name, [])
+    return results
+
+
+def get_element_child_text_list(element, child_name):
+    """
+    Get the child text of the element
+    """
+    text_list = []
+    children = element.find_all(child_name)
+    if children:
+        for child in children:
+            text = child.get_text(strip=True)
+            if text:
+                text_list.append(text)
+    return text_list
+
+
+def get_multicast_ip_list(urls):
+    """
+    Get the multicast ip list from urls
+    """
+    ip_list = []
+    for url in urls:
+        pattern = r"rtp://((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::(\d+))?)"
+        matcher = re.search(pattern, url)
+        if matcher:
+            ip_list.append(matcher.group(1))
+    return ip_list
+
+
+def get_channel_multicast_region_ip_list(result, channel_region, channel_type):
+    """
+    Get the channel multicast region ip list by region and type from result
+    """
+    return [
+        ip
+        for result_region, result_obj in result.items()
+        if result_region in channel_region
+        for url_type, urls in result_obj.items()
+        if url_type in channel_type
+        for ip in get_multicast_ip_list(urls)
+    ]
+
+
+def get_channel_multicast_name_region_type_result(result, names):
+    """
+    Get the multicast name and region and type result by names from result
+    """
+    name_region_type_result = {}
+    for name in names:
+        data = result.get(name)
+        if data:
+            name_region_type_result[name] = data
+    return name_region_type_result
+
+
+def get_channel_multicast_region_type_list(result):
+    """
+    Get the channel multicast region type list from result
+    """
+    region_list = config.multicast_region_list
+    region_type_list = {
+        (region, r_type)
+        for region_type in result.values()
+        for region, types in region_type.items()
+        if "all" in region_list or region in region_list
+        for r_type in types
+    }
+    return list(region_type_list)
+
+
+def get_channel_multicast_result(result, search_result):
+    """
+    Get the channel multicast info result by result and search result
+    """
+    info_result = {}
+    multicast_name = constants.origin_map.get("multicast", "")
+    open_url_info = config.open_url_info
+    for name, result_obj in result.items():
+        info_list = []
+        for result_region, result_types in result_obj.items():
+            if result_region not in search_result:
+                continue
+            sr_region = search_result[result_region]
+            for result_type, result_type_urls in result_types.items():
+                if result_type not in sr_region:
+                    continue
+                ips = get_multicast_ip_list(result_type_urls)
+                if not ips:
+                    continue
+                for item in sr_region[result_type]:
+                    host = item.get("url")
+                    if not host:
+                        continue
+                    for ip in ips:
+                        total_url = f"http://{host}/rtp/{ip}"
+                        info_list.append({
+                            "url": add_url_info(total_url,
+                                                f"{result_region}{result_type}{multicast_name}") if open_url_info else total_url,
+                            "date": item.get("date")
+                        })
+        info_result[name] = info_list
+    return info_result
+
+
+def get_results_from_soup(soup, name):
+    """
+    Get the results from the soup
+    """
+    results = []
+    if not soup.descendants:
+        return results
+    for element in soup.descendants:
+        if isinstance(element, NavigableString):
+            text = element.get_text(strip=True)
+            url = get_channel_url(text)
+            if url and not any(item[0] == url for item in results):
+                url_element = soup.find(lambda tag: tag.get_text(strip=True) == url)
+                if url_element:
+                    name_element = url_element.find_previous_sibling()
+                    if name_element:
+                        channel_name = name_element.get_text(strip=True)
+                        if channel_name_is_equal(name, channel_name):
+                            info_element = url_element.find_next_sibling()
+                            date, resolution = get_channel_info(
+                                info_element.get_text(strip=True)
+                            )
+                            results.append({
+                                "url": url,
+                                "date": date,
+                                "resolution": resolution,
+                            })
+    return results
+
+
+def get_results_from_multicast_soup(soup, hotel=False):
+    """
+    Get the results from the multicast soup
+    """
+    results = []
+    if not soup.descendants:
+        return results
+    for element in soup.descendants:
+        if isinstance(element, NavigableString):
+            text = element.strip()
+            if "失效" in text:
+                continue
+            url = get_channel_url(text)
+            if url and not any(item["url"] == url for item in results):
+                url_element = soup.find(lambda tag: tag.get_text(strip=True) == url)
+                if not url_element:
+                    continue
+                parent_element = url_element.find_parent()
+                info_element = parent_element.find_all(recursive=False)[-1]
+                if not info_element:
+                    continue
+                info_text = info_element.get_text(strip=True)
+                if "上线" in info_text and " " in info_text:
+                    date, region, channel_type = get_multicast_channel_info(info_text)
+                    if hotel and "酒店" not in region:
+                        continue
+                    results.append(
+                        {
+                            "url": url,
+                            "date": date,
+                            "region": region,
+                            "type": channel_type,
+                        }
+                    )
+    return results
+
+
+def get_results_from_soup_requests(soup, name):
+    """
+    Get the results from the soup by requests
+    """
+    results = []
+    elements = soup.find_all("div", class_="resultplus") if soup else []
+    for element in elements:
+        name_element = element.find("div", class_="channel")
+        if name_element:
+            channel_name = name_element.get_text(strip=True)
+            if channel_name_is_equal(name, channel_name):
+                text_list = get_element_child_text_list(element, "div")
+                url = date = resolution = None
+                for text in text_list:
+                    text_url = get_channel_url(text)
+                    if text_url:
+                        url = text_url
+                    if " " in text:
+                        text_info = get_channel_info(text)
+                        date, resolution = text_info
+                if url:
+                    results.append({
+                        "url": url,
+                        "date": date,
+                        "resolution": resolution,
+                    })
+    return results
+
+
+def get_results_from_multicast_soup_requests(soup, hotel=False):
+    """
+    Get the results from the multicast soup by requests
+    """
+    results = []
+    if not soup:
+        return results
+
+    elements = soup.find_all("div", class_="result")
+    for element in elements:
+        name_element = element.find("div", class_="channel")
+        if not name_element:
+            continue
+
+        text_list = get_element_child_text_list(element, "div")
+        url, date, region, channel_type = None, None, None, None
+        valid = True
+
+        for text in text_list:
+            if "失效" in text:
+                valid = False
+                break
+
+            text_url = get_channel_url(text)
+            if text_url:
+                url = text_url
+
+            if url and "上线" in text and " " in text:
+                date, region, channel_type = get_multicast_channel_info(text)
+
+        if url and valid:
+            if hotel and "酒店" not in region:
+                continue
+            results.append({"url": url, "date": date, "region": region, "type": channel_type})
+
+    return results
+
+
+def get_channel_url(text):
+    """
+    Get the url from text
+    """
+    url = None
+    url_search = constants.url_pattern.search(text)
+    if url_search:
+        url = url_search.group()
+    return url
+
+
+def get_channel_info(text):
+    """
+    Get the channel info from text
+    """
+    date, resolution = None, None
+    if text:
+        date, resolution = (
+            (text.partition(" ")[0] if text.partition(" ")[0] else None),
+            (
+                text.partition(" ")[2].partition("•")[2]
+                if text.partition(" ")[2].partition("•")[2]
+                else None
+            ),
+        )
+    return date, resolution
+
+
+def get_multicast_channel_info(text):
+    """
+    Get the multicast channel info from text
+    """
+    date, region, channel_type = None, None, None
+    if text:
+        text_split = text.split(" ")
+        filtered_data = list(filter(lambda x: x.strip() != "", text_split))
+        if filtered_data and len(filtered_data) == 4:
+            date = filtered_data[0]
+            region = filtered_data[2]
+            channel_type = filtered_data[3]
+    return date, region, channel_type
+
+
+def init_info_data(data: dict, category: str, name: str) -> None:
+    """
+    Initialize channel info data structure if not exists
+    """
+    data.setdefault(category, {}).setdefault(name, [])
+
+
+def append_data_to_info_data(
+        info_data: dict,
+        category: str,
+        name: str,
+        data: list,
+        origin: str = None,
+        whitelist_maps: WhitelistMaps = None,
+        blacklist: list = None,
+        ipv_type_data: dict = None
+) -> None:
+    """
+    Append channel data to total info data with deduplication and validation
+
+    Args:
+        info_data: The main data structure to update
+        category: Category key for the data
+        name: Name key within the category
+        data: List of channel items to process
+        origin: Default origin for items
+        whitelist_maps: Maps of whitelist keywords
+        blacklist: List of blacklist keywords
+        ipv_type_data: Dictionary to cache IP type information
+    """
+    init_info_data(info_data, category, name)
+
+    channel_list = info_data[category][name]
+    existing_urls = {info["url"] for info in channel_list if "url" in info}
+
+    for item in data:
+        try:
+            channel_id = item.get("id") or hash(item["url"])
+            url = item["url"]
+            host = item.get("host") or get_url_host(url)
+            date = item.get("date")
+            delay = item.get("delay")
+            speed = item.get("speed")
+            resolution = item.get("resolution")
+            url_origin = item.get("origin", origin)
+            ipv_type = item.get("ipv_type")
+            location = item.get("location")
+            isp = item.get("isp")
+            headers = item.get("headers")
+            catchup = item.get("catchup")
+            extra_info = item.get("extra_info", "")
+
+            if not url or url in existing_urls:
+                continue
+
+            if url_origin != "whitelist" and whitelist_maps and is_url_whitelisted(whitelist_maps, url, name):
+                url_origin = "whitelist"
+
+            if not url_origin:
+                continue
+
+            if url_origin not in retain_origin:
+                url = get_channel_url(url)
+                if not url or url in frozen_channels or blacklist and check_url_by_keywords(url, blacklist):
+                    continue
+
+                if not ipv_type:
+                    if ipv_type_data and host in ipv_type_data:
+                        ipv_type = ipv_type_data[host]
+                    else:
+                        ipv_type = ip_checker.get_ipv_type(url)
+                        if ipv_type_data is not None:
+                            ipv_type_data[host] = ipv_type
+
+                if not check_ipv_type_match(ipv_type):
+                    continue
+
+                if not location or not isp:
+                    ip = ip_checker.get_ip(url)
+                    if ip:
+                        location, isp = ip_checker.find_map(ip)
+
+                if location and location_list and not any(item in location for item in location_list):
+                    continue
+
+                if isp and isp_list and not any(item in isp for item in isp_list):
+                    continue
+            channel_list.append({
+                "id": channel_id,
+                "url": url,
+                "host": host,
+                "date": date,
+                "delay": delay,
+                "speed": speed,
+                "resolution": resolution,
+                "origin": url_origin,
+                "ipv_type": ipv_type,
+                "location": location,
+                "isp": isp,
+                "headers": headers,
+                "catchup": catchup,
+                "extra_info": extra_info
+            })
+            existing_urls.add(url)
+
+        except Exception as e:
+            print(t("msg.error_append_channel_data").format(info=e))
+            continue
+
+
+def get_origin_method_name(method):
+    """
+    Get the origin method name
+    """
+    return "hotel" if method.startswith("hotel_") else method
+
+
+def append_old_data_to_info_data(info_data, cate, name, data, whitelist_maps=None, blacklist=None, ipv_type_data=None):
+    """
+    Append old existed channel data to total info data
+    """
+
+    def append_and_print(items, origin, label):
+        if items:
+            append_data_to_info_data(
+                info_data, cate, name, items,
+                origin=origin if origin else None,
+                whitelist_maps=whitelist_maps,
+                blacklist=blacklist,
+                ipv_type_data=ipv_type_data
+            )
+        items_len = len(items)
+        if items_len > 0:
+            print(f"{label}: {items_len}", end=", ")
+
+    whitelist_data = [item for item in data if item["origin"] == "whitelist"]
+    append_and_print(whitelist_data, "whitelist", t("name.whitelist"))
+
+    if open_local:
+        local_data = [item for item in data if item["origin"] == "local"]
+        append_and_print(local_data, "local", t("name.local"))
+
+    if open_rtmp:
+        hls_data = [item for item in data if item["origin"] == "hls"]
+        append_and_print(hls_data, None, t("name.hls"))
+
+    if open_history:
+        history_data = [item for item in data if item["origin"] not in ["hls", "local", "whitelist"]]
+        append_and_print(history_data, None, t("name.history"))
+
+
+def print_channel_number(data: CategoryChannelData, cate: str, name: str):
+    """
+    Print channel number
+    """
+    channel_list = data.get(cate, {}).get(name, [])
+    print("IPv4:", len([channel for channel in channel_list if channel["ipv_type"] == "ipv4"]), end=", ")
+    print("IPv6:", len([channel for channel in channel_list if channel["ipv_type"] == "ipv6"]), end=", ")
+    print(
+        f"{t("name.total")}:",
+        len(channel_list),
+    )
+
+
+def append_total_data(
+        items,
+        data,
+        hotel_fofa_result=None,
+        multicast_result=None,
+        hotel_foodie_result=None,
+        subscribe_result=None,
+        online_search_result=None,
+        whitelist_maps=None,
+        blacklist=None,
+):
+    """
+    Append all method data to total info data
+    """
+    total_result = [
+        ("hotel_fofa", hotel_fofa_result),
+        ("multicast", multicast_result),
+        ("hotel_foodie", hotel_foodie_result),
+        ("subscribe", subscribe_result),
+        ("online_search", online_search_result),
+    ]
+    url_hosts_ipv_type = {}
+    for obj in data.values():
+        for value_list in obj.values():
+            for value in value_list:
+                if value_ipv_type := value.get("ipv_type", None):
+                    url_hosts_ipv_type[get_url_host(value["url"])] = value_ipv_type
+    for cate, channel_obj in items:
+        for name, old_info_list in channel_obj.items():
+            print(f"{name}:", end=" ")
+            if old_info_list:
+                append_old_data_to_info_data(data, cate, name, old_info_list, whitelist_maps=whitelist_maps,
+                                             blacklist=blacklist,
+                                             ipv_type_data=url_hosts_ipv_type)
+            for method, result in total_result:
+                if config.open_method[method]:
+                    origin_method = get_origin_method_name(method)
+                    if not origin_method:
+                        continue
+                    name_results = get_channel_results_by_name(name, result)
+                    append_data_to_info_data(
+                        data, cate, name, name_results, origin=origin_method, whitelist_maps=whitelist_maps,
+                        blacklist=blacklist,
+                        ipv_type_data=url_hosts_ipv_type
+                    )
+                    print(f"{t(f"name.{method}")}:", len(name_results), end=", ")
+            print_channel_number(data, cate, name)
+
+
+async def test_speed(data, ipv6=False, callback=None):
+    """
+    Test speed of channel data
+    """
+    ipv6_proxy_url = None if (not config.open_ipv6 or ipv6) else constants.ipv6_proxy
+    open_headers = config.open_headers
+    get_resolution = config.open_filter_resolution and check_ffmpeg_installed_status()
+    semaphore = asyncio.Semaphore(config.speed_test_limit)
+    logger = get_logger(constants.speed_test_log_path, level=INFO, init=True)
+
+    async def limited_get_speed(channel_info):
+        """
+        Wrapper for get_speed with rate limiting
+        """
+        async with semaphore:
+            headers = (open_headers and channel_info.get("headers")) or None
+            return await get_speed(
+                channel_info,
+                headers=headers,
+                ipv6_proxy=ipv6_proxy_url,
+                filter_resolution=get_resolution,
+                logger=logger,
+                callback=callback,
+            )
+
+    tasks = []
+    channel_map = {}
+
+    for cate, channel_obj in data.items():
+        for name, info_list in channel_obj.items():
+            for info in info_list:
+                info['name'] = name
+                task = asyncio.create_task(limited_get_speed(info))
+                tasks.append(task)
+                channel_map[task] = (cate, name, info)
+
+    results = await asyncio.gather(*tasks)
+
+    logger.handlers.clear()
+
+    grouped_results = {}
+
+    for task, result in zip(tasks, results):
+        cate, name, info = channel_map[task]
+        if cate not in grouped_results:
+            grouped_results[cate] = {}
+        if name not in grouped_results[cate]:
+            grouped_results[cate][name] = []
+        grouped_results[cate][name].append({**info, **result})
+
+    return grouped_results
+
+
+def sort_channel_result(channel_data, result=None, filter_host=False, ipv6_support=True):
+    """
+    Sort channel result
+    """
+    channel_result = defaultdict(lambda: defaultdict(list))
+    logger = get_logger(constants.result_log_path, level=INFO, init=True)
+    for cate, obj in channel_data.items():
+        for name, values in obj.items():
+            if not values:
+                continue
+            whitelist_result = []
+            test_result = result.get(cate, {}).get(name, []) if result else []
+            for value in values:
+                if value["origin"] in retain_origin or (
+                        not ipv6_support and result and value["ipv_type"] == "ipv6"
+                ):
+                    whitelist_result.append(value)
+                elif filter_host or not result:
+                    test_result.append({**value, **get_speed_result(value["host"])} if filter_host else value)
+            total_result = whitelist_result + get_sort_result(test_result, ipv6_support=ipv6_support)
+            channel_result[cate][name].extend(total_result)
+            for item in total_result:
+                logger.info(
+                    f"Name: {name}, URL: {item.get('url')}, From: {item.get('origin')}, IPv_Type: {item.get("ipv_type")}, Location: {item.get('location')}, ISP: {item.get('isp')}, Date: {item["date"]}, Delay: {item.get('delay') or -1} ms, Speed: {item.get('speed') or 0:.2f} M/s, Resolution: {item.get('resolution')}"
+                )
+    logger.handlers.clear()
+    return channel_result
+
+
+def generate_channel_statistic(logger, cate, name, values):
+    """
+    Generate channel statistic
+    """
+    total = len(values)
+    valid = len([v for v in values if (v.get("speed") or 0) > 0 and (v.get("delay") or -1) != -1])
+    valid_rate = (valid / total * 100) if total > 0 else 0
+    whitelist_count = len([v for v in values if v.get("origin") == "whitelist"])
+    ipv4_count = len([v for v in values if v.get("ipv_type") == "ipv4"])
+    ipv6_count = len([v for v in values if v.get("ipv_type") == "ipv6"])
+    min_delay = min((v.get("delay") for v in values if (v.get("delay") or -1) != -1), default=-1)
+    max_speed = max((v.get("speed") for v in values if (v.get("speed") or 0) > 0 and not math.isinf(v.get("speed"))),
+                    default=0)
+    avg_speed = (
+        sum((v.get("speed") or 0) for v in values if
+            (v.get("speed") or 0) > 0 and not math.isinf(v.get("speed"))) / valid
+        if valid > 0 else 0
+    )
+    max_resolution = max(
+        (v.get("resolution") for v in values if v.get("resolution")),
+        key=lambda r: get_resolution_value(r),
+        default="None"
+    )
+    logger.info(
+        f"Category: {cate}, Name: {name}, Total: {total}, Valid: {valid}, Valid Percent: {valid_rate:.2f}%, Whitelist: {whitelist_count}, IPv4: {ipv4_count}, IPv6: {ipv6_count}, Min Delay: {min_delay} ms, Max Speed: {max_speed:.2f} M/s, Avg Speed: {avg_speed:.2f} M/s, Max Resolution: {max_resolution}")
+    print(
+        f"\n{f"{t("name.category")}: {cate}, {t("name.name")}: {name}, {t("name.total")}: {total}, {t("name.valid")}: {valid}, {t("name.valid_percent")}: {valid_rate:.2f}%, {t("name.whitelist")}: {whitelist_count}, IPv4: {ipv4_count}, IPv6: {ipv6_count}, {t("name.min_delay")}: {min_delay} ms, {t("name.max_speed")}: {max_speed:.2f} M/s, {t("name.average_speed")}: {avg_speed:.2f} M/s, {t("name.max_resolution")}: {max_resolution}"}")
+
+
+def process_write_content(
+        path: str,
+        data: CategoryChannelData,
+        hls_url: str = None,
+        open_empty_category: bool = False,
+        ipv_type_prefer: list[str] = None,
+        origin_type_prefer: list[str] = None,
+        first_channel_name: str = None,
+        enable_log: bool = False,
+        logger: logging.Logger = None
+):
+    """
+    Get channel write content
+    :param path: write into path
+    :param hls_url: hls url
+    :param open_empty_category: show empty category
+    :param ipv_type_prefer: ipv type prefer
+    :param origin_type_prefer: origin type prefer
+    :param first_channel_name: the first channel name
+    """
+    content = ""
+    no_result_name = []
+    first_cate = True
+    result_data = defaultdict(list)
+    custom_print.disable = not enable_log
+    rtmp_type = ["hls"] if hls_url else []
+    open_url_info = config.open_url_info
+    for cate, channel_obj in data.items():
+        content += f"{'\n\n' if not first_cate else ''}{cate},#genre#"
+        first_cate = False
+        channel_obj_keys = channel_obj.keys()
+        for i, name in enumerate(channel_obj_keys):
+            info_list = data.get(cate, {}).get(name, [])
+            channel_urls = get_total_urls(info_list, ipv_type_prefer, origin_type_prefer, rtmp_type)
+            result_data[name].extend(channel_urls)
+            if not channel_urls:
+                if open_empty_category:
+                    no_result_name.append(name)
+                continue
+            for item in channel_urls:
+                item_url = item["url"]
+                if open_url_info and item["extra_info"]:
+                    item_url = add_url_info(item_url, item["extra_info"])
+                total_item_url = f"{hls_url}/{item['id']}.m3u8" if hls_url else item_url
+                content += f"\n{name},{total_item_url}"
+            if enable_log:
+                generate_channel_statistic(logger, cate, name, info_list)
+    if open_empty_category and no_result_name:
+        custom_print(f"\n{t("msg.no_result_channel")}")
+        content += f"\n\n{t("content.no_result_channel_genre")},#genre#"
+        for i, name in enumerate(no_result_name):
+            end_char = ", " if i < len(no_result_name) - 1 else ""
+            custom_print(name, end=end_char)
+            content += f"\n{name},url"
+    if config.open_update_time:
+        update_time_item = next(
+            (urls[0] for channel_obj in data.values()
+             for info_list in channel_obj.values()
+             if (urls := get_total_urls(info_list, ipv_type_prefer, origin_type_prefer, rtmp_type))),
+            {"id": "id", "url": "url"}
+        )
+        now = get_datetime_now()
+        update_time_item_url = update_time_item["url"]
+        if open_url_info and update_time_item["extra_info"]:
+            update_time_item_url = add_url_info(update_time_item_url, update_time_item["extra_info"])
+        value = f"{hls_url}/{update_time_item["id"]}.m3u8" if hls_url else update_time_item_url
+        if config.update_time_position == "top":
+            content = f"{t("content.update_time")},#genre#\n{now},{value}\n\n{content}"
+        else:
+            content += f"\n\n{t("content.update_time")},#genre#\n{now},{value}"
+    if hls_url:
+        conn = get_db_connection(constants.rtmp_data_path)
+        try:
+            cursor = conn.cursor()
+            cursor.execute(
+                "CREATE TABLE IF NOT EXISTS result_data (id TEXT PRIMARY KEY, url TEXT, headers TEXT)"
+            )
+            for data_list in result_data.values():
+                for item in data_list:
+                    cursor.execute(
+                        "INSERT OR REPLACE INTO result_data (id, url, headers) VALUES (?, ?, ?)",
+                        (item["id"], item["url"], json.dumps(item.get("headers", None)))
+                    )
+            conn.commit()
+        finally:
+            return_db_connection(constants.rtmp_data_path, conn)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(content)
+    convert_to_m3u(path, first_channel_name, data=result_data)
+
+
+def write_channel_to_file(data, epg=None, ipv6=False, first_channel_name=None):
+    """
+    Write channel to file
+    """
+    try:
+        print(t("msg.writing_result"))
+        output_dir = constants.output_dir
+        dir_list = [
+            output_dir,
+            f"{output_dir}/epg",
+            f"{output_dir}/ipv4",
+            f"{output_dir}/ipv6",
+            f"{output_dir}/data",
+            f"{output_dir}/log",
+        ]
+        for dir_name in dir_list:
+            os.makedirs(dir_name, exist_ok=True)
+        if epg:
+            write_to_xml(epg, constants.epg_result_path)
+            compress_to_gz(constants.epg_result_path, constants.epg_gz_result_path)
+        open_empty_category = config.open_empty_category
+        ipv_type_prefer = list(config.ipv_type_prefer)
+        if any(pref == "auto" for pref in ipv_type_prefer):
+            ipv_type_prefer = ["ipv6", "ipv4"] if ipv6 else ["ipv4", "ipv6"]
+        origin_type_prefer = config.origin_type_prefer
+        hls_url = f"{get_public_url(config.nginx_http_port)}/hls"
+        logger = get_logger(constants.statistic_log_path, level=INFO, init=True)
+        file_list = [
+            {"path": config.final_file, "enable_log": True},
+            {"path": constants.ipv4_result_path, "ipv_type_prefer": ["ipv4"]},
+            {"path": constants.ipv6_result_path, "ipv_type_prefer": ["ipv6"]}
+        ]
+        if config.open_rtmp and not os.getenv("GITHUB_ACTIONS"):
+            file_list += [
+                {"path": constants.hls_result_path, "hls_url": hls_url},
+                {
+                    "path": constants.hls_ipv4_result_path,
+                    "hls_url": hls_url,
+                    "ipv_type_prefer": ["ipv4"]
+                },
+                {
+                    "path": constants.hls_ipv6_result_path,
+                    "hls_url": hls_url,
+                    "ipv_type_prefer": ["ipv6"]
+                },
+            ]
+        for file in file_list:
+            process_write_content(
+                path=file["path"],
+                data=data,
+                hls_url=file.get("hls_url"),
+                open_empty_category=open_empty_category,
+                ipv_type_prefer=file.get("ipv_type_prefer", ipv_type_prefer),
+                origin_type_prefer=origin_type_prefer,
+                first_channel_name=first_channel_name,
+                enable_log=file.get("enable_log", False),
+                logger=logger
+            )
+        logger.handlers.clear()
+        print(t("msg.write_success"))
+    except Exception as e:
+        print(t("msg.write_error").format(info=e))
+
+
+def get_multicast_fofa_search_org(region, org_type):
+    """
+    Get the fofa search organization for multicast
+    """
+    org = None
+    if region == "北京" and org_type == "联通":
+        org = "China Unicom Beijing Province Network"
+    elif org_type == "联通":
+        org = "CHINA UNICOM China169 Backbone"
+    elif org_type == "电信":
+        org = "Chinanet"
+    elif org_type == "移动":
+        org = "China Mobile communications corporation"
+    return org
+
+
+def get_multicast_fofa_search_urls():
+    """
+    Get the fofa search urls for multicast
+    """
+    rtp_file_names = []
+    for filename in os.listdir(resource_path("config/rtp")):
+        if filename.endswith(".txt") and "_" in filename:
+            filename = filename.replace(".txt", "")
+            rtp_file_names.append(filename)
+    region_list = config.multicast_region_list
+    region_type_list = [
+        (parts[0], parts[1])
+        for name in rtp_file_names
+        if (parts := name.partition("_"))[0] in region_list or "all" in region_list
+    ]
+    search_urls = []
+    for region, r_type in region_type_list:
+        search_url = "https://fofa.info/result?qbase64="
+        search_txt = f'"udpxy" && country="CN" && region="{region}" && org="{get_multicast_fofa_search_org(region, r_type)}"'
+        bytes_string = search_txt.encode("utf-8")
+        search_txt = base64.b64encode(bytes_string).decode("utf-8")
+        search_url += search_txt
+        search_urls.append((search_url, region, r_type))
+    return search_urls
+
+
+def get_channel_data_cache_with_compare(data, new_data):
+    """
+    Get channel data with cache compare new data
+    """
+    for cate, obj in new_data.items():
+        for name, url_info in obj.items():
+            if url_info and cate in data and name in data[cate]:
+                new_urls = {
+                    info["url"]: info["resolution"]
+                    for info in url_info
+                }
+                updated_data = []
+                for info in data[cate][name]:
+                    url = info["url"]
+                    if url in new_urls:
+                        resolution = new_urls[url]
+                        updated_data.append({
+                            "id": info["id"],
+                            "url": url,
+                            "date": info["date"],
+                            "resolution": resolution,
+                            "origin": info["origin"],
+                            "ipv_type": info["ipv_type"]
+                        })
+                data[cate][name] = updated_data

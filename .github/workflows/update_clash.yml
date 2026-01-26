@@ -1,0 +1,128 @@
+name: 🌐 Update clash proxy
+# name: 🔄🪜🌐 Clash代理自动聚合器
+# name: 🚀 Update Clash
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  merge-clash:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+          yq --version
+          curl --version
+
+      - name: Prepare workspace
+        run: |
+          mkdir -p tmp_subs output output/clash
+          rm -rf output/clash/*
+          # 初始化合并文件为 clash_all.yaml
+          cat > output/clash/clash_all.yaml << 'EOF'
+          port: 7890
+          socks-port: 7891
+          allow-lan: false
+          mode: rule
+          log-level: info
+          external-controller: 127.0.0.1:9090
+          proxies: []
+          proxy-groups: []
+          rules: []
+          EOF
+
+      - name: Download and process subscriptions
+        run: |
+          SUBS=(
+            "https://cdn.jsdelivr.net/gh/vxiaov/free_proxies@main/clash/clash.provider.yaml"
+            "https://freenode.openrunner.net/uploads/20240807-clash.yaml"
+            "https://raw.githubusercontent.com/Misaka-blog/chromego_merge/main/sub/merged_proxies_new.yaml"
+            "https://raw.githubusercontent.com/MrMohebi/xray-proxy-grabber-telegram/master/collected-proxies/clash-meta/all.yaml"
+            "https://raw.githubusercontent.com/NiceVPN123/NiceVPN/main/Clash.yaml"
+            "https://raw.githubusercontent.com/aiboboxx/clashfree/main/clash.yml"
+            "https://raw.githubusercontent.com/anaer/Sub/main/clash.yaml"
+            "https://raw.githubusercontent.com/chengaopan/AutoMergePublicNodes/master/list.yml"
+            "https://raw.githubusercontent.com/ermaozi/get_subscribe/main/subscribe/clash.yml"
+            "https://raw.githubusercontent.com/ermaozi01/free_clash_vpn/main/subscribe/clash.yml"
+            "https://raw.githubusercontent.com/lagzian/SS-Collector/main/mix_clash.yaml"
+            "https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/Eternity.yml"
+            "https://raw.githubusercontent.com/mfuu/v2ray/master/clash.yaml"
+            "https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.yml"
+            "https://raw.githubusercontent.com/ronghuaxueleng/get_v2/main/pub/combine.yaml"
+            "https://raw.githubusercontent.com/ts-sf/fly/main/clash"
+            "https://raw.githubusercontent.com/yaney01/Yaney01/main/temporary"
+            "https://raw.githubusercontent.com/yebekhe/TelegramV2rayCollector/main/sub/base64/mix"
+            "https://raw.githubusercontent.com/zhangkaiitugithub/passcro/main/speednodes.yaml"
+            "https://tt.vg/freeclash"
+          )
+
+          counter=1  # 有效文件计数器
+          for url in "${SUBS[@]}"; do
+            echo "===== Processing: $url ====="
+            tmp_file="tmp_subs/tmp_${counter}.yaml"
+            save_path="output/clash/clash${counter}.yaml"  # 订阅源文件按顺序命名
+
+            if ! curl -fL --connect-timeout 10 "$url" -o "$tmp_file"; then
+              echo "❌ Failed to download $url, skipping..."
+              rm -f "$tmp_file"
+              continue
+            fi
+
+            if base64 -d "$tmp_file" > "$tmp_file.decoded" 2>/dev/null; then
+              echo "🔍 Decoded Base64 for $url"
+              mv "$tmp_file.decoded" "$tmp_file"
+            fi
+
+            if ! yq eval '.' "$tmp_file" >/dev/null 2>&1; then
+              echo "❌ Invalid YAML in $url, skipping..."
+              rm -f "$tmp_file"
+              continue
+            fi
+
+            cp "$tmp_file" "$save_path"
+            echo "✅ Processed and saved $url to $save_path"
+            ((counter++))
+          done
+
+      - name: Merge YAML nodes to output directory
+        run: |
+          # 遍历所有 clash1.yaml、clash2.yaml... 合并到 clash_all.yaml
+          for file in output/clash/clash*.yaml; do
+            # 排除合并文件本身，只处理序号命名的订阅源
+            if [ -f "$file" ] && [[ "$file" != "output/clash/clash_all.yaml" ]]; then
+              echo "===== Merging $file ====="
+              yq eval '.proxies += load("'"$file"'").proxies | .proxies |= unique_by(.name)' -i output/clash/clash_all.yaml
+              yq eval '.["proxy-groups"] += load("'"$file"'")["proxy-groups"] | .["proxy-groups"] |= unique_by(.name)' -i output/clash/clash_all.yaml
+              yq eval '.rules += load("'"$file"'").rules | .rules |= unique' -i output/clash/clash_all.yaml
+            fi
+          done
+
+          # 清理空数组
+          yq eval 'del(.. | select(tag == "!!seq" and length == 0))' -i output/clash/clash_all.yaml
+
+      - name: Upload output artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: clash-outputs
+          path: |
+            output/clash/
+
+      - name: Push to repository
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add output/
+          git commit -m "✔️ $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git push
+        if: github.ref == 'refs/heads/main'
+
+
+
+

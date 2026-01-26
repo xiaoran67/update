@@ -1,0 +1,400 @@
+# 这是频道名称的别名名单，用于获取接口时将多种名称映射为一个名称的结果，可以提升获取量与准确率
+# 格式：模板频道名称,别名1,别名2,别名3
+# This is the alias list for channel names, used to map multiple names to a single name when fetching from the interface, improving the fetch volume and accuracy.
+# Format: TemplateChannelName,Alias1,Alias2,Alias3
+
+# 央视频道
+CCTV1,CCTV 1,CCTV-1,CCTV01,CCTV1-,CCTV1-高清,CCTV1025,CCTV1225,CCTV134,CCTV164,cctv 1,cctv-1,cctv1,央视1
+CCTV2,CCTV 2,CCTV-2,CCTV02,CCTV2-,CCTV2-高清,CCTV20241,TV2,cctv 2,cctv-2,cctv2,央视2
+CCTV3,CCTV 3,CCTV-3,CCTV03,CCTV3-,CCTV3-高清,CCTV34,TV3,cctv 3,cctv-3,cctv3,央视3,CCTV-音乐-画中画
+CCTV4,CCTV 4,CCTV-4,CCTV04,CCTV4-,CCTV4-高清,CCTV44,cctv 4,cctv-4,cctv4,央视4
+CCTV5,CCTV 5,CCTV-5,CCTV05,CCTV54,CCTV5-高清,cctv 5,cctv-5,cctv5,央视5
+CCTV5+,CCTV 5+,CCTV-5+,CCTV5+4,TV5,cctv 5+,cctv-5+,cctv5+,央视5+
+CCTV6,CCTV 6,CCTV-6,CCTV06,CCTV6-高清,CCTV64,TV6,cctv 6,cctv-6,cctv6,央视6
+CCTV7,CCTV 7,CCTV-7,CCTV07,CCTV7-高清,CCTV74,cctv 7,cctv-7,cctv7,央视7
+CCTV8,CCTV 8,CCTV-8,CCTV08,CCTV8-高清,CCTV84,TV8,cctv 8,cctv-8,cctv8,央视8
+CCTV9,CCTV 9,CCTV-9,CCTV09,CCTV9-,CCTV9-高清,CCTV94,TV9,cctv 9,cctv-9,cctv9,央视9
+CCTV10,CCTV 10,CCTV-10,CCTV10-,CCTV10-高清,cctv 10,cctv-10,cctv10,央视10
+CCTV11,CCTV 11,CCTV-11,CCTV11-,CCTV11-高清,CCTV11066600,TV1,cctv 11,cctv-11,cctv11,cctv11-戏曲,央视11
+CCTV12,CCTV 12,CCTV-12,cctv 12,CCTV12-高清,cctv-12,cctv12,央视12
+CCTV13,CCTV 13,CCTV-13,CCTV13-,CCTV13-高清,cctv 13,cctv-13,cctv13,cctv13-新闻,央视13
+CCTV14,CCTV 14,CCTV-14,CCTV14-,CCTV14-高清,CCTV1425,cctv 14,cctv-14,cctv14,央视14
+CCTV15,CCTV 15,CCTV-15,cctv 15,cctv-15,CCTV15-高清,cctv15,央视15
+CCTV16,CCTV 16,CCTV-16,CCTV16-,cctv 16,CCTV16-高清,cctv-16,cctv16,央视16,CCTV16(4K)
+CCTV17,CCTV 17,CCTV-17,CCTV174,cctv 17,CCTV17-高清,cctv-17,cctv17,央视17
+CCTV4K,cctv-4k,cctv4k,CCTV,CCTV-
+CCTV8K,cctv-8k,cctv8k
+CCTV+1,CCTV +1,CCTV + 1,CCTV+1 延时频道,CCTV+1,cctv+1,CCTV+1600247
+CCTV+2,CCTV +2,CCTV + 1,CCTV+2 延时频道,CCTV+2,cctv+2,CCTV+2600247
+CCTV书画,书画,CCTV-书画,CCTV央视书画,央视书画
+CCTV少儿,少儿CCTV-少儿,,CCTV-少儿,CCTV央视少儿,央视少儿
+CCTV中视购物,中视购物,CCTV-中视购物,CCTV央视中视购物,央视中视购物
+CCTV中学生,中学生,CCTV-中学生,CCTV央视中学生,央视中学生
+CCTV老故事,老故事,CCTV-老故事,CCTV央视老故事,央视老故事
+CCTV发现之旅,发现之旅,CCTV-发现之旅,CCTV央视发现之旅,央视发现之旅
+CCTV文化精品,文化精品,CCTV-文化精品,CCTV央视文化精品,央视文化精品
+CCTV风云剧场,风云剧场,CCTV-风云剧场,CCTV央视风云剧场,央视风云剧场
+CCTV兵器科技,兵器科技,CCTV-兵器科技,CCTV央视兵器科技,央视兵器科技
+CCTV第一剧场,第一剧场,CCTV-第一剧场,CCTV央视第一剧场,央视第一剧场
+CCTV央视台球,台球频道,CCTV-央视台球,CCTV央视台球频道,央视台球
+CCTV风云足球,风云足球,CCTV-风云足球,CCTV央视风云足球,央视风云足球
+CCTV世界地理,世界地理,CCTV-世界地理,CCTV央视世界地理,央视世界地理
+CCTV风云音乐,风云音乐,CCTV-风云音乐,CCTV央视风云音乐,央视风云音乐
+CCTV女性时尚,女性时尚,CCTV-女性时尚,CCTV央视女性时尚,央视女性时尚
+CCTV怀旧剧场,怀旧剧场,CCTV-怀旧剧场,CCTV央视怀旧剧场,央视怀旧剧场
+CCTV电视指南,电视指南,CCTV-电视指南,CCTV央视电视指南,央视电视指南
+CCTV游戏风云,游戏风云,CCTV-游戏风云,CCTV央视游戏风云,央视游戏风云
+CCTV中国天气,中国天气,CCTV-中国天气,CCTV央视中国天气,央视中国天气
+CCTV高尔夫网球,高尔夫网球,CCTV-高尔夫网球,CCTV央视高尔夫网球,央视高尔夫网球
+
+# 卫视频道
+湖南卫视,湖南卫视超清,湖南卫视高清,湖南卫视FHD,湖南卫视HD
+浙江卫视,浙江卫视超清,浙江卫视高清,浙江卫视FHD,浙江卫视HD
+东方卫视,东方卫视超清,东方卫视高清,东方卫视FHD,东方卫视HD
+江苏卫视,江苏卫视超清,江苏卫视高清,江苏卫视FHD,江苏卫视HD
+北京卫视,北京卫视超清,北京卫视高清,北京卫视FHD,北京卫视HD
+山东卫视,山东卫视超清,山东卫视高清,山东卫视FHD,山东卫视HD
+广东卫视,广东卫视超清,广东卫视高清,广东卫视FHD,广东卫视HD
+河南卫视,河南卫视超清,河南卫视高清,河南卫视FHD,河南卫视HD
+辽宁卫视,辽宁卫视超清,辽宁卫视高清,辽宁卫视FHD,辽宁卫视HD
+安徽卫视,安徽卫视超清,安徽卫视高清,安徽卫视FHD,安徽卫视HD
+四川卫视,四川卫视超清,四川卫视高清,四川卫视FHD,四川卫视HD
+重庆卫视,重庆卫视超清,重庆卫视高清,重庆卫视FHD,重庆卫视HD
+黑龙江卫视,黑龙江卫视超清,黑龙江卫视高清,黑龙江卫视FHD,黑龙江卫视HD
+山东教育卫视,山东教育卫视超清,山东教育卫视高清,山东教育卫视FHD,山东教育卫视HD
+深圳卫视,深圳卫视超清,深圳卫视高清,深圳卫视FHD,深圳卫视HD
+陕西卫视,陕西卫视超清,陕西卫视高清,陕西卫视FHD,陕西卫视HD
+河北卫视,河北卫视超清,河北卫视高清,河北卫视FHD,河北卫视HD
+湖北卫视,湖北卫视超清,湖北卫视高清,湖北卫视FHD,湖北卫视HD
+江西卫视,江西卫视超清,江西卫视高清,江西卫视FHD,江西卫视HD
+广西卫视,广西卫视超清,广西卫视高清,广西卫视FHD,广西卫视HD
+云南卫视,云南卫视超清,云南卫视高清,云南卫视FHD,云南卫视HD
+内蒙古卫视,内蒙古卫视超清,内蒙古卫视高清,内蒙古卫视FHD,内蒙古卫视HD
+大湾区卫视,大湾区卫视超清,大湾区卫视高清,大湾区卫视FHD,大湾区卫视HD
+山西卫视,山西卫视超清,山西卫视高清,山西卫视FHD,山西卫视HD
+贵州卫视,贵州卫视超清,贵州卫视高清,贵州卫视FHD,贵州卫视HD
+吉林卫视,吉林卫视超清,吉林卫视高清,吉林卫视FHD,吉林卫视HD
+天津卫视,天津卫视超清,天津卫视高清,天津卫视FHD,天津卫视HD
+海南卫视,海南卫视超清,海南卫视高清,海南卫视FHD,海南卫视HD
+青海卫视,青海卫视超清,青海卫视高清,青海卫视FHD,青海卫视HD
+甘肃卫视,甘肃卫视超清,甘肃卫视高清,甘肃卫视FHD,甘肃卫视HD
+宁夏卫视,宁夏卫视超清,宁夏卫视高清,宁夏卫视FHD,宁夏卫视HD
+新疆卫视,新疆卫视超清,新疆卫视高清,新疆卫视FHD,新疆卫视HD
+西藏卫视,西藏卫视超清,西藏卫视高清,西藏卫视FHD,西藏卫视HD
+凤凰卫视,凤凰卫视超清,凤凰卫视高清,凤凰卫视FHD,凤凰卫视HD
+三沙卫视,三沙卫视超清,三沙卫视高清,三沙卫视FHD,三沙卫视HD
+兵团卫视,兵团卫视超清,兵团卫视高清,兵团卫视FHD,兵团卫视HD
+农林卫视,农林卫视超清,农林卫视高清,农林卫视FHD,农林卫视HD
+康巴卫视,康巴卫视超清,康巴卫视高清,康巴卫视FHD,康巴卫视HD
+安多卫视,安多卫视超清,安多卫视高清,安多卫视FHD,安多卫视HD
+延边卫视,延边卫视超清,延边卫视高清,延边卫视FHD,延边卫视HD
+厦门卫视,厦门卫视超清,厦门卫视高清,厦门卫视FHD,厦门卫视HD
+莲花卫视,莲花卫视超清,莲花卫视高清,莲花卫视FHD,莲花卫视HD
+人间卫视,人间卫视超清,人间卫视高清,人间卫视FHD,人间卫视HD
+
+# CGTN系列频道
+CGTN,CGTN News,CGTN-News,CCTV-NEWS,CGTN新闻,CGTN,cgtn
+CGTN英语,CGTN English,CGTN-ENGLISH,CGTN英语频道,CGTN英语新闻,cgtn英语
+CGTN纪录,CGTN Documentary,CGTN-Documentary,CGTN外语纪录,CGTN纪录片,cgtn documentary,cgtn纪录,documentary
+CGTN法语,CGTN Français,CGTN-Français,CGTN French,CGTN法文,CGTN法语频道,cgtn法语
+CGTN俄语,CGTN Pусский,CGTN-Pусский,CGTN俄罗斯语,CGTN Russian,CGTN俄文,CGTN俄语频道,cgtn俄语,CGTN 俄语
+CGTN日语,CGTN Japanese,CGTN-Japanese,CGTN日文,CGTN日语频道,日语新闻
+CGTN西语,CGTN Español,CGTN-Español,CGTN西班牙语,CGTN Spanish,CGTN西班牙语频道,cgtn西语
+CGTN阿语,CGTN العربية,CGTN-العربية,CGTN阿拉伯语,CGTN Arabic,CGTN阿拉伯语频道,cgtn arabic,cgtn阿语
+CGTN德语,CGTN Deutsch,CGTN-German,CGTN德语频道,cgtn德语
+
+# 教育频道
+CETV1,CETV-1,中国教育1,教育一台
+CETV2,CETV-2,中国教育2,教育二台
+CETV3,CETV-3,中国教育3,教育三台
+CETV4,CETV-4,中国教育4,教育四台,中国教育CETV4
+CETV早教,CETV早期教育,早期教育
+
+CEC汉语文化,CEC文化,CEC汉语,汉语文化频道,汉语文化
+CEC国际旅游,CEC旅游,国际旅游频道,旅游卫视
+CEC国际教育,CEC教育,国际教育频道,国际教育
+CEC国际健康,CEC健康,国际健康频道,国际健康
+
+# 数字频道
+
+# CHC电影系列
+CHC动作电影,CHC动作,CHC电影
+CHC家庭影院,CHC家庭,CHC影院
+CHC高清电影,CHC高清,CHC电影
+CHC影迷电影,CHC影迷,CHC电影
+CHC华诚影视,CHC华诚,CHC影视
+
+# 华数系列
+华数经典电影,经典电影,华数电影,华数电影台,经典电影台,华数经典影视频道,华数电影大片
+华数家庭影院,家庭影院,华数影院,华数影院台,家庭电影台,华数家庭影视频道,家庭影院频道
+华数动作电影,动作电影,华数动作,华数动作台,动作电影台,华数动作影视频道,动作电影频道
+华数武侠剧场,武侠剧场,华数武侠,华数武侠剧,华数武侠影视专区,武侠影视频道
+华数古装剧场,古装剧场,华数古装,华数古装剧,华数古装影视专区,古装影视频道
+华数魅力时尚,魅力时尚,华数时尚,华数时尚台,华数时尚生活频道,华数风尚频道
+华数喜剧电影,喜剧电影,华数喜剧,华数喜剧台,华数喜剧影视频道,华数喜剧影院
+华数电影大片,电影大片,华数电影,华数影院台,华数电影大片频道,华数高清电影台
+华数军旅剧场,军旅剧场,华数军旅,华数军旅剧,华数军旅影视专区,军旅影视频道
+华数城市剧场,城市剧场,华数都市,华数都市剧,华数城市影视专区,都市影视频道
+华数热播剧场,热播剧场,华数剧场,华数剧集,华数热播剧集频道,华数热门剧场
+华数少儿动画,少儿动画,华数少儿,华数儿童频道,华数少儿动漫频道,华数儿童影视频道
+华数卡通频道,卡通动画,华数动画,华数动画频道,华数卡通影视频道,华数少儿动画专区
+华数星影频道,星影频道,华数星影,华数星级影院,星影
+华数4K影视,华数4K,华数4K频道,华数4K超高清,华数超高清影视频道,华数4K影视专区
+
+# NewTV系列
+NewTV超级电视剧,超级电视剧,NEWTV超级电视剧,NewTV 超级电视剧,NewTV-超级电视剧,newtv超级电视剧
+NewTV超级电影,超级电影,NEWTV超级电影,NewTV 超级电影,NewTV-超级电影,newtv超级电影
+NewTV中国功夫,中国功夫,NEWTV中国功夫,NewTV 中国功夫,NewTV-中国功夫,newtv中国功夫
+NewTV明星大片,明星大片,NEWTV明星大片,NewTV 明星大片,NewTV-明星大片,newtv明星大片
+NewTV家庭剧场,家庭剧场,NEWTV家庭剧场,NewTV 家庭剧场,NewTV-家庭剧场,newtv家庭剧场
+NewTV欢乐剧场,欢乐剧场,NEWTV欢乐剧场,NewTV 欢乐剧场,NewTV-欢乐剧场,newtv欢乐剧场
+NewTV古装剧场,古装剧场,NEWTV古装剧场,NewTV 古装剧场,NewTV-古装剧场,newtv古装剧场
+NewTV动作电影,动作电影,NEWTV动作电影,NewTV 动作电影,NewTV-动作电影,newtv动作电影
+NewTV海外剧场,海外剧场,NEWTV海外剧场,NewTV 海外剧场,NewTV-海外剧场,newtv海外剧场
+NewTV惊悚悬疑,惊悚悬疑,NEWTV惊悚悬疑,NewTV 惊悚悬疑,NewTV-惊悚悬疑,newtv惊悚悬疑
+NewTV黑莓电影,黑莓电影,NEWTV黑莓电影,NewTV 黑莓电影,NewTV-黑莓电影,newtv黑莓电影,黑莓影院频道
+NewTV精品大剧,精品大剧,NEWTV精品大剧,NewTV 精品大剧,NewTV-精品大剧,newtv精品大剧
+NewTV爱情喜剧,爱情喜剧,NEWTV爱情喜剧,NewTV 爱情喜剧,NewTV-爱情喜剧,newtv爱情喜剧
+NewTV潮妈辣婆,潮妈辣婆,NEWTV潮妈辣婆,NewTV 潮妈辣婆,NewTV-潮妈辣婆,newtv潮妈辣婆
+NewTV精品纪录,精品纪录,NEWTV精品纪录,NewTV 精品纪录,NewTV-精品纪录,newtv精品纪录
+NewTV农业致富,农业致富,NEWTV农业致富,NewTV 农业致富,NewTV-农业致富,newtv农业致富
+NewTV军旅剧场,军旅剧场,NEWTV军旅剧场,NewTV 军旅剧场,NewTV-军旅剧场,newtv军旅剧场
+NewTV武搏世界,武搏世界,NEWTV武搏世界,NewTV 武搏世界,NewTV-武搏世界,newtv武搏世界
+NewTV炫舞未来,炫舞未来,NEWTV炫舞未来,NewTV 炫舞未来,NewTV-炫舞未来,newtv炫舞未来
+NewTV怡伴健康,怡伴健康,NEWTV怡伴健康,NewTV 怡伴健康,NewTV-怡伴健康,newtv怡伴健康
+NewTV金牌综艺,金牌综艺,NEWTV金牌综艺,NewTV 金牌综艺,NewTV-金牌综艺,newtv金牌综艺
+NewTV超级综艺,超级综艺,NEWTV超级综艺,NewTV 超级综艺,NewTV-超级综艺,newtv超级综艺
+NewTV哒啵赛事,哒啵赛事,NEWTV哒啵赛事,NewTV 哒啵赛事,NewTV-哒啵赛事,newtv哒啵赛事
+NewTV黑莓动画,黑莓动画,NEWTV黑莓动画,NewTV 黑莓动画,NewTV-黑莓动画,newtv黑莓动画,黑莓卡通频道
+NewTV精品记录,精品记录,NEWTV精品记录,NewTV 精品记录,NewTV-精品记录,newtv精品记录
+NewTV超级体育,超级体育,NEWTV超级体育,NewTV 超级体育,NewTV-超级体育,newtv超级体育
+NewTV超级萌宠,超级萌宠,NEWTV超级萌宠,NewTV 超级萌宠,NewTV-超级萌宠,newtv超级萌宠
+NewTV精品体育,精品体育,NEWTV精品体育,NewTV 精品体育,NewTV-精品体育,newtv精品体育
+NewTV军事评论,军事评论,NEWTV军事评论,NewTV 军事评论,NewTV-军事评论,newtv军事评论,NEWTV军事纪实
+NewTV魅力潇湘,魅力潇湘,NEWTV魅力潇湘,NewTV 魅力潇湘,NewTV-魅力潇湘,newtv魅力潇湘
+NewTV哒啵电竞,哒啵电竞,NEWTV哒啵电竞,NewTV 哒啵电竞,NewTV-哒啵电竞,newtv哒啵电竞
+
+# 求索系列
+求索纪录,求索纪录片,浙江求索纪录
+求索科学,求索科学台,浙江求索科学
+求索生活,求索生活台,浙江求索生活
+求索动物,求索动物台,浙江求索动物
+
+# SiTV系列
+SiTV都市剧场,都市剧场
+SiTV动漫秀场,动漫秀场
+SiTV七彩戏剧,七彩戏剧
+SiTV魅力音乐,魅力音乐
+SiTV生活时尚,生活时尚
+SiTV欢笑剧场,欢笑剧场
+SiTV法治天地,法治天地
+SiTV全纪实,全纪实
+SiTV极速汽车,极速汽车
+SiTV乐游频道,乐游
+SiTV劲爆体育,劲爆体育
+SiTV五星体育,五星体育
+SiTV游戏风云,游戏风云
+SiTV金色学堂,金色学堂
+
+# IPTV系列
+IPTV经典剧场,经典剧场
+IPTV乡村剧场,乡村剧场
+IPTV警匪剧场,警匪剧场
+IPTV谍战剧场,谍战剧场
+IPTV抗战剧场,抗战剧场
+IPTV传奇剧场,传奇剧场
+IPTV音乐现场,音乐现场
+IPTV相声小品,相声小品
+
+# IPTV淘系列
+IPTV淘剧场,淘剧场
+IPTV淘娱乐,淘娱乐
+IPTV淘电影,淘电影
+IPTV淘精彩,淘精彩
+IPTV淘萌宠,淘萌宠
+IPTV淘4K,淘4K,淘4K超高清
+IPTV淘BABY,淘BABY,IPTV淘少儿,淘少儿
+
+# IHOT系列
+IHOT爱世界,爱世界
+IHOT爱体育,爱体育
+IHOT爱军武,爱军武
+IHOT爱动漫,爱动漫
+IHOT爱历史,爱历史
+IHOT爱喜剧,爱喜剧
+IHOT爱奇谈,爱奇谈
+IHOT爱娱乐,爱娱乐
+IHOT爱家庭,爱家庭
+IHOT爱幼教,爱幼教
+IHOT爱怀旧,爱怀旧
+IHOT爱悬疑,爱悬疑
+IHOT爱探索,爱探索
+IHOT爱旅行,爱旅行
+IHOT爱时尚,爱时尚
+IHOT爱江湖,爱江湖
+IHOT爱浪漫,爱浪漫
+IHOT爱猎奇,爱猎奇
+IHOT爱玩具,爱玩具
+IHOT爱电竞,爱电竞
+IHOT爱科学,爱科学
+IHOT爱科幻,爱科幻
+IHOT爱经典,爱经典
+IHOT爱美食,爱美食
+IHOT爱解密,爱解密
+IHOT爱谍战,爱谍战
+IHOT爱赛车,爱赛车
+IHOT爱都市,爱都市
+IHOT爱院线,爱院线
+IHOT爱青春,爱青春
+iHOT爱极限,爱极限
+
+# 凤凰卫视系列
+凤凰卫视中文台,凤凰卫视中文,凤凰中文台,凤凰中文台卫视,凤凰中文台卫视FHD,凤凰中文台卫视HD,凤凰中文台卫视超清,凤凰中文台卫视高清,凤凰中文台台,凤凰卫视中文台FHD,凤凰卫视中文台HD,凤凰卫视中文台超清,凤凰卫视中文台高清,凤凰中文
+凤凰卫视资讯台,凤凰卫视资讯,凤凰卫视资讯台FHD,凤凰卫视资讯台HD,凤凰卫视资讯台超清,凤凰卫视资讯台高清,凤凰资讯台,凤凰资讯台卫视,凤凰资讯台卫视FHD,凤凰资讯台卫视HD,凤凰资讯台卫视超清,凤凰资讯台卫视高清,凤凰资讯台台,凤凰资讯
+凤凰卫视电影台,凤凰卫视电影,凤凰卫视电影台FHD,凤凰卫视电影台HD,凤凰卫视电影台超清,凤凰卫视电影台高清,凤凰电影台,凤凰电影台卫视,凤凰电影台卫视FHD,凤凰电影台卫视HD,凤凰电影台卫视超清,凤凰电影台卫视高清,凤凰电影台台,凤凰电影
+凤凰卫视香港台,凤凰卫视香港,凤凰卫视香港台FHD,凤凰卫视香港台HD,凤凰卫视香港台超清,凤凰卫视香港台高清,凤凰香港台,凤凰香港台卫视,凤凰香港台卫视FHD,凤凰香港台卫视HD,凤凰香港台卫视超清,凤凰香港台卫视高清,凤凰香港台台,香港卫视
+
+# TVB系列
+TVB1,TVB1台,翡翠第一台TVB1
+TVBE,TVBE台
+TVBJ1,TVBJ1台,TVBJ1台,J1
+TVBJ1,TVBJ2台,TVBJ2台,J2
+TVB亚洲剧台,TVB亞洲劇台,TVB亚洲剧,TVB亞洲劇,TVB Asia
+TVB功夫台,TVB功夫台,TVB功夫,TVB功夫
+TVB生活台,TVB生活台,TVB生活,TVB生活
+TVB翡翠台,TVB翡翠台,TVB翡翠,TVB翡翠
+TVB明珠台,TVB明珠台,TVB明珠,TVB明珠
+TVB星河台,TVB星河台,TVB星河,TVB星河
+TVB武术台,TVB武術台,TVB武术,TVB武術
+TVB经典台,TVB經典台,TVB经典,TVB經典,tvb经典台
+TVB华语剧台,TVB華語剧台,TVB华语剧,TVB華語剧
+TVB千禧经典台,TVB千禧經典台,TVB千禧经典,TVB千禧經典
+TVB娱乐新闻台,TVB娛樂新聞台,TVB娱乐新闻,TVB娛樂新聞
+TVB无线新闻台,TVB無線新聞台,TVB无线新闻,TVB無線新聞,无线新闻台,無綫新聞台,無線新聞台,无线新闻
+TVB无线财经台,TVB無線財經台,TVB无线财经,TVB無線財經,tvb无线财经,TVB财经台
+TVB财经体育资讯台,TVB財經體育資訊台,TVB财经体育资讯,TVB財經體育資訊,tvb财经体育资讯台
+
+TVB新闻台,TVB新聞台,TVB新闻,TVB新聞
+TVB音乐台,TVB音樂台,TVB音乐,TVB音樂
+TVB体育台,TVB體育台,TVB体育,TVB體育
+TVB儿童台,TVB兒童台,TVB儿童,TVB兒童
+TVB港剧台,TVB港劇台,TVB港剧,TVB港劇
+TVB华丽台,TVB華麗台,TVB华丽,TVB華麗
+TVB娱乐台,TVB娛樂台,TVB娱乐,TVB娛樂
+TVB戏曲台,TVB戲曲台,TVB戏曲,TVB戲曲
+TVB财经体育资讯,TVB財經體育資訊
+
+# TVBS系列
+TVBS,TVBS台
+TVBS亚洲台,TVBS亞洲台,TVBS亚洲,TVBS亞洲,TVBS Asia
+TVBS新闻台,TVBS新聞台,TVBS新闻,TVBS新聞
+TVBS欢乐台,TVBS歡樂台,TVBS欢乐,TVBS歡樂
+TVBS精采台,TVBS精采台,TVBS精采,TVBS精采,TVBS精彩
+TVBS综艺台,TVBS綜藝台,TVBS综艺,TVBS綜藝
+TVBS娱乐台,TVBS娛樂台,TVBS娱乐,TVBS娛樂
+
+# 东森购物
+东森购物1,东森购壹,东森购物一台
+东森购物2,东森购贰,东森购物二台
+东森购物3,东森购叁,东森购物三台
+东森购物4,东森购肆,东森购物四台
+东森购物5,东森购五,东森购物五台
+
+# 1905电影系列
+1905电影,1905影院,1905电影网,1905电影网1,1905电影网A,M1905,1905国内电影,1905电影网（国内）
+1905电影网,1905影院2,1905电影网2,1905,1905极限反转,M1905电影网
+
+GOODTV,GOOD TV,好信息,好信息1,01综合
+GOODTV2,GOOD TV2,好信息2,好信息02,02真理
+
+# 综艺娱乐系列
+爆笑综艺,爆笑综艺频道
+智勇闯关,智勇闯关节目
+
+
+# 纪实科教系列
+纪实科教,BRTV 纪实科教,北京纪实科教,北京纪实科教8K,纪实,纪实科教8K,纪实科教频道
+纪实档案,纪实档案频道
+金牌调解,金牌调解节目
+第三调解室,第三调解节目
+中国通史,中国历史通史
+世界历史,世界通史,历史
+传奇故事,传奇轶事
+经典传奇,经典轶事
+
+# 健康养生系列
+健康大问诊,健康问诊节目
+健康养生,养生节目
+养生堂,北京养生堂
+
+# 体育系列
+精品体育,精品体育台
+
+# 其他国内频道
+GOOD TV,Good TV中文台
+GOOD TV2,Good TV二台
+KTSF26,KTSF26台
+生命电视台,生命卫视,生命电视
+东森美洲台,东森,东森新闻,东森新闻台,东森综合,东森综合台,东森美洲2,东森美洲卫视,东森美洲戏剧,东森美洲新闻台
+美国城市卫视,美国城市,美国城市卫视FHD,美国城市卫视HD,美国城市卫视超清,美国城市卫视高清,美国城市台,美国城市电视台
+中旺电视台,中旺卫视,中旺电视
+汉天卫视,汉天,汉天卫视FHD,汉天卫视HD,汉天卫视超清,汉天卫视高清,汉天台,汉天电视台
+
+
+RTHK31,港台电视 31,港台電視 31,RTHK 31,RTHK-31
+RTHK32,港台电视 32,港台電視 32,RTHK 32,RTHK-32
+RTHK35,RTHK 35,RTHK-35
+RTHK36,港台电视 36,港台電視 36,RTHK 36,RTHK-36
+
+
+BesTV电竞天堂,电竞天堂
+BesTV宝宝动画,宝宝动画
+
+嘉佳卡通,广东嘉佳卡通
+金鹰卡通,湖南金鹰卡通
+优漫卡通,江苏优漫卡通
+
+# 电影频道
+
+AMC电影,amc电影,AMC,AMC Movies,AMC影院,AMC电影台,AMC电影频道,AMC Movie Channel
+东森洋片,东森洋片台,东森洋片频道
+东森电影,东森电影台,东森电影频道
+天映经典,天映经典电影,天映经典频道
+纬来电影,纬来电影台,纬来电影频道
+美亚电影,美亚电影台,美亚电影频道
+靖天电影,靖天电影台,靖天电影频道
+龙华电影,龙华电影台,龙华电影频道
+
+# 其他分类
+
+Thrill,Thrill Channel,惊悚频道,刺激频道
+hbo,HBO,HBO频道,HBO电影台,HBO亚洲,HBO Signature,HBO Family,HBO Hits
+Discovery,Discovery探索频道,Discovery Channel,Discovery Asia,Discovery科学
+
+
+# 北京频道
+哈哈炫动,哈哈炫动频道,炫动卡通,上海哈哈炫动
+
+
+# 上海频道
+上海新闻综合,上海新闻
+上海第一财经,第一财经
+
+# 天津频道
+天津新闻综合,天津综合
+
+# 重庆频道
+江津新闻综合,江津新闻,江津综合
+
+# 广东频道
+广东体育,广东体育频道
+广东新闻,广东新闻频道
+广东民生,广东民生频道
+广东珠江,广东珠江频道
+广州新闻,广东广州综合
+
+# 江苏频道
+南京新闻综合,南京新闻,南京综合
+
+# 浙江频道
+浙江钱江都市,钱江都市

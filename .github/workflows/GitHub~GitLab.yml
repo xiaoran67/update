@@ -1,0 +1,630 @@
+name: '🔄 GitHub ⇄ GitLab'
+# Cross Repository Multi-Platform Sync
+# 跨仓库多平台同步（增量+覆盖）🔄🔁🔀♻️⚡🚀🌐🔧✅
+on:
+  # ==================== 定时触发 ====================
+  schedule:
+    # 使用 cron 语法配置定时任务
+    # 格式：分 时 日 月 星期
+    - cron: '30 0 * * *'    # 每天 00:30 UTC（北京时间 08:30）
+    #- cron: '0 12 * * *'   # 每天 12:00 UTC（北京时间 20:00）
+    #- cron: '*/30 * * * *' # 每30分钟执行一次（测试用）
+  workflow_dispatch:
+    inputs:
+      # ==================== 源仓库配置 ====================
+      source_repo:
+        description: '源仓库（格式：用户名/仓库名@分支）'
+        required: true
+        default: 'xiaoran67/core@main'
+        type: string
+      
+      source_folder:
+        description: '源文件夹路径（多级目录用/分隔，留空=根目录）'
+        required: false
+        default: ''
+        type: string
+      
+      source_token:
+        description: '源仓库Token的Secret名称'
+        required: true
+        default: 'XIAORAN67_GITHUB_TOKEN'
+        type: string
+
+      # ==================== 目标仓库配置 ====================
+      target_repo:
+        description: '目标仓库（格式：用户名/仓库名@分支）'
+        required: true
+        default: 'xiaoran67/core@main'
+        type: string
+      
+      target_folder:
+        description: '目标文件夹路径（多级目录用/分隔，留空=根目录）'
+        required: false
+        default: ''
+        type: string
+      
+      target_token:
+        description: '目标仓库Token的Secret名称'
+        required: true
+        default: 'XIAORAN67_GITLAB_TOKEN'
+        type: string
+      
+      target_platform:
+        description: '目标仓库平台'
+        required: true
+        type: choice
+        options:
+          - 'github'
+          - 'gitlab'
+          - 'gitee'
+          - 'gitcode'
+        default: 'gitlab'
+
+      # ==================== 同步策略 ====================
+      sync_mode:
+        description: '同步模式'
+        required: true
+        type: choice
+        options:
+          - '增量'
+          - '覆盖'
+        default: '覆盖'
+      
+      commit_message:
+        description: '提交信息（可用变量：{time} {date} {source} {target}）'
+        required: false
+        default: '🔄 {date} {time}'
+        type: string
+
+# 全局环境变量
+env:
+  GITHUB_INSTANCE: 'https://github.com'
+  GITLAB_INSTANCE: 'https://gitlab.com'
+  GITEE_INSTANCE: 'https://gitee.com'
+  GITCODE_INSTANCE: 'https://gitcode.com'
+  # 默认配置（用于定时触发）
+  DEFAULT_SOURCE_REPO: 'xiaoran67/core@main'
+  DEFAULT_SOURCE_FOLDER: ''
+  DEFAULT_SOURCE_TOKEN: 'XIAORAN67_GITHUB_TOKEN'
+  DEFAULT_TARGET_REPO: 'xiaoran67/core@main'
+  DEFAULT_TARGET_FOLDER: ''
+  DEFAULT_TARGET_TOKEN: 'XIAORAN67_GITLAB_TOKEN'
+  DEFAULT_TARGET_PLATFORM: 'gitlab'
+  DEFAULT_SYNC_MODE: '覆盖'
+  DEFAULT_COMMIT_MSG: '{date} {time}'
+
+jobs:
+  folder-sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. 确定触发类型并设置参数 - 修正输出问题
+      - name: 🎯 设置运行参数
+        id: set_parameters
+        run: |
+          echo "=== 设置运行参数 ==="
+          
+          # 确定触发类型
+          if [[ "${{ github.event_name }}" == "schedule" ]]; then
+            echo "⏰ 定时触发模式"
+            TRIGGER_TYPE="schedule"
+            
+            # 定时触发使用默认配置
+            SOURCE_REPO="${{ env.DEFAULT_SOURCE_REPO }}"
+            SOURCE_FOLDER="${{ env.DEFAULT_SOURCE_FOLDER }}"
+            SOURCE_TOKEN="${{ env.DEFAULT_SOURCE_TOKEN }}"
+            TARGET_REPO="${{ env.DEFAULT_TARGET_REPO }}"
+            TARGET_FOLDER="${{ env.DEFAULT_TARGET_FOLDER }}"
+            TARGET_TOKEN="${{ env.DEFAULT_TARGET_TOKEN }}"
+            TARGET_PLATFORM="${{ env.DEFAULT_TARGET_PLATFORM }}"
+            SYNC_MODE="${{ env.DEFAULT_SYNC_MODE }}"
+            COMMIT_MSG="${{ env.DEFAULT_COMMIT_MSG }}"
+          else
+            echo "🖱️ 手动触发模式"
+            TRIGGER_TYPE="manual"
+            
+            # 手动触发使用输入参数
+            SOURCE_REPO="${{ github.event.inputs.source_repo }}"
+            SOURCE_FOLDER="${{ github.event.inputs.source_folder }}"
+            SOURCE_TOKEN="${{ github.event.inputs.source_token }}"
+            TARGET_REPO="${{ github.event.inputs.target_repo }}"
+            TARGET_FOLDER="${{ github.event.inputs.target_folder }}"
+            TARGET_TOKEN="${{ github.event.inputs.target_token }}"
+            TARGET_PLATFORM="${{ github.event.inputs.target_platform }}"
+            SYNC_MODE="${{ github.event.inputs.sync_mode }}"
+            COMMIT_MSG="${{ github.event.inputs.commit_message }}"
+          fi
+          
+          echo "trigger_type=$TRIGGER_TYPE" >> $GITHUB_OUTPUT
+          echo "trigger_type=$TRIGGER_TYPE" >> $GITHUB_ENV  # 同时设置到环境变量中
+          
+          echo "源仓库输入值: $SOURCE_REPO"
+          echo "目标仓库输入值: $TARGET_REPO"
+          
+          # 使用更可靠的解析方法
+          # 解析源仓库：用户名/仓库名@分支
+          if [[ "$SOURCE_REPO" == *"@"* ]]; then
+            SOURCE_USER_REPO="${SOURCE_REPO%@*}"
+            SOURCE_BRANCH="${SOURCE_REPO#*@}"
+          else
+            SOURCE_USER_REPO="$SOURCE_REPO"
+            SOURCE_BRANCH="main"
+          fi
+          
+          if [[ "$SOURCE_USER_REPO" == *"/"* ]]; then
+            SOURCE_USER="${SOURCE_USER_REPO%/*}"
+            SOURCE_REPO_NAME="${SOURCE_USER_REPO#*/}"
+          else
+            SOURCE_USER="$SOURCE_USER_REPO"
+            SOURCE_REPO_NAME="$SOURCE_USER_REPO"
+          fi
+          
+          echo "source_user=$SOURCE_USER" >> $GITHUB_ENV
+          echo "source_repo=$SOURCE_REPO_NAME" >> $GITHUB_ENV
+          echo "source_branch=$SOURCE_BRANCH" >> $GITHUB_ENV
+          
+          # 清理并设置源文件夹路径
+          SOURCE_FOLDER=$(echo "$SOURCE_FOLDER" | xargs)
+          if [ -z "$SOURCE_FOLDER" ] || [ "$SOURCE_FOLDER" = "." ] || [ "$SOURCE_FOLDER" = "./" ]; then
+            echo "source_folder=" >> $GITHUB_ENV
+          else
+            # 移除开头和结尾的斜杠
+            SOURCE_FOLDER=$(echo "$SOURCE_FOLDER" | sed 's|^/*||' | sed 's|/*$||')
+            echo "source_folder=$SOURCE_FOLDER" >> $GITHUB_ENV
+          fi
+          
+          echo "source_token=$SOURCE_TOKEN" >> $GITHUB_ENV
+          
+          # 解析目标仓库：用户名/仓库名@分支
+          if [[ "$TARGET_REPO" == *"@"* ]]; then
+            TARGET_USER_REPO="${TARGET_REPO%@*}"
+            TARGET_BRANCH="${TARGET_REPO#*@}"
+          else
+            TARGET_USER_REPO="$TARGET_REPO"
+            TARGET_BRANCH="main"
+          fi
+          
+          if [[ "$TARGET_USER_REPO" == *"/"* ]]; then
+            TARGET_USER="${TARGET_USER_REPO%/*}"
+            TARGET_REPO_NAME="${TARGET_USER_REPO#*/}"
+          else
+            TARGET_USER="$TARGET_USER_REPO"
+            TARGET_REPO_NAME="$TARGET_USER_REPO"
+          fi
+          
+          echo "target_user=$TARGET_USER" >> $GITHUB_ENV
+          echo "target_repo=$TARGET_REPO_NAME" >> $GITHUB_ENV
+          echo "target_branch=$TARGET_BRANCH" >> $GITHUB_ENV
+          
+          # 清理并设置目标文件夹路径
+          TARGET_FOLDER=$(echo "$TARGET_FOLDER" | xargs)
+          if [ -z "$TARGET_FOLDER" ] || [ "$TARGET_FOLDER" = "." ] || [ "$TARGET_FOLDER" = "./" ]; then
+            echo "target_folder=" >> $GITHUB_ENV
+          else
+            # 移除开头和结尾的斜杠
+            TARGET_FOLDER=$(echo "$TARGET_FOLDER" | sed 's|^/*||' | sed 's|/*$||')
+            echo "target_folder=$TARGET_FOLDER" >> $GITHUB_ENV
+          fi
+          
+          echo "target_token=$TARGET_TOKEN" >> $GITHUB_ENV
+          echo "target_platform=$TARGET_PLATFORM" >> $GITHUB_ENV
+          echo "sync_mode=$SYNC_MODE" >> $GITHUB_ENV
+          echo "commit_message=$COMMIT_MSG" >> $GITHUB_ENV
+          
+          # 输出配置信息用于调试
+          echo "=== 解析结果 ==="
+          echo "✅ 参数设置完成"
+          echo "触发类型: $TRIGGER_TYPE"
+          echo "源仓库: $SOURCE_USER/$SOURCE_REPO_NAME@$SOURCE_BRANCH"
+          echo "源文件夹: $(if [ -z "$SOURCE_FOLDER" ]; then echo '根目录'; else echo "$SOURCE_FOLDER"; fi)"
+          echo "目标仓库: $TARGET_USER/$TARGET_REPO_NAME@$TARGET_BRANCH"
+          echo "目标文件夹: $(if [ -z "$TARGET_FOLDER" ]; then echo '根目录'; else echo "$TARGET_FOLDER"; fi)"
+          echo "目标平台: $TARGET_PLATFORM"
+          echo "同步模式: $SYNC_MODE"
+
+      # 2. 校验Token
+      - name: 🔑 校验Token有效性
+        run: |
+          echo "=== Token校验 ==="
+          
+          # 检查源仓库Token
+          SOURCE_TOKEN="${{ env.source_token }}"
+          if [ -z "${{ secrets[env.source_token] }}" ]; then
+            echo "❌ 源仓库Token '$SOURCE_TOKEN' 不存在"
+            exit 1
+          fi
+          echo "✅ 源仓库Token '$SOURCE_TOKEN' 有效"
+          
+          # 检查目标仓库Token
+          TARGET_TOKEN="${{ env.target_token }}"
+          if [ -z "${{ secrets[env.target_token] }}" ]; then
+            echo "❌ 目标仓库Token '$TARGET_TOKEN' 不存在"
+            echo "💡 请在仓库Settings → Secrets → Actions中创建"
+            exit 1
+          fi
+          echo "✅ 目标仓库Token '$TARGET_TOKEN' 有效"
+          
+          # 根据平台设置环境变量
+          PLATFORM="${{ env.target_platform }}"
+          case "$PLATFORM" in
+            "github")
+              echo "platform_instance=${{ env.GITHUB_INSTANCE }}" >> $GITHUB_ENV
+              echo "platform_api_url=https://api.github.com" >> $GITHUB_ENV
+              ;;
+            "gitlab")
+              echo "platform_instance=${{ env.GITLAB_INSTANCE }}" >> $GITHUB_ENV
+              echo "platform_api_url=${{ env.GITLAB_INSTANCE }}/api/v4" >> $GITHUB_ENV
+              ;;
+            "gitee")
+              echo "platform_instance=${{ env.GITEE_INSTANCE }}" >> $GITHUB_ENV
+              echo "platform_api_url=https://gitee.com/api/v5" >> $GITHUB_ENV
+              ;;
+            "gitcode")
+              echo "platform_instance=${{ env.GITCODE_INSTANCE }}" >> $GITHUB_ENV
+              echo "platform_api_url=${{ env.GITCODE_INSTANCE }}/api/v5" >> $GITHUB_ENV
+              ;;
+          esac
+
+      # 3. 安装必要工具
+      - name: 🛠️ 安装同步工具
+        run: |
+          echo "=== 安装工具 ==="
+          sudo apt-get update
+          sudo apt-get install -y rsync tree jq curl git
+          echo "✅ 工具安装完成"
+
+      # 4. 检出源仓库
+      - name: 📥 检出源仓库
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.source_user }}/${{ env.source_repo }}
+          ref: ${{ env.source_branch }}
+          path: source_repo
+          token: ${{ secrets[env.source_token] }}
+          fetch-depth: 0
+          clean: true
+
+      # 5. 构建目标仓库URL
+      - name: 🌐 构建目标仓库URL
+        id: build_target_url
+        run: |
+          echo "=== 构建目标仓库URL ==="
+          TARGET_TOKEN="${{ secrets[env.target_token] }}"
+          TARGET_PLATFORM="${{ env.target_platform }}"
+          
+          case "$TARGET_PLATFORM" in
+            "github")
+              TARGET_URL="https://${TARGET_TOKEN}@github.com/${{ env.target_user }}/${{ env.target_repo }}.git"
+              echo "GitHub URL: $TARGET_URL"
+              echo "target_url=$TARGET_URL" >> $GITHUB_OUTPUT
+              ;;
+            "gitlab")
+              TARGET_URL="https://oauth2:${TARGET_TOKEN}@gitlab.com/${{ env.target_user }}/${{ env.target_repo }}.git"
+              ALT_URL="https://gitlab-ci-token:${TARGET_TOKEN}@gitlab.com/${{ env.target_user }}/${{ env.target_repo }}.git"
+              echo "GitLab URL: $TARGET_URL"
+              echo "target_url=$TARGET_URL" >> $GITHUB_OUTPUT
+              echo "alt_url=$ALT_URL" >> $GITHUB_OUTPUT
+              ;;
+            "gitee")
+              TARGET_URL="https://oauth2:${TARGET_TOKEN}@gitee.com/${{ env.target_user }}/${{ env.target_repo }}.git"
+              ALT_URL="https://${{ env.target_user }}:${TARGET_TOKEN}@gitee.com/${{ env.target_user }}/${{ env.target_repo }}.git"
+              echo "Gitee URL: $TARGET_URL"
+              echo "target_url=$TARGET_URL" >> $GITHUB_OUTPUT
+              echo "alt_url=$ALT_URL" >> $GITHUB_OUTPUT
+              ;;
+            "gitcode")
+              TARGET_URL="https://oauth2:${TARGET_TOKEN}@gitcode.com/${{ env.target_user }}/${{ env.target_repo }}.git"
+              ALT_URL="https://${{ env.target_user }}:${TARGET_TOKEN}@gitcode.com/${{ env.target_user }}/${{ env.target_repo }}.git"
+              echo "GitCode URL: $TARGET_URL"
+              echo "target_url=$TARGET_URL" >> $GITHUB_OUTPUT
+              echo "alt_url=$ALT_URL" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      # 6. 克隆目标仓库
+      - name: 📦 克隆目标仓库
+        run: |
+          echo "=== 克隆目标仓库 ==="
+          
+          set +e  # 允许命令失败
+          
+          # 尝试第一个URL
+          echo "尝试URL 1: ${{ steps.build_target_url.outputs.target_url }}"
+          git clone --branch ${{ env.target_branch }} --depth=1 \
+            "${{ steps.build_target_url.outputs.target_url }}" \
+            target_repo 2>&1 | tee clone.log
+          CLONE_STATUS=$?
+          
+          # 如果失败且有备用URL，尝试第二个
+          if [ $CLONE_STATUS -ne 0 ] && [ -n "${{ steps.build_target_url.outputs.alt_url }}" ]; then
+            echo "URL 1 失败，尝试备用URL: ${{ steps.build_target_url.outputs.alt_url }}"
+            rm -rf target_repo
+            git clone --branch ${{ env.target_branch }} --depth=1 \
+              "${{ steps.build_target_url.outputs.alt_url }}" \
+              target_repo 2>&1 | tee clone2.log
+            CLONE_STATUS=$?
+          fi
+          
+          set -e
+          
+          # 如果克隆失败，尝试初始化新仓库
+          if [ $CLONE_STATUS -ne 0 ]; then
+            echo "⚠️ 仓库克隆失败，尝试初始化..."
+            cat clone.log 2>/dev/null || true
+            
+            rm -rf target_repo
+            mkdir -p target_repo
+            cd target_repo
+            git init
+            git remote add origin "${{ steps.build_target_url.outputs.target_url }}"
+            git checkout -b ${{ env.target_branch }} || git checkout -b main
+            cd ..
+            echo "✅ 仓库初始化完成"
+          else
+            echo "✅ 仓库克隆成功"
+          fi
+          
+          # 确保目标目录存在
+          if [ -n "${{ env.target_folder }}" ]; then
+            mkdir -p "target_repo/${{ env.target_folder }}"
+          fi
+
+      # 7. 执行文件同步 - 修正路径显示
+      - name: 🔄 执行文件同步
+        run: |
+          echo "=== 执行文件同步 ==="
+          
+          # 构建源路径
+          if [ -z "${{ env.source_folder }}" ]; then
+            SOURCE_PATH="source_repo"
+            DISPLAY_SOURCE="source_repo"
+          else
+            SOURCE_PATH="source_repo/${{ env.source_folder }}"
+            DISPLAY_SOURCE="source_repo/${{ env.source_folder }}"
+          fi
+          
+          # 构建目标路径
+          if [ -z "${{ env.target_folder }}" ]; then
+            TARGET_PATH="target_repo"
+            DISPLAY_TARGET="target_repo"
+          else
+            TARGET_PATH="target_repo/${{ env.target_folder }}"
+            DISPLAY_TARGET="target_repo/${{ env.target_folder }}"
+          fi
+          
+          echo "源路径: $DISPLAY_SOURCE"
+          echo "目标路径: $DISPLAY_TARGET"
+          echo "实际同步: $SOURCE_PATH/ → $TARGET_PATH/"
+          
+          # 检查源路径是否存在
+          if [ ! -e "$SOURCE_PATH" ]; then
+            echo "❌ 源路径不存在"
+            echo "当前源仓库结构:"
+            tree -a source_repo/ 2>/dev/null || ls -la source_repo/
+            exit 1
+          fi
+          
+          # 确保目标路径存在
+          mkdir -p "$TARGET_PATH"
+          
+          # 执行同步
+          if [ "${{ env.sync_mode }}" = "增量" ]; then
+            echo "🔄 增量同步模式"
+            rsync -av --times \
+              --exclude=".git/" \
+              "$SOURCE_PATH/" "$TARGET_PATH/"
+          else
+            echo "🔄 覆盖同步模式"
+            rsync -av --delete \
+              --exclude=".git/" \
+              "$SOURCE_PATH/" "$TARGET_PATH/"
+          fi
+          
+          echo "✅ 文件同步完成"
+
+      # 8. 检查文件变化
+      - name: 🔍 检查文件变化
+        id: check_changes
+        run: |
+          echo "=== 检查文件变化 ==="
+          cd target_repo
+          
+          # 配置Git用户
+          git config user.name "Sync Bot"
+          git config user.email "sync-bot@noreply.github.com"
+          
+          # 检查变化
+          CHANGES=$(git status --porcelain)
+          if [ -n "$CHANGES" ]; then
+            echo "🔄 检测到文件变化:"
+            echo "$CHANGES"
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ 无文件变化"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          fi
+
+      # 9. 提交更改 - 修正trigger_type引用
+      - name: 📝 提交更改
+        if: steps.check_changes.outputs.changes_detected == 'true'
+        run: |
+          echo "=== 提交更改 ==="
+          cd target_repo
+          
+          # 配置Git用户
+          git config user.name "Sync Bot"
+          git config user.email "sync-bot@noreply.github.com"
+          
+          # 生成提交信息
+          CURRENT_TIME=$(date +'%H:%M:%S')
+          CURRENT_DATE=$(date +'%Y-%m-%d')
+          COMMIT_MSG="${{ env.commit_message }}"
+          
+          # 获取触发类型
+          TRIGGER_TYPE="${{ env.trigger_type || steps.set_parameters.outputs.trigger_type }}"
+          
+          # 如果是定时触发，添加定时标识
+          if [[ "$TRIGGER_TYPE" == "schedule" ]]; then
+            COMMIT_MSG="⏰ $COMMIT_MSG"
+          fi
+          
+          COMMIT_MSG="${COMMIT_MSG//\{time\}/$CURRENT_TIME}"
+          COMMIT_MSG="${COMMIT_MSG//\{date\}/$CURRENT_DATE}"
+          COMMIT_MSG="${COMMIT_MSG//\{source\}/${{ env.source_user }}/${{ env.source_repo }}:${{ env.source_branch }}}"
+          COMMIT_MSG="${COMMIT_MSG//\{target\}/${{ env.target_user }}/${{ env.target_repo }}:${{ env.target_branch }}}"
+          
+          echo "提交信息: $COMMIT_MSG"
+          
+          # 提交更改
+          git add -A
+          git commit -m "$COMMIT_MSG"
+          echo "✅ 提交完成"
+
+      # 10. 推送更改
+      - name: 🚀 推送更改
+        if: steps.check_changes.outputs.changes_detected == 'true'
+        run: |
+          echo "=== 推送到目标仓库 ==="
+          cd target_repo
+          
+          # 根据同步模式决定是否强制推送
+          if [ "${{ env.sync_mode }}" = "覆盖" ]; then
+            echo "🔄 覆盖模式，使用强制推送"
+            PUSH_FLAG="--force"
+          else
+            echo "🔄 增量模式，使用普通推送"
+            PUSH_FLAG=""
+          fi
+          
+          # 尝试多个URL推送（如果提供了备用URL）
+          set +e
+          
+          echo "尝试推送URL 1: ${{ steps.build_target_url.outputs.target_url }}"
+          git push "${{ steps.build_target_url.outputs.target_url }}" HEAD:${{ env.target_branch }} $PUSH_FLAG
+          PUSH_STATUS=$?
+          
+          if [ $PUSH_STATUS -ne 0 ] && [ -n "${{ steps.build_target_url.outputs.alt_url }}" ]; then
+            echo "URL 1 推送失败，尝试备用URL"
+            git push "${{ steps.build_target_url.outputs.alt_url }}" HEAD:${{ env.target_branch }} $PUSH_FLAG
+            PUSH_STATUS=$?
+          fi
+          
+          set -e
+          
+          if [ $PUSH_STATUS -eq 0 ]; then
+            echo "✅ 推送完成"
+          else
+            echo "❌ 推送失败"
+            exit 1
+          fi
+
+      # 11. 生成同步报告 - 修正trigger_type引用
+      - name: 📊 生成同步报告
+        run: |
+          echo "=== 🔄 同步报告 ==="
+          echo ""
+          
+          # 获取触发类型
+          TRIGGER_TYPE="${{ env.trigger_type || steps.set_parameters.outputs.trigger_type }}"
+          
+          # 触发类型标识
+          if [[ "$TRIGGER_TYPE" == "schedule" ]]; then
+            echo "⏰ 定时同步任务"
+          else
+            echo "🖱️ 手动触发任务"
+            echo "触发者: ${{ github.actor }}"
+          fi
+          echo ""
+          
+          # 平台信息
+          case "${{ env.target_platform }}" in
+            "github")
+              PLATFORM_INFO="GitHub"
+              ;;
+            "gitlab")
+              PLATFORM_INFO="GitLab"
+              ;;
+            "gitee")
+              PLATFORM_INFO="Gitee"
+              ;;
+            "gitcode")
+              PLATFORM_INFO="GitCode"
+              ;;
+          esac
+          
+          if [ "${{ steps.check_changes.outputs.changes_detected }}" = "true" ]; then
+            echo "✅ 同步完成并已推送"
+            echo ""
+            echo "📌 同步模式: ${{ env.sync_mode }}"
+            echo "🔑 使用的Token: ${{ env.target_token }}"
+            echo ""
+            echo "📥 源仓库:"
+            echo "   平台: GitHub"
+            echo "   仓库: ${{ env.source_user }}/${{ env.source_repo }}"
+            echo "   分支: ${{ env.source_branch }}"
+            echo "   目录: ${{ env.source_folder || '根目录' }}"
+            echo ""
+            echo "📤 目标仓库:"
+            echo "   平台: $PLATFORM_INFO"
+            echo "   仓库: ${{ env.target_user }}/${{ env.target_repo }}"
+            echo "   分支: ${{ env.target_branch }}"
+            echo "   目录: ${{ env.target_folder || '根目录' }}"
+          else
+            echo "ℹ️ 同步完成，无文件变化"
+            echo ""
+            echo "源仓库和目标仓库文件已一致"
+          fi
+          
+          echo ""
+          echo "⏰ 完成时间: $(date +'%Y-%m-%d %H:%M:%S')"
+          echo "🔗 工作流运行: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "=========================================="
+
+      # 12. 错误处理 - 修正trigger_type引用
+      - name: 🚨 错误处理
+        if: failure()
+        run: |
+          echo "=== ❌ 同步失败 ==="
+          echo ""
+          echo "🔧 错误信息:"
+          
+          # 获取触发类型
+          TRIGGER_TYPE="${{ env.trigger_type || steps.set_parameters.outputs.trigger_type }}"
+          
+          echo "  触发类型: $TRIGGER_TYPE"
+          echo "  平台: ${{ env.target_platform }}"
+          echo "  Token: ${{ env.target_token }}"
+          echo "  目标仓库: ${{ env.target_user }}/${{ env.target_repo }}"
+          echo ""
+          
+          # 平台特定的错误排查
+          case "${{ env.target_platform }}" in
+            "github")
+              echo "🔍 GitHub问题排查:"
+              echo "  1. 检查Token是否有repo权限"
+              echo "  2. 确认仓库地址正确"
+              echo "  3. 检查分支是否存在"
+              ;;
+            "gitlab")
+              echo "🔍 GitLab问题排查:"
+              echo "  1. 检查Token是否有api和write_repository权限"
+              echo "  2. 确认实例地址正确"
+              echo "  3. 检查网络连通性"
+              ;;
+            "gitee")
+              echo "🔍 Gitee问题排查:"
+              echo "  1. 检查Token是否有推送权限"
+              echo "  2. 确认用户名正确"
+              ;;
+            "gitcode")
+              echo "🔍 GitCode问题排查:"
+              echo "  1. 检查Token是否有推送权限"
+              echo "  2. 确认仓库存在"
+              ;;
+          esac
+          
+          echo ""
+          echo "📋 工作流详情:"
+          echo "  运行ID: ${{ github.run_id }}"
+          echo "  运行号: ${{ github.run_number }}"
+          echo "  仓库: ${{ github.repository }}"

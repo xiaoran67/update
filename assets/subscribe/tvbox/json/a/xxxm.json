@@ -1,0 +1,964 @@
+﻿{
+  "spider": "https://gitee.com/lwlxh/tvhome/raw/master/pg.jar",
+  "warningText": "🚫重要提醒🚫未满1⃣️⑧🚫严🈲打开，接口免费整理采集维护，请勿付费购买",
+  "sites": [{
+    "key": "*乐播资源",
+    "name": "🔞乐播",
+    "type": 1,
+    "api": "https://lbapi9.com/api.php/provide/vod/",
+    "searchable": 1,
+    "quickSearch": 0,
+    "filterable": 0
+  }, {
+    "key": "zp059",
+    "name": "🔞番号",
+    "type": 0,
+    "api": "http://fhapi9.com/api.php/provide/vod/at/xml",
+    "searchable": 1,
+    "quickSearch": 1,
+    "filterable": 0
+  }, {
+    "key": "番号资源",
+    "name": "番号(卡切)",
+    "type": 1,
+    "api": "http://fhapi9.com/api.php/provide/vod/at/json",
+    "searchable": 1,
+    "quickSearch": 1
+  }, {
+    "key": "*番号资源",
+    "name": "🔞番号梯子",
+    "type": 1,
+    "api": "http://fhapi9.com/api.php/provide/vod/",
+    "searchable": 0,
+    "quickSearch": 0,
+    "filterable": 0
+  }, {
+    "key": "🔞色猫资源",
+    "name": "🔞色猫",
+    "type": 0,
+    "api": "https://api.maozyapi.com/inc/api.php",
+    "searchable": 1,
+    "quickSearch": 1,
+    "filterable": 0
+  }, {
+    "key": "zp123",
+    "name": "🔞色猫（慢）",
+    "type": 0,
+    "api": "https://api.maozyapi.com/inc/api.php/provide/vod/at/xml/",
+    "searchable": 1,
+    "quickSearch": 1,
+    "filterable": 0
+  }, {
+    "key": "💞大地资源💞",
+    "name": "🔞大地💞",
+    "type": 0,
+    "api": "https://dadiapi.com/api.php",
+    "searchable": 0,
+    "quickSearch": 0
+  }, {
+    "key": "💞色猫资源💞",
+    "name": "🔞色猫",
+    "type": 1,
+    "api": "https://api.maozyapi.com/inc/apijson_vod.php",
+    "searchable": 0,
+    "quickSearch": 0
+  }, {
+    "key": "*鲨鱼资源",
+    "name": "🔞鲨鱼梯子",
+    "type": 1,
+    "api": "https://shayuapi.com/api.php/provide/vod/",
+    "searchable": 0,
+    "quickSearch": 0,
+    "filterable": 0
+  }, {
+    "key": "*色南国资源",
+    "name": "🔞色南国梯子",
+    "type": 1,
+    "api": "https://api.sexnguon.com/api.php/provide/vod/",
+    "searchable": 0,
+    "quickSearch": 0,
+    "filterable": 0
+  }, {
+    "key": "*AIvin",
+    "name": "🔞AIvin梯子",
+    "type": 0,
+    "api": "http://lbapiby.com/api.php/provide/vod/at/xml",
+    "searchable": 1,
+    "quickSearch": 1,
+    "filterable": 0
+  }, {
+    "key": "*91麻豆",
+    "name": "🔞91麻豆",
+    "type": 1,
+    "api": "https://91md.me/api.php/provide/vod/",
+    "searchable": 0,
+    "quickSearch": 0,
+    "filterable": 0
+  }],
+    "lives": [
+        {
+            "name": "🐉 GH xiaoran29 full",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran29/core/refs/heads/main/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GH xiaoran29 custom",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran29/core/refs/heads/main/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GH xiaoran29 lite",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran29/core/refs/heads/main/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GH xiaoran29 result",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran29/core/refs/heads/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GH xiaoran37 full",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran37/core/refs/heads/main/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GH xiaoran37 custom",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran37/core/refs/heads/main/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GH xiaoran37 lite",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran37/core/refs/heads/main/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GH xiaoran37 result",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran37/core/refs/heads/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GH xiaoran67 full",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GH xiaoran67 custom",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GH xiaoran67 lite",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GH xiaoran67 result",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🌶️ GH xiaoran67 others",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/output/others.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GH xiaoran67 result",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GH xiaoran85 full",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran85/core/refs/heads/main/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GH xiaoran85 custom",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran85/core/refs/heads/main/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GH xiaoran85 lite",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran85/core/refs/heads/main/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GH xiaoran85 result",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran85/core/refs/heads/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GH xiaoran012 full",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran012/core/refs/heads/main/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GH xiaoran012 custom",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran012/core/refs/heads/main/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GH xiaoran012 lite",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran012/core/refs/heads/main/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GH xiaoran012 result",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran012/core/refs/heads/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GH xiaoran077 full",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran077/core/refs/heads/main/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GH xiaoran077 custom",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran077/core/refs/heads/main/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GH xiaoran077 lite",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran077/core/refs/heads/main/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GH xiaoran077 result",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran077/core/refs/heads/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GH xiaoranmuze full",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoranmuze/core/refs/heads/main/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GH xiaoranmuze custom",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoranmuze/core/refs/heads/main/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GH xiaoranmuze lite",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoranmuze/core/refs/heads/main/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GH xiaoranmuze result",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoranmuze/core/refs/heads/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GE xiaoran66 full",
+            "type": 0,
+            "url": "https://gitee.com/xiaoran66/core/raw/master/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GE xiaoran66 custom",
+            "type": 0,
+            "url": "https://gitee.com/xiaoran66/core/raw/master/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GE xiaoran66 lite",
+            "type": 0,
+            "url": "https://gitee.com/xiaoran66/core/raw/master/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GE xiaoran66 result",
+            "type": 0,
+            "url": "https://gitee.com/xiaoran66/core/raw/master/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GE xiaoran67 full",
+            "type": 0,
+            "url": "https://gitee.com/xiaoran67/core/raw/master/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GE xiaoran67 custom",
+            "type": 0,
+            "url": "https://gitee.com/xiaoran67/core/raw/master/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GE xiaoran67 lite",
+            "type": 0,
+            "url": "https://gitee.com/xiaoran67/core/raw/master/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GE xiaoran67 result",
+            "type": 0,
+            "url": "https://gitee.com/xiaoran67/core/raw/master/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GC xiaoran79 full",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.gitcode.com/xiaoran79/core/raw/main/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GC xiaoran79 custom",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.gitcode.com/xiaoran79/core/raw/main/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GC xiaoran79 lite",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.gitcode.com/xiaoran79/core/raw/main/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GC xiaoran79 result",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.gitcode.com/xiaoran79/core/raw/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐉 GL xiaoran67 full",
+            "type": 0,
+            "url": "https://gitlab.com/xiaoran67/core/-/raw/main/output/full.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 GL xiaoran67 custom",
+            "type": 0,
+            "url": "https://gitlab.com/xiaoran67/core/-/raw/main/output/custom.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🦜 GL xiaoran67 lite",
+            "type": 0,
+            "url": "https://gitlab.com/xiaoran67/core/-/raw/main/output/lite.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐢 GL xiaoran67 result",
+            "type": 0,
+            "url": "https://gitlab.com/xiaoran67/core/-/raw/main/output/result.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🌶️ GL xiaoran67 others",
+            "type": 0,
+            "url": "https://gitlab.com/xiaoran67/core/-/raw/main/output/others.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🎵 MTV.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/MTV.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🎶 music.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/music.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "📡 中国综合.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/中国综合.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "📺 全国高清.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/全国高清.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🌍 全球频道.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/全球频道.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "⭐ 卫视频道.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/卫视频道.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🏠 地方频道.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/地方频道.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🇨🇳 央视频道.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/央视频道.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐟 斗鱼直播.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/斗鱼直播.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐯 虎牙直播.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/虎牙直播.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐳 斗鱼.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/xiaoran/live/斗鱼.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🐅 虎牙.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/xiaoran/live/虎牙.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "📺 轮播.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/xiaoran/live/轮播.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🎞️ 电影3万.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/xiaoran/live/电影3万.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🎙️ 解说频道.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/解说频道.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "📼 动·画·片.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/动·画·片.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🎭 历届春晚.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/历届春晚.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🍲 名菜食谱.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/名菜食谱.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🤣 小品点播.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/小品点播.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🎭 戏曲点播.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/戏曲点播.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "📻 收·音·机.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/收·音·机.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🏞️ 景区直播.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/景区直播.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🎬 电影点播.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/电影点播.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🪷 菩提梵音.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/菩提梵音.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "📹 记·录·片.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/记·录·片.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "♟️ 象棋入门.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/favorite/象棋入门.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🚫 blacklist_auto.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/livesource/blacklist/blacklist_auto.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "✅ whitelist_auto_tv.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/livesource/blacklist/whitelist_auto_tv.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "📝 whitelist_manual.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/livesource/blacklist/whitelist_manual.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🍌 banana.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/a/banana.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🍊 orange.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/a/orange.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🍊 orange2.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/a/orange2.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "🍊 orange3.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/a/orange3.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+            "name": "📺 sstv.txt",
+            "type": 0,
+            "url": "https://gh-proxy.com/https://raw.githubusercontent.com/xiaoran67/core/refs/heads/main/assets/subscribe/tvbox/live/a/sstv.txt",
+            "ua": "okhttp/3.15",
+            "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+            "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+        "name": "🍆茄子",
+        "type": 0,
+        "url": "https://freetv.fun/test_channels_original_new.txt",
+        "ua": "okhttp/3.15",
+        "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+        "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+        "name": "🌶️辣椒",
+        "type": 0,
+        "url": "https://live.izbds.com/tv/iptv4.txt",
+        "ua": "okhttp/3.15",
+        "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+        "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+        "name": "🍅番茄",
+        "type": 0,
+        "url": "https://git.acwing.com/bang359/ba/-/raw/main/dsj4.16.txt",
+        "ua": "okhttp/3.15",
+        "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+        "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
+        "name": "🌽玉米",
+        "type": 0,
+        "url": "https://szyyds.cn/tv/live/x.txt",
+        "ua": "okhttp/3.15",
+        "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+        "logo": "https://epg.112114.xyz/logo/{name}.png"
+        }
+        ],
+  "parses": [{
+    "name": "解析聚合",
+    "type": 3,
+    "url": "Demo"
+  }, {
+    "name": "Json并发",
+    "type": 2,
+    "url": "Parallel"
+  }, {
+    "name": "Json轮询",
+    "type": 2,
+    "url": "Sequence"
+  }, {
+    "name": "GGTV自用",
+    "type": 1,
+    "url": "https://play.fuqizhishi.com/jx/API.php?appkey=xiaobai888&url="
+  }, {
+    "name": "GGTV搜集",
+    "type": 1,
+    "url": "https://play.fuqizhishi.com/juhe/API.php?appkey=caijijuhe220902&url="
+  }, {
+    "name": "Fosi嗅探",
+    "type": 0,
+    "url": "https://play.fositv.com/?url="
+  }, {
+    "name": "OKjx嗅探",
+    "type": 0,
+    "url": "https://okjx.cc/?url="
+  }, {
+    "name": "爱酷",
+    "type": 1,
+    "url": "https://jx.zhanlangbu.com/API.php?appkey=53df3aa2fdb66bcbc4d05730b6fbfc71&url="
+  }, {
+    "name": "懒人",
+    "type": 1,
+    "url": "http://120.53.102.254/jx1/jx75.php?url="
+  }, {
+    "name": "江湖",
+    "type": 1,
+    "url": "http://211.99.99.236:4567/jhjson/ceshi.php?url="
+  }, {
+    "name": "B站1",
+    "type": 0,
+    "url": "https://jx.bozrc.com:4433/player/?url="
+  }, {
+    "name": "爱豆",
+    "type": 0,
+    "url": "https://jx.aidouer.net/?url="
+  }, {
+    "name": "云端1",
+    "type": 0,
+    "url": "https://js.52jx.top:2525/?url="
+  }],
+  "flags": ["youku", "qq", "iqiyi", "qiyi", "letv", "sohu", "tudou", "pptv", "mgtv", "wasu", "bilibili", "renrenmi"],
+  "ijk": [{
+    "group": "软解码",
+    "options": [{
+      "category": 4,
+      "name": "opensles",
+      "value": "0"
+    }, {
+      "category": 4,
+      "name": "overlay-format",
+      "value": "842225234"
+    }, {
+      "category": 4,
+      "name": "framedrop",
+      "value": "1"
+    }, {
+      "category": 4,
+      "name": "soundtouch",
+      "value": "1"
+    }, {
+      "category": 4,
+      "name": "start-on-prepared",
+      "value": "1"
+    }, {
+      "category": 1,
+      "name": "http-detect-range-support",
+      "value": "0"
+    }, {
+      "category": 1,
+      "name": "fflags",
+      "value": "fastseek"
+    }, {
+      "category": 2,
+      "name": "skip_loop_filter",
+      "value": "48"
+    }, {
+      "category": 4,
+      "name": "reconnect",
+      "value": "1"
+    }, {
+      "category": 4,
+      "name": "enable-accurate-seek",
+      "value": "0"
+    }, {
+      "category": 4,
+      "name": "mediacodec",
+      "value": "0"
+    }, {
+      "category": 4,
+      "name": "mediacodec-auto-rotate",
+      "value": "0"
+    }, {
+      "category": 4,
+      "name": "mediacodec-handle-resolution-change",
+      "value": "0"
+    }, {
+      "category": 4,
+      "name": "mediacodec-hevc",
+      "value": "0"
+    }, {
+      "category": 1,
+      "name": "dns_cache_timeout",
+      "value": "600000000"
+    }]
+  }, {
+    "group": "硬解码",
+    "options": [{
+      "category": 4,
+      "name": "opensles",
+      "value": "0"
+    }, {
+      "category": 4,
+      "name": "overlay-format",
+      "value": "842225234"
+    }, {
+      "category": 4,
+      "name": "framedrop",
+      "value": "1"
+    }, {
+      "category": 4,
+      "name": "soundtouch",
+      "value": "1"
+    }, {
+      "category": 4,
+      "name": "start-on-prepared",
+      "value": "1"
+    }, {
+      "category": 1,
+      "name": "http-detect-range-support",
+      "value": "0"
+    }, {
+      "category": 1,
+      "name": "fflags",
+      "value": "fastseek"
+    }, {
+      "category": 2,
+      "name": "skip_loop_filter",
+      "value": "48"
+    }, {
+      "category": 4,
+      "name": "reconnect",
+      "value": "1"
+    }, {
+      "category": 4,
+      "name": "enable-accurate-seek",
+      "value": "0"
+    }, {
+      "category": 4,
+      "name": "mediacodec",
+      "value": "1"
+    }, {
+      "category": 4,
+      "name": "mediacodec-auto-rotate",
+      "value": "1"
+    }, {
+      "category": 4,
+      "name": "mediacodec-handle-resolution-change",
+      "value": "1"
+    }, {
+      "category": 4,
+      "name": "mediacodec-hevc",
+      "value": "1"
+    }, {
+      "category": 1,
+      "name": "dns_cache_timeout",
+      "value": "600000000"
+    }]
+  }],
+  "ads": ["mimg.0c1q0l.cn", "www.googletagmanager.com", "www.google-analytics.com", "mc.usihnbcq.cn", "mg.g1mm3d.cn", "mscs.svaeuzh.cn", "cnzz.hhttm.top", "tp.vinuxhome.com", "cnzz.mmstat.com", "www.baihuillq.com", "s23.cnzz.com", "z3.cnzz.com", "c.cnzz.com", "stj.v1vo.top", "z12.cnzz.com", "img.mosflower.cn", "tips.gamevvip.com", "ehwe.yhdtns.com", "xdn.cqqc3.com", "www.jixunkyy.cn", "sp.chemacid.cn", "hm.baidu.com", "s9.cnzz.com", "z6.cnzz.com", "um.cavuc.com", "mav.mavuz.com", "wofwk.aoidf3.com", "z5.cnzz.com", "xc.hubeijieshikj.cn", "tj.tianwenhu.com", "xg.gars57.cn", "k.jinxiuzhilv.com", "cdn.bootcss.com", "ppl.xunzhuo123.com", "xomk.jiangjunmh.top", "img.xunzhuo123.com", "z1.cnzz.com", "s13.cnzz.com", "xg.huataisangao.cn", "z7.cnzz.com", "xg.huataisangao.cn", "z2.cnzz.com", "s96.cnzz.com", "q11.cnzz.com", "thy.dacedsfa.cn", "xg.whsbpw.cn", "s19.cnzz.com", "z8.cnzz.com", "s4.cnzz.com", "f5w.as12df.top", "ae01.alicdn.com", "www.92424.cn", "k.wudejia.com", "vivovip.mmszxc.top", "qiu.xixiqiu.com", "cdnjs.hnfenxun.com", "cms.qdwght.com"],
+  "wallpaper": "https://picsum.photos/1080/",
+  "spider": "https://agit.ai/study520x/x/raw/branch/master/index.jar"
+}

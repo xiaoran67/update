@@ -1,0 +1,99 @@
+name: 🧹 GitHub Actions Logs Cleanup🗑️✨
+on:
+  schedule:
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+    inputs:
+      days_to_keep:
+        description: '保留天数'
+        required: false
+        default: '30'
+      dry_run:
+        description: '仅预览'
+        required: false
+        default: 'false'
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      
+    steps:
+      - name: 🔐 认证
+        run: |
+          echo "${{ secrets.XIAORAN67_GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: 🗑️ 清理所有仓库日志
+        run: |
+          DAYS=${INPUT_DAYS_TO_KEEP:-30}
+          DRY_RUN=${INPUT_DRY_RUN:-true}
+          
+          # 计算截止日期
+          CUTOFF=$(date -d "$DAYS days ago" +%Y-%m-%dT%H:%M:%SZ)
+          
+          echo "清理配置:"
+          echo "- 保留天数: $DAYS"
+          echo "- 截止时间: $CUTOFF"
+          echo "- 预览模式: $DRY_RUN"
+          echo "- 清理范围: 所有仓库"
+          
+          # 获取所有仓库
+          REPOS=$(gh repo list --limit 100 --json nameWithOwner --jq '.[].nameWithOwner')
+          
+          if [ -z "$REPOS" ]; then
+            echo "❌ 无法获取仓库列表"
+            exit 1
+          fi
+          
+          REPO_COUNT=$(echo "$REPOS" | wc -l)
+          echo "📦 共发现 $REPO_COUNT 个仓库"
+          
+          for REPO in $REPOS; do
+            echo ""
+            echo "════════════════════════════"
+            echo "处理仓库: $REPO"
+            echo "════════════════════════════"
+            
+            # 获取该仓库的过期记录
+            RUN_IDS=$(gh api "repos/$REPO/actions/runs" \
+              --paginate \
+              --jq ".workflow_runs[] | select(.created_at < \"$CUTOFF\") | .id" 2>/dev/null || echo "")
+            
+            if [ -z "$RUN_IDS" ]; then
+              echo "✅ 没有过期记录"
+              continue
+            fi
+            
+            COUNT=$(echo "$RUN_IDS" | wc -l)
+            echo "找到 $COUNT 个过期记录"
+            
+            i=0
+            for ID in $RUN_IDS; do
+              i=$((i+1))
+              if [ "$DRY_RUN" = "true" ]; then
+                echo "[$i/$COUNT] 🔍 预览: $ID"
+              else
+                echo -n "[$i/$COUNT] 删除: $ID "
+                gh api -X DELETE "repos/$REPO/actions/runs/$ID" --silent && echo "✅" || echo "❌"
+                sleep 0.3
+              fi
+            done
+            
+            if [ "$DRY_RUN" = "true" ]; then
+              echo "🧪 预览完成"
+            else
+              echo "🎉 清理完成"
+            fi
+          done
+          
+          echo ""
+          echo "=========================="
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "🧪 所有仓库预览完成"
+          else
+            echo "🎉 所有仓库清理完成"
+          fi
+        env:
+          INPUT_DAYS_TO_KEEP: ${{ github.event.inputs.days_to_keep }}
+          INPUT_DRY_RUN: ${{ github.event.inputs.dry_run }}
