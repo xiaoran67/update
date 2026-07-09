@@ -34,16 +34,6 @@ proxies:
     obfs: salamander
     obfs-password: eNM/NfxTsBqQIKcN0ezARS1z0f5mIxRd9GSwhVsyJlo=
     udp: true
-  - name: 🇸🇬_SG_新加坡->🇺🇸_US_美国
-    type: hysteria2
-    server: oracle1.chenlan.top
-    port: 11573
-    password: Unb9YTYVSw
-    sni: oracle1.chenlan.top
-    skip-cert-verify: true
-    alpn:
-      - h3
-    udp: true
   - name: 🇻🇳_VN_越南
     type: hysteria2
     server: vn2.yuntong.click
@@ -54,95 +44,6 @@ proxies:
     obfs: salamander
     obfs-password: eNM/NfxTsBqQIKcN0ezARS1z0f5mIxRd9GSwhVsyJlo=
     udp: true
-  - name: 🇩🇪_DE_德国_1
-    type: vless
-    server: 47.254.156.143
-    port: 443
-    uuid: 3e7f67de-648e-4871-b51a-a225214d41ee
-    servername: api.company-target.com
-    tls: true
-    client-fingerprint: chrome
-    reality-opts:
-      public-key: TRP10HqKUXEQ3O-cfsq93DycfBmbJe9KM36yvSa8Mmw
-    skip-cert-verify: true
-    udp: true
-  - name: 🇸🇬_SG_新加坡
-    type: hysteria2
-    server: 45.88.42.29
-    port: 50117
-    password: 13d29042-ab82-4195-9cd4-2bafc518e201
-    sni: iosapps.itunes.apple.com
-    skip-cert-verify: true
-    udp: true
-  - name: 🇺🇸_US_美国->🇫🇮_FI_芬兰
-    type: vless
-    server: 45.196.182.70
-    port: 443
-    uuid: 701ea834-7c31-4544-95d6-f0a4dfe40b36
-    servername: storage.yandex.net
-    tls: true
-    flow: xtls-rprx-vision
-    client-fingerprint: chrome
-    reality-opts:
-      public-key: KYlgK96xPZJq10GbhF-BaCXRxXc9XzxzfICdooYvMlg
-      short-id: d020b987f84eb78a
-    skip-cert-verify: true
-    udp: true
-  - name: 🇫🇷_FR_法国
-    type: ss
-    server: 35.180.255.4
-    port: 443
-    cipher: aes-256-cfb
-    password: amazonskr05
-    skip-cert-verify: true
-    udp: true
-  - name: 🇺🇸_US_美国
-    type: ss
-    server: 3.147.78.9
-    port: 443
-    cipher: aes-256-cfb
-    password: amazonskr05
-    skip-cert-verify: true
-    udp: true
-  - name: 🇺🇸_US_美国->🇫🇮_FI_芬兰_1
-    type: vless
-    server: 45.196.182.18
-    port: 443
-    uuid: 701ea834-7c31-4544-95d6-f0a4dfe40b36
-    servername: storage.yandex.net
-    tls: true
-    flow: xtls-rprx-vision
-    client-fingerprint: chrome
-    reality-opts:
-      public-key: KYlgK96xPZJq10GbhF-BaCXRxXc9XzxzfICdooYvMlg
-      short-id: d020b987f84eb78a
-    skip-cert-verify: true
-    udp: true
-  - name: 🇭🇰_HK_中国香港
-    type: hysteria2
-    server: 31.77.144.133
-    port: 443
-    password: 837e9ea2-cf0b-46a1-93a8-7e25c3a4066c
-    sni: argg9.auragg.org
-    skip-cert-verify: true
-    alpn:
-      - h3
-    udp: true
-  - name: 🇺🇸_US_美国_1
-    type: vless
-    server: 104.18.37.237
-    port: 8443
-    uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-    network: ws
-    servername: t1s1.rittbo.kdns.fr
-    tls: true
-    client-fingerprint: chrome
-    ws-opts:
-      path: /
-      headers:
-        Host: t1s1.rittbo.kdns.fr
-    skip-cert-verify: true
-    udp: true
 proxy-groups:
   - name: 🚀 节点选择
     type: select
@@ -150,30 +51,12 @@ proxy-groups:
       - ♻️ 自动选择
       - DIRECT
       - 🇩🇪_DE_德国
-      - 🇸🇬_SG_新加坡->🇺🇸_US_美国
       - 🇻🇳_VN_越南
-      - 🇩🇪_DE_德国_1
-      - 🇸🇬_SG_新加坡
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰
-      - 🇫🇷_FR_法国
-      - 🇺🇸_US_美国
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰_1
-      - 🇭🇰_HK_中国香港
-      - 🇺🇸_US_美国_1
   - name: ♻️ 自动选择
     type: url-test
     proxies:
       - 🇩🇪_DE_德国
-      - 🇸🇬_SG_新加坡->🇺🇸_US_美国
       - 🇻🇳_VN_越南
-      - 🇩🇪_DE_德国_1
-      - 🇸🇬_SG_新加坡
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰
-      - 🇫🇷_FR_法国
-      - 🇺🇸_US_美国
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰_1
-      - 🇭🇰_HK_中国香港
-      - 🇺🇸_US_美国_1
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
@@ -184,64 +67,28 @@ proxy-groups:
       - ♻️ 自动选择
       - 🎯 全球直连
       - 🇩🇪_DE_德国
-      - 🇸🇬_SG_新加坡->🇺🇸_US_美国
       - 🇻🇳_VN_越南
-      - 🇩🇪_DE_德国_1
-      - 🇸🇬_SG_新加坡
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰
-      - 🇫🇷_FR_法国
-      - 🇺🇸_US_美国
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰_1
-      - 🇭🇰_HK_中国香港
-      - 🇺🇸_US_美国_1
   - name: 📲 电报信息
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
       - 🇩🇪_DE_德国
-      - 🇸🇬_SG_新加坡->🇺🇸_US_美国
       - 🇻🇳_VN_越南
-      - 🇩🇪_DE_德国_1
-      - 🇸🇬_SG_新加坡
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰
-      - 🇫🇷_FR_法国
-      - 🇺🇸_US_美国
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰_1
-      - 🇭🇰_HK_中国香港
-      - 🇺🇸_US_美国_1
   - name: Ⓜ️ 微软服务
     type: select
     proxies:
       - 🎯 全球直连
       - 🚀 节点选择
       - 🇩🇪_DE_德国
-      - 🇸🇬_SG_新加坡->🇺🇸_US_美国
       - 🇻🇳_VN_越南
-      - 🇩🇪_DE_德国_1
-      - 🇸🇬_SG_新加坡
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰
-      - 🇫🇷_FR_法国
-      - 🇺🇸_US_美国
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰_1
-      - 🇭🇰_HK_中国香港
-      - 🇺🇸_US_美国_1
   - name: 🍎 苹果服务
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
       - 🇩🇪_DE_德国
-      - 🇸🇬_SG_新加坡->🇺🇸_US_美国
       - 🇻🇳_VN_越南
-      - 🇩🇪_DE_德国_1
-      - 🇸🇬_SG_新加坡
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰
-      - 🇫🇷_FR_法国
-      - 🇺🇸_US_美国
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰_1
-      - 🇭🇰_HK_中国香港
-      - 🇺🇸_US_美国_1
   - name: 🎯 全球直连
     type: select
     proxies:
@@ -270,16 +117,7 @@ proxy-groups:
       - 🎯 全球直连
       - ♻️ 自动选择
       - 🇩🇪_DE_德国
-      - 🇸🇬_SG_新加坡->🇺🇸_US_美国
       - 🇻🇳_VN_越南
-      - 🇩🇪_DE_德国_1
-      - 🇸🇬_SG_新加坡
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰
-      - 🇫🇷_FR_法国
-      - 🇺🇸_US_美国
-      - 🇺🇸_US_美国->🇫🇮_FI_芬兰_1
-      - 🇭🇰_HK_中国香港
-      - 🇺🇸_US_美国_1
 rule-providers:
   LocalAreaNetwork:
     type: http
