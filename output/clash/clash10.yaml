@@ -1,27 +1,42 @@
 proxies:
-- {name: 🇺🇸US-157.254.38.210-00, server: oplosgru-c.catcat321.com, port: 20088, type: trojan, password: 41c406e2-12b5-41f2-a329-d0621052d675, sni: hk.catxstar.com, skip-cert-verify: true}
-- {name: 🏁RELAY-162.159.82.246-01, server: 162.159.82.246, port: 443, type: trojan, password: 87961f9d-bee1-4377-826b-e169e7891c4f, sni: yks-dd9.pages.dev, ws-path: "h=%2F%3Fed%3D2048", skip-cert-verify: true}
-- {name: 🇺🇸US-157.254.38.210-02, server: oplosgru-c.catcat321.com, port: 20004, type: trojan, password: ba07a8af-5544-48ac-ab62-3b6c00a44fa6, sni: hk.catxstar.com, skip-cert-verify: true}
-- {name: 🇩🇪DE-63.180.254.10-03, server: 63.180.254.10, port: 443, type: ss, cipher: aes-256-cfb, password: amazonskr05}
-- {name: 🇭🇰HK-42.2.129.5-04, server: v10.hdacd.com, port: 30807, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v10.hdacd.com}}
-- {name: 🇭🇰HK-16.162.21.59-05, server: 2c.fast9988.com, port: 50887, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
-- {name: 🇭🇰HK-43.198.109.39-06, server: 43.198.109.39, port: 11035, type: trojan, password: BxceQaOe, sni: "t.me%2Fripaojiedian", skip-cert-verify: true}
-- {name: 🇭🇰HK-43.198.126.41-07, server: 43.198.126.41, port: 35151, type: trojan, password: BxceQaOe, sni: "t.me%2Fripaojiedian", skip-cert-verify: true}
-- {name: 🇭🇰HK-43.198.126.41-08, server: 43.198.126.41, port: 9408, type: trojan, password: BxceQaOe, sni: "t.me%252Fripaojiedian", skip-cert-verify: true}
-- {name: 🇭🇰HK-18.163.100.58-09, server: 18.163.100.58, port: 18286, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
-- {name: 🇭🇰HK-95.40.107.76-10, server: 95.40.107.76, port: 18617, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
-- {name: 🇭🇰HK-18.163.100.58-11, server: 18.163.100.58, port: 36580, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
-- {name: 🇯🇵JP-57.183.7.187-12, server: 57.183.7.187, port: 32434, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
-- {name: 🇭🇰HK-18.166.178.40-13, server: 18.166.178.40, port: 45744, type: trojan, password: BxceQaOe, sni: "t.me%252Fripaojiedian", skip-cert-verify: true}
-- {name: 🇭🇰HK-95.40.107.76-14, server: 95.40.107.76, port: 39024, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
-- {name: 🇭🇰HK-18.166.178.12-15, server: 18.166.178.12, port: 28051, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
-- {name: 🇭🇰HK-43.198.89.155-16, server: 43.198.89.155, port: 1431, type: trojan, password: BxceQaOe, sni: "t.me%2Fripaojiedian", skip-cert-verify: true}
-- {name: 🇺🇸US-23.95.248.105-17, server: guanwang.awsno.com, port: 443, type: vmess, uuid: 6a89a215-22bf-4bd7-9642-b95b2e09583a, alterId: 0, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: true, ws-headers: {Host: guanwang.awsno.com}}
-- {name: 🇺🇸US-157.254.38.210-18, server: oplosgru-c.catcat321.com, port: 20034, type: trojan, password: 41c406e2-12b5-41f2-a329-d0621052d675, sni: hk.catxstar.com, skip-cert-verify: true}
-- {name: 🇺🇸US-98.89.48.191-19, server: 98.89.48.191, port: 443, type: ss, cipher: aes-256-cfb, password: amazonskr05}
-- {name: 🇨🇳CN-101.43.113.135-20, server: v6.hdacd.com, port: 30806, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v6.hdacd.com}}
-- {name: 🇨🇳CN-129.204.155.215-21, server: v35.hdacd.com, port: 30835, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v35.hdacd.com}}
-- {name: 🇭🇰HK-42.2.129.5-22, server: v10.hdacd.com, port: 30807, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v10.hdacd.com}}
-- {name: 🇨🇳CN-146.56.197.198-23, server: v33.hdacd.com, port: 30833, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v33.hdacd.com}}
-- {name: 🇨🇳CN-122.51.247.27-24, server: v24.hdacd.com, port: 30824, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v24.hdacd.com}}
-- {name: 🇺🇸US-157.254.38.210-25, server: oplosgru-c.catcat321.com, port: 20088, type: trojan, password: 41c406e2-12b5-41f2-a329-d0621052d675, sni: hk.catxstar.com, skip-cert-verify: true}
+- {name: 🏁RELAY-8.6.112.0-00, server: 8.6.112.0, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-104.18.152.175-01, server: 104.18.152.175, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-104.20.48.11-02, server: 104.20.48.11, port: 443, type: trojan, password: chrysanthemum, sni: cmee.ezbiz.dynv6.net, ws-path: "h=%2F", skip-cert-verify: true}
+- {name: 🏁RELAY-104.18.152.219-03, server: 104.18.152.219, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-172.67.221.242-04, server: 172.67.221.242, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🇺🇸US-165.215.250.14-05, server: 165.215.250.14, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-104.18.152.73-06, server: 104.18.152.73, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-104.16.73.213-07, server: 104.16.73.213, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-104.18.152.207-08, server: 104.18.152.207, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-104.18.152.144-09, server: 104.18.152.144, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-104.16.174.72-10, server: 104.16.174.72, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-104.18.152.143-11, server: 104.18.152.143, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🏁RELAY-104.16.174.46-12, server: 104.16.174.46, port: 443, type: trojan, password: humanity, sni: www.ignitelimit.com, ws-path: "h=%2Fassignment", skip-cert-verify: true}
+- {name: 🇩🇪DE-63.180.254.10-13, server: 63.180.254.10, port: 443, type: ss, cipher: aes-256-cfb, password: amazonskr05}
+- {name: 🇭🇰HK-119.236.62.118-14, server: v10.hdacd.com, port: 30807, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v10.hdacd.com}}
+- {name: 🇯🇵JP-57.183.7.187-15, server: 57.183.7.187, port: 39412, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
+- {name: 🇭🇰HK-16.162.190.25-16, server: 16.162.190.25, port: 35151, type: trojan, password: BxceQaOe, sni: "t.me%2Fripaojiedian", skip-cert-verify: true}
+- {name: 🇭🇰HK-18.167.76.203-17, server: 18.167.76.203, port: 35151, type: trojan, password: BxceQaOe, sni: "t.me%2Fripaojiedian", skip-cert-verify: true}
+- {name: 🇭🇰HK-18.167.76.203-18, server: 18.167.76.203, port: 4099, type: trojan, password: BxceQaOe, sni: "t.me%252Fripaojiedian", skip-cert-verify: true}
+- {name: 🇭🇰HK-18.166.178.12-19, server: 18.166.178.12, port: 7630, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
+- {name: 🇭🇰HK-18.166.178.12-20, server: 18.166.178.12, port: 18286, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
+- {name: 🇯🇵JP-57.183.7.187-21, server: 57.183.7.187, port: 45747, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
+- {name: 🇭🇰HK-18.166.178.12-22, server: 18.166.178.12, port: 45744, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
+- {name: 🇭🇰HK-18.163.120.239-23, server: 18.163.120.239, port: 32434, type: trojan, password: BxceQaOe, sni: "t.me%252Fripaojiedian", skip-cert-verify: true}
+- {name: 🇭🇰HK-18.163.100.58-24, server: 18.163.100.58, port: 34039, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
+- {name: 🇭🇰HK-18.163.100.58-25, server: 18.163.100.58, port: 34039, type: trojan, password: 6ec301428255a78a1d826988d86cc87e, sni: www.nintendogames.net, skip-cert-verify: true}
+- {name: 🇭🇰HK-18.167.76.203-26, server: 18.167.76.203, port: 10418, type: trojan, password: BxceQaOe, sni: "t.me%2Fripaojiedian", skip-cert-verify: true}
+- {name: 🇺🇸US-157.254.38.210-27, server: oplosgru-c.catcat321.com, port: 20088, type: trojan, password: 订阅内容解析错误订阅内容解析错误41c406e2-12b5-41f2-a329-d0621052d675, sni: hk.catxstar.com, skip-cert-verify: true}
+- {name: 🇭🇰HK-119.236.62.118-28, server: v10.hdacd.com, port: 30807, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v10.hdacd.com}}
+- {name: 🇨🇳CN-129.211.24.191-29, server: v35.hdacd.com, port: 30835, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v35.hdacd.com}}
+- {name: 🇺🇸US-157.254.38.210-30, server: oplosgru-c.catcat321.com, port: 20004, type: trojan, password: ba07a8af-5544-48ac-ab62-3b6c00a44fa6, sni: hk.catxstar.com, skip-cert-verify: true}
+- {name: 🇺🇸US-157.254.38.210-31, server: Hkdcrtc-e.catcat321.com, port: 20041, type: trojan, password: ba07a8af-5544-48ac-ab62-3b6c00a44fa6, sni: de.catxstar.com, skip-cert-verify: true}
+- {name: 🇨🇳CN-110.40.153.149-32, server: v4.hdacd.com, port: 30804, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v4.hdacd.com}}
+- {name: 🇨🇳CN-146.56.223.15-33, server: v33.hdacd.com, port: 30833, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v33.hdacd.com}}
+- {name: 🇨🇳CN-101.43.52.110-34, server: v24.hdacd.com, port: 30824, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v24.hdacd.com}}
+- {name: 🇺🇸US-23.95.248.105-35, server: guanwang.awsno.com, port: 443, type: vmess, uuid: 6a89a215-22bf-4bd7-9642-b95b2e09583a, alterId: 0, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: true, ws-headers: {Host: guanwang.awsno.com}}
+- {name: 🇨🇳CN-1.14.108.162-36, server: v9.hdacd.com, port: 30809, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v9.hdacd.com}}
+- {name: 🇺🇸US-157.254.38.210-37, server: oplosgru-c.catcat321.com, port: 20034, type: trojan, password: 41c406e2-12b5-41f2-a329-d0621052d675, sni: hk.catxstar.com, skip-cert-verify: true}
+- {name: 🇺🇸US-157.254.38.210-38, server: hkdcrtc-e.catcat321.com, port: 20041, type: trojan, password: ba07a8af-5544-48ac-ab62-3b6c00a44fa6, sni: de.catxstar.com, skip-cert-verify: true}
+- {name: 🇨🇳CN-118.24.143.173-39, server: v6.hdacd.com, port: 30806, type: vmess, uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484, alterId: 2, cipher: auto, skip-cert-verify: true, network: tcp, ws-path: /, tls: false, ws-headers: {Host: v6.hdacd.com}}
+- {name: 🇺🇸US-98.89.48.191-40, server: 98.89.48.191, port: 443, type: ss, cipher: aes-256-cfb, password: amazonskr05}
