@@ -1,0 +1,76 @@
+# -------------------------------------------------------------------
+#  订阅信息及标题
+# 标题: 免费节点【日更精简版】
+# 流量: 999,999 GB (约 976.5 TB)
+# 到期: 2099-12-31
+# -------------------------------------------------------------------
+# subscription-userinfo: upload=0; download=0; total=1073740742656000; expire=4070880000
+# profile-title: "免费节点【日更精简版】"
+
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+ipv6: false
+external-controller: :9090
+
+# DNS 配置：防泄露、防劫持、秒开网页
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - 119.29.29.29
+    - 223.5.5.5
+  fallback:
+    - 8.8.8.8
+    - 8.8.4.4
+    - tls://1.0.0.1:853
+    - tls://dns.google:853
+  # 关键修复订阅更新成功率！
+  nameserver-policy:
+    "www.xrayvip.com": [119.29.29.29, 223.5.5.5]
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+    domain:
+      - www.xrayvip.com
+
+# 2. 代理集合（直连订阅，原版方式）
+proxy-providers:
+  free-nodes: 
+    type: http
+    url: "https://www.xrayvip.com/free.txt"
+    interval: 28800
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+
+# 3. 策略组
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - ⚡ 自动测速
+      - DIRECT
+    use:
+      - free-nodes
+
+  - name: ⚡ 自动测速
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    use:
+      - free-nodes
+
+# 4. 极简规则
+rules:
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🚀 节点选择
