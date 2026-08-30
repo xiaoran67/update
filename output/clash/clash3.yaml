@@ -123,7 +123,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Kowloon_vmess_1012
+  name: Hong Kong_Central_vmess_1012
   port: 30807
   server: v10.hdacd.com
   skip-cert-verify: false
@@ -212,7 +212,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Kowloon_vmess_1025
+  name: Hong Kong_Central_vmess_1025
   network: tcp
   port: '30807'
   server: v10.hdacd.com
@@ -236,22 +236,119 @@ proxies:
   skip-cert-verify: true
   sni: t.me%252Fripaojiedian
   type: trojan
-- alterId: 0
-  cipher: auto
-  name: France_None_vmess_1028
+- cipher: aes-256-cfb
+  name: China_None_ss_1028
+  password: 7eadc6dbe2ae
+  port: '65443'
+  server: 121.46.230.233
+  type: ss
+  udp: true
+- client-fingerprint: chrome
+  name: Seychelles_None_trojan_1029
   network: ws
-  port: 16617
-  server: p4.cnb.linuxlh.xin
+  password: humanity
+  port: '443'
+  server: 45.130.125.160
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko)
+        Chrome/70.0.3538.102 Safari/537.36
+    path: /assignment
+- alterId: 2
+  cipher: auto
+  name: China_Chengdu_vmess_1030
+  network: tcp
+  port: 30829
+  server: v29.hdacd.com
   skip-cert-verify: false
   tls: false
   type: vmess
   udp: true
-  uuid: 6ee2a7ba-cd92-427f-ac4f-2f8d284e316c
+  uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+  xudp: true
+- client-fingerprint: chrome
+  name: None_None_trojan_1031
+  network: ws
+  password: humanity
+  port: '443'
+  server: 104.18.152.207
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
+  udp: true
   ws-opts:
     headers:
-      Host: 5b22547ba5cc9b83a7a9534b4a7cf9ea.mobgslb.tbcache.com
-    path: /
-  xudp: true
+      User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/45.0.2454.85 Safari/537.36
+    path: /assignment
+- alpn:
+  - h3
+  - h2
+  - http/1.1
+  client-fingerprint: chrome
+  name: None_None_trojan_1032
+  network: ws
+  password: humanity
+  port: '443'
+  server: join-telegram-channel-tirexnet.trex.kdns.fr
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Linux; Android 6.0; vivo 1606 Build/MMB29M) AppleWebKit/537.36
+        (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
+    path: /assignment
+- client-fingerprint: chrome
+  name: None_None_trojan_1033
+  network: ws
+  password: humanity
+  port: '443'
+  server: 104.18.152.208
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/61.0.3163.100 Safari/537.36
+    path: /assignment
+- client-fingerprint: chrome
+  name: None_None_trojan_1034
+  network: ws
+  password: humanity
+  port: '443'
+  server: 104.16.174.6
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/66.0.3359.181 Safari/537.36
+    path: /assignment
+- client-fingerprint: chrome
+  name: None_None_trojan_1035
+  network: ws
+  password: humanity
+  port: '443'
+  server: 104.16.174.143
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/533.4
+        (KHTML, like Gecko) Chrome/5.0.375.99 Safari/533.4
+    path: /assignment
 - alterId: 0
   cipher: auto
   name: Unknown_vmess_111
@@ -350,7 +447,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Kowloon_vmess_1112
+  name: Hong Kong_Central_vmess_1112
   port: 30807
   server: v10.hdacd.com
   skip-cert-verify: false
@@ -439,7 +536,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Kowloon_vmess_1125
+  name: Hong Kong_Central_vmess_1125
   network: tcp
   port: '30807'
   server: v10.hdacd.com
@@ -464,50 +561,45 @@ proxies:
   sni: t.me%252Fripaojiedian
   type: trojan
 - cipher: aes-256-cfb
-  name: United Kingdom_London_ss_1128
-  password: amazonskr05
-  port: 443
-  server: 18.171.210.5
-  type: ss
-- cipher: aes-256-cfb
-  name: Ireland_Dublin_ss_1129
-  password: amazonskr05
-  port: 443
-  server: 34.244.150.119
-  type: ss
-  udp: true
-- cipher: aes-256-cfb
-  name: China_None_ss_1130
+  name: China_None_ss_1128
   password: 7eadc6dbe2ae
   port: '65443'
-  server: 121.46.230.232
+  server: 121.46.230.233
   type: ss
   udp: true
+- client-fingerprint: chrome
+  name: Seychelles_None_trojan_1129
+  network: ws
+  password: humanity
+  port: '443'
+  server: 45.130.125.160
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko)
+        Chrome/70.0.3538.102 Safari/537.36
+    path: /assignment
 - alterId: 2
   cipher: auto
-  name: China_None_vmess_1131
+  name: China_None_vmess_1130
   network: tcp
-  port: 30845
-  server: v45.hdacd.com
+  port: 30829
+  server: v29.hdacd.com
   skip-cert-verify: false
   tls: false
   type: vmess
   udp: true
   uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
   xudp: true
-- cipher: aes-256-cfb
-  name: Ireland_Dublin_ss_1132
-  password: amazonskr05
-  port: '443'
-  server: 176.34.158.52
-  type: ss
-  udp: true
 - client-fingerprint: chrome
-  name: None_None_trojan_1133
+  name: None_None_trojan_1131
   network: ws
   password: humanity
   port: '443'
-  server: 104.20.6.134
+  server: 104.18.152.207
   skip-cert-verify: false
   sni: www.ignitelimit.com
   type: trojan
@@ -515,22 +607,72 @@ proxies:
   ws-opts:
     headers:
       User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like
-        Gecko) Chrome/49.0.2623.110 Safari/537.36
+        Gecko) Chrome/45.0.2454.85 Safari/537.36
     path: /assignment
-- cipher: aes-256-cfb
-  name: Canada_Montreal_ss_1134
-  password: amazonskr05
-  port: 443
-  server: 3.96.124.46
-  type: ss
+- alpn:
+  - h3
+  - h2
+  - http/1.1
+  client-fingerprint: chrome
+  name: None_None_trojan_1132
+  network: ws
+  password: humanity
+  port: '443'
+  server: join-telegram-channel-tirexnet.trex.kdns.fr
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
   udp: true
-- cipher: aes-256-cfb
-  name: Canada_Montreal_ss_1135
-  password: amazonskr05
-  port: 443
-  server: 35.182.250.193
-  type: ss
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Linux; Android 6.0; vivo 1606 Build/MMB29M) AppleWebKit/537.36
+        (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
+    path: /assignment
+- client-fingerprint: chrome
+  name: None_None_trojan_1133
+  network: ws
+  password: humanity
+  port: '443'
+  server: 104.18.152.208
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
   udp: true
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/61.0.3163.100 Safari/537.36
+    path: /assignment
+- client-fingerprint: chrome
+  name: None_None_trojan_1134
+  network: ws
+  password: humanity
+  port: '443'
+  server: 104.16.174.6
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/66.0.3359.181 Safari/537.36
+    path: /assignment
+- client-fingerprint: chrome
+  name: None_None_trojan_1135
+  network: ws
+  password: humanity
+  port: '443'
+  server: 104.16.174.143
+  skip-cert-verify: false
+  sni: www.ignitelimit.com
+  type: trojan
+  udp: true
+  ws-opts:
+    headers:
+      User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/533.4
+        (KHTML, like Gecko) Chrome/5.0.375.99 Safari/533.4
+    path: /assignment
 proxy-groups:
 - name: 节点选择
   type: select
@@ -548,7 +690,7 @@ proxy-groups:
   - Unknown_vmess_109
   - Unknown_vmess_1010
   - United States_None_ss_1011
-  - Hong Kong_Kowloon_vmess_1012
+  - Hong Kong_Central_vmess_1012
   - China_None_ss_1013
   - China_None_ss_1014
   - Poland_None_trojan_1015
@@ -561,10 +703,17 @@ proxy-groups:
   - China_None_ss_1022
   - Hong Kong_None_trojan_1023
   - China_None_ss_1024
-  - Hong Kong_Kowloon_vmess_1025
+  - Hong Kong_Central_vmess_1025
   - Japan_Tokyo_trojan_1026
   - Hong Kong_None_trojan_1027
-  - France_None_vmess_1028
+  - China_None_ss_1028
+  - Seychelles_None_trojan_1029
+  - China_Chengdu_vmess_1030
+  - None_None_trojan_1031
+  - None_None_trojan_1032
+  - None_None_trojan_1033
+  - None_None_trojan_1034
+  - None_None_trojan_1035
   - Unknown_vmess_111
   - Unknown_vmess_112
   - Unknown_vmess_113
@@ -576,7 +725,7 @@ proxy-groups:
   - Unknown_vmess_119
   - Unknown_vmess_1110
   - United States_None_ss_1111
-  - Hong Kong_Kowloon_vmess_1112
+  - Hong Kong_Central_vmess_1112
   - China_None_ss_1113
   - China_None_ss_1114
   - Poland_None_trojan_1115
@@ -589,17 +738,17 @@ proxy-groups:
   - China_None_ss_1122
   - Hong Kong_None_trojan_1123
   - China_None_ss_1124
-  - Hong Kong_Kowloon_vmess_1125
+  - Hong Kong_Central_vmess_1125
   - Japan_Tokyo_trojan_1126
   - Hong Kong_None_trojan_1127
-  - United Kingdom_London_ss_1128
-  - Ireland_Dublin_ss_1129
-  - China_None_ss_1130
-  - China_None_vmess_1131
-  - Ireland_Dublin_ss_1132
+  - China_None_ss_1128
+  - Seychelles_None_trojan_1129
+  - China_None_vmess_1130
+  - None_None_trojan_1131
+  - None_None_trojan_1132
   - None_None_trojan_1133
-  - Canada_Montreal_ss_1134
-  - Canada_Montreal_ss_1135
+  - None_None_trojan_1134
+  - None_None_trojan_1135
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -617,7 +766,7 @@ proxy-groups:
   - Unknown_vmess_109
   - Unknown_vmess_1010
   - United States_None_ss_1011
-  - Hong Kong_Kowloon_vmess_1012
+  - Hong Kong_Central_vmess_1012
   - China_None_ss_1013
   - China_None_ss_1014
   - Poland_None_trojan_1015
@@ -630,10 +779,17 @@ proxy-groups:
   - China_None_ss_1022
   - Hong Kong_None_trojan_1023
   - China_None_ss_1024
-  - Hong Kong_Kowloon_vmess_1025
+  - Hong Kong_Central_vmess_1025
   - Japan_Tokyo_trojan_1026
   - Hong Kong_None_trojan_1027
-  - France_None_vmess_1028
+  - China_None_ss_1028
+  - Seychelles_None_trojan_1029
+  - China_Chengdu_vmess_1030
+  - None_None_trojan_1031
+  - None_None_trojan_1032
+  - None_None_trojan_1033
+  - None_None_trojan_1034
+  - None_None_trojan_1035
   - Unknown_vmess_111
   - Unknown_vmess_112
   - Unknown_vmess_113
@@ -645,7 +801,7 @@ proxy-groups:
   - Unknown_vmess_119
   - Unknown_vmess_1110
   - United States_None_ss_1111
-  - Hong Kong_Kowloon_vmess_1112
+  - Hong Kong_Central_vmess_1112
   - China_None_ss_1113
   - China_None_ss_1114
   - Poland_None_trojan_1115
@@ -658,17 +814,17 @@ proxy-groups:
   - China_None_ss_1122
   - Hong Kong_None_trojan_1123
   - China_None_ss_1124
-  - Hong Kong_Kowloon_vmess_1125
+  - Hong Kong_Central_vmess_1125
   - Japan_Tokyo_trojan_1126
   - Hong Kong_None_trojan_1127
-  - United Kingdom_London_ss_1128
-  - Ireland_Dublin_ss_1129
-  - China_None_ss_1130
-  - China_None_vmess_1131
-  - Ireland_Dublin_ss_1132
+  - China_None_ss_1128
+  - Seychelles_None_trojan_1129
+  - China_None_vmess_1130
+  - None_None_trojan_1131
+  - None_None_trojan_1132
   - None_None_trojan_1133
-  - Canada_Montreal_ss_1134
-  - Canada_Montreal_ss_1135
+  - None_None_trojan_1134
+  - None_None_trojan_1135
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
