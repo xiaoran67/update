@@ -123,7 +123,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Central_vmess_1012
+  name: Hong Kong_Kowloon_vmess_1012
   port: 30807
   server: v10.hdacd.com
   skip-cert-verify: false
@@ -214,7 +214,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Central_vmess_1025
+  name: Hong Kong_Kowloon_vmess_1025
   network: tcp
   port: '30807'
   server: v10.hdacd.com
@@ -222,15 +222,42 @@ proxies:
   tls: false
   type: vmess
   uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+- cipher: aes-256-cfb
+  name: China_None_ss_1026
+  password: 7eadc6dbe2ae
+  port: 65443
+  server: 121.46.230.139
+  type: ss
+- alpn:
+  - ''
+  alterId: '0'
+  cipher: auto
+  name: The Netherlands_Amsterdam_vmess_1027
+  network: ws
+  port: '80'
+  server: 188.114.96.19
+  skip-cert-verify: false
+  tls: false
+  type: vmess
+  udp: true
+  uuid: aed88e79-5762-4d2f-86fa-f438f32a7654
+  ws-opts:
+    headers:
+      Host: google.whatsapp.snapp.torob.basalam.hesanid8.ir.
+    path: /
+  xudp: true
 - cipher: chacha20-ietf-poly1305
-  name: Taiwan_Taichung_ss_1026
-  password: t0srmdxrm3xyjnvqz9ewlxb2myq7rjuv
-  plugin: obfs
-  plugin-opts:
-    host: 817aa69.default.nintendo.com:112719
-    mode: tls
-  port: 2377
-  server: 60.249.39.170
+  name: United States_Santa Clara_ss_1028
+  password: 063aee2ed1124285b5d8a8b049e24cba
+  port: '443'
+  server: 107.174.88.128
+  type: ss
+  udp: true
+- cipher: aes-256-cfb
+  name: France_Paris_ss_1029
+  password: amazonskr05
+  port: '443'
+  server: 15.237.252.23
   type: ss
   udp: true
 - alterId: 0
@@ -331,7 +358,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Central_vmess_1112
+  name: Hong Kong_Kowloon_vmess_1112
   port: 30807
   server: v10.hdacd.com
   skip-cert-verify: false
@@ -422,7 +449,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Central_vmess_1125
+  name: Hong Kong_Kowloon_vmess_1125
   network: tcp
   port: '30807'
   server: v10.hdacd.com
@@ -431,43 +458,33 @@ proxies:
   type: vmess
   uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
 - alpn:
-  - ''
-  alterId: '0'
+  - h2
+  - http/1.1
+  alterId: 0
   cipher: auto
-  name: Taiwan_Chang-hua_vmess_1126
-  network: ws
-  port: '443'
-  server: 7dba81fc3a0b.oylfmxz.cn
+  name: France_Paris_vmess_1126
+  network: tcp
+  port: 2083
+  server: 80.93.217.193
+  servername: qbvlpz4b8508.dop100.com
   skip-cert-verify: false
   tls: true
   type: vmess
   udp: true
-  uuid: d90e4077-bc7e-414d-a650-70bf1baae4d6
-  ws-opts:
-    headers: {}
-    path: /
+  uuid: b4904296-5df5-430c-9849-22bef703174c
   xudp: true
-- client-fingerprint: chrome
-  name: None_None_trojan_1127
-  network: ws
-  password: humanity
+- alterId: '0'
+  cipher: auto
+  name: United Arab Emirates_None_vmess_1127
+  network: tcp
   port: '443'
-  server: 104.18.152.149
+  server: irc.jahanrocket.sbs
   skip-cert-verify: false
-  sni: www.ignitelimit.com
-  type: trojan
+  tls: false
+  type: vmess
   udp: true
-  ws-opts:
-    headers:
-      User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML,
-        like Gecko) Chrome/60.0.3112.113 Safari/537.36
-    path: /assignment
-- cipher: aes-256-cfb
-  name: United States_Columbus_ss_1128
-  password: amazonskr05
-  port: 443
-  server: 3.148.253.102
-  type: ss
+  uuid: 777c24bb-13ec-4c81-bb58-31344653e28c
+  xudp: true
 proxy-groups:
 - name: 节点选择
   type: select
@@ -485,7 +502,7 @@ proxy-groups:
   - Unknown_vmess_109
   - Unknown_vmess_1010
   - United States_None_ss_1011
-  - Hong Kong_Central_vmess_1012
+  - Hong Kong_Kowloon_vmess_1012
   - China_None_ss_1013
   - China_None_ss_1014
   - Hong Kong_None_trojan_1015
@@ -498,8 +515,11 @@ proxy-groups:
   - China_None_ss_1022
   - United States_None_trojan_1023
   - China_None_ss_1024
-  - Hong Kong_Central_vmess_1025
-  - Taiwan_Taichung_ss_1026
+  - Hong Kong_Kowloon_vmess_1025
+  - China_None_ss_1026
+  - The Netherlands_Amsterdam_vmess_1027
+  - United States_Santa Clara_ss_1028
+  - France_Paris_ss_1029
   - Unknown_vmess_111
   - Unknown_vmess_112
   - Unknown_vmess_113
@@ -511,7 +531,7 @@ proxy-groups:
   - Unknown_vmess_119
   - Unknown_vmess_1110
   - United States_None_ss_1111
-  - Hong Kong_Central_vmess_1112
+  - Hong Kong_Kowloon_vmess_1112
   - China_None_ss_1113
   - China_None_ss_1114
   - Hong Kong_None_trojan_1115
@@ -524,10 +544,9 @@ proxy-groups:
   - China_None_ss_1122
   - United States_None_trojan_1123
   - China_None_ss_1124
-  - Hong Kong_Central_vmess_1125
-  - Taiwan_Chang-hua_vmess_1126
-  - None_None_trojan_1127
-  - United States_Columbus_ss_1128
+  - Hong Kong_Kowloon_vmess_1125
+  - France_Paris_vmess_1126
+  - United Arab Emirates_None_vmess_1127
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -545,7 +564,7 @@ proxy-groups:
   - Unknown_vmess_109
   - Unknown_vmess_1010
   - United States_None_ss_1011
-  - Hong Kong_Central_vmess_1012
+  - Hong Kong_Kowloon_vmess_1012
   - China_None_ss_1013
   - China_None_ss_1014
   - Hong Kong_None_trojan_1015
@@ -558,8 +577,11 @@ proxy-groups:
   - China_None_ss_1022
   - United States_None_trojan_1023
   - China_None_ss_1024
-  - Hong Kong_Central_vmess_1025
-  - Taiwan_Taichung_ss_1026
+  - Hong Kong_Kowloon_vmess_1025
+  - China_None_ss_1026
+  - The Netherlands_Amsterdam_vmess_1027
+  - United States_Santa Clara_ss_1028
+  - France_Paris_ss_1029
   - Unknown_vmess_111
   - Unknown_vmess_112
   - Unknown_vmess_113
@@ -571,7 +593,7 @@ proxy-groups:
   - Unknown_vmess_119
   - Unknown_vmess_1110
   - United States_None_ss_1111
-  - Hong Kong_Central_vmess_1112
+  - Hong Kong_Kowloon_vmess_1112
   - China_None_ss_1113
   - China_None_ss_1114
   - Hong Kong_None_trojan_1115
@@ -584,10 +606,9 @@ proxy-groups:
   - China_None_ss_1122
   - United States_None_trojan_1123
   - China_None_ss_1124
-  - Hong Kong_Central_vmess_1125
-  - Taiwan_Chang-hua_vmess_1126
-  - None_None_trojan_1127
-  - United States_Columbus_ss_1128
+  - Hong Kong_Kowloon_vmess_1125
+  - France_Paris_vmess_1126
+  - United Arab Emirates_None_vmess_1127
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
