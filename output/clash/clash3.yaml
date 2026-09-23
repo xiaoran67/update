@@ -123,7 +123,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Central_vmess_1012
+  name: Hong Kong_Tuen Mun_vmess_1012
   port: 30807
   server: v10.hdacd.com
   skip-cert-verify: false
@@ -214,7 +214,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Central_vmess_1025
+  name: Hong Kong_Tuen Mun_vmess_1025
   network: tcp
   port: '30807'
   server: v10.hdacd.com
@@ -222,118 +222,27 @@ proxies:
   tls: false
   type: vmess
   uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-- alterId: '0'
-  cipher: auto
-  name: Taiwan_Chang-hua_vmess_1026
-  network: ws
-  port: '443'
-  server: dee2309db4se3grs6e8hg4w61sd53g1.oylfmxz.cn
-  servername: dee2309db4se3grs6e8hg4w61sd53g1.oylfmxz.cn
-  skip-cert-verify: false
-  tls: true
-  type: vmess
-  udp: true
-  uuid: d90e4077-bc7e-414d-a650-70bf1baae4d6
-  ws-opts:
-    headers: {}
-    path: /
-  xudp: true
-- client-fingerprint: chrome
-  name: None_None_trojan_1027
-  network: ws
-  password: humanity
-  port: '443'
-  server: 104.17.111.4
-  skip-cert-verify: false
-  sni: www.ignitelimit.com
-  type: trojan
-  udp: true
-  ws-opts:
-    headers:
-      User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like
-        Gecko) Chrome/47.0.2526.106 Safari/537.36
-    path: /assignment
-- client-fingerprint: chrome
-  name: None_None_trojan_1028
-  network: ws
-  password: humanity
-  port: '443'
-  server: 104.16.174.148
-  skip-cert-verify: false
-  sni: www.ignitelimit.com
-  type: trojan
-  udp: true
-  ws-opts:
-    headers:
-      User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko)
-        Chrome/65.0.3325.181 Safari/537.36
-    path: /assignment
-- client-fingerprint: chrome
-  name: United States_None_trojan_1029
-  network: ws
-  password: humanity
-  port: '443'
-  server: 216.24.57.1
-  skip-cert-verify: false
-  sni: www.ignitelimit.com
-  type: trojan
-  udp: true
-  ws-opts:
-    headers:
-      User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML,
-        like Gecko) Chrome/54.0.2840.99 Safari/537.36
-    path: /assignment
 - cipher: aes-256-cfb
-  name: Japan_Tokyo_ss_1030
+  name: Sweden_Stockholm_ss_1026
   password: amazonskr05
   port: 443
-  server: 18.181.165.254
+  server: 16.170.221.224
   type: ss
   udp: true
 - cipher: aes-256-cfb
-  name: Sweden_Stockholm_ss_1031
+  name: Sweden_Stockholm_ss_1027
   password: amazonskr05
   port: 443
-  server: 16.171.55.2
+  server: 13.61.0.108
   type: ss
   udp: true
-- alpn:
-  - ''
-  alterId: '0'
-  cipher: auto
-  name: The Netherlands_Amsterdam_vmess_1032
-  network: ws
-  port: '443'
-  server: pahobac.org
-  servername: pahobac.org
-  skip-cert-verify: false
-  tls: true
-  type: vmess
+- cipher: aes-256-cfb
+  name: Sweden_Stockholm_ss_1028
+  password: amazonskr05
+  port: 443
+  server: 16.170.163.124
+  type: ss
   udp: true
-  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
-  ws-opts:
-    headers:
-      Host: pahobac.org
-    path: /linkvws
-  xudp: true
-- alpn:
-  - ''
-  alterId: '0'
-  cipher: auto
-  name: Taiwan_Chang-hua_vmess_1033
-  network: ws
-  port: '443'
-  server: dee2309db4se3grs6e8hg4w61sd53g1.oylfmxz.cn
-  skip-cert-verify: false
-  tls: true
-  type: vmess
-  udp: true
-  uuid: d90e4077-bc7e-414d-a650-70bf1baae4d6
-  ws-opts:
-    headers:
-      Host: dee2309db4se3grs6e8hg4w61sd53g1.oylfmxz.cn
-    path: /
-  xudp: true
 - alterId: 0
   cipher: auto
   name: Unknown_vmess_111
@@ -432,7 +341,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Central_vmess_1112
+  name: Hong Kong_Tuen Mun_vmess_1112
   port: 30807
   server: v10.hdacd.com
   skip-cert-verify: false
@@ -523,7 +432,7 @@ proxies:
   type: ss
 - alterId: 2
   cipher: auto
-  name: Hong Kong_Central_vmess_1125
+  name: Hong Kong_Tuen Mun_vmess_1125
   network: tcp
   port: '30807'
   server: v10.hdacd.com
@@ -531,118 +440,13 @@ proxies:
   tls: false
   type: vmess
   uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-- alterId: '0'
-  cipher: auto
-  name: Taiwan_Chang-hua_vmess_1126
-  network: ws
-  port: '443'
-  server: dee2309db4se3grs6e8hg4w61sd53g1.oylfmxz.cn
-  servername: dee2309db4se3grs6e8hg4w61sd53g1.oylfmxz.cn
-  skip-cert-verify: false
-  tls: true
-  type: vmess
-  udp: true
-  uuid: d90e4077-bc7e-414d-a650-70bf1baae4d6
-  ws-opts:
-    headers: {}
-    path: /
-  xudp: true
-- client-fingerprint: chrome
-  name: None_None_trojan_1127
-  network: ws
-  password: humanity
-  port: '443'
-  server: 104.17.111.4
-  skip-cert-verify: false
-  sni: www.ignitelimit.com
-  type: trojan
-  udp: true
-  ws-opts:
-    headers:
-      User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like
-        Gecko) Chrome/47.0.2526.106 Safari/537.36
-    path: /assignment
-- client-fingerprint: chrome
-  name: None_None_trojan_1128
-  network: ws
-  password: humanity
-  port: '443'
-  server: 104.16.174.148
-  skip-cert-verify: false
-  sni: www.ignitelimit.com
-  type: trojan
-  udp: true
-  ws-opts:
-    headers:
-      User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko)
-        Chrome/65.0.3325.181 Safari/537.36
-    path: /assignment
-- client-fingerprint: chrome
-  name: United States_None_trojan_1129
-  network: ws
-  password: humanity
-  port: '443'
-  server: 216.24.57.1
-  skip-cert-verify: false
-  sni: www.ignitelimit.com
-  type: trojan
-  udp: true
-  ws-opts:
-    headers:
-      User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML,
-        like Gecko) Chrome/54.0.2840.99 Safari/537.36
-    path: /assignment
 - cipher: aes-256-cfb
-  name: Japan_Tokyo_ss_1130
+  name: United States_Ashburn_ss_1126
   password: amazonskr05
   port: 443
-  server: 18.181.165.254
+  server: 18.213.0.46
   type: ss
   udp: true
-- cipher: aes-256-cfb
-  name: Sweden_Stockholm_ss_1131
-  password: amazonskr05
-  port: 443
-  server: 16.171.55.2
-  type: ss
-  udp: true
-- alpn:
-  - ''
-  alterId: '0'
-  cipher: auto
-  name: United States_None_vmess_1132
-  network: ws
-  port: '443'
-  server: pahobac.org
-  servername: pahobac.org
-  skip-cert-verify: false
-  tls: true
-  type: vmess
-  udp: true
-  uuid: 03fcc618-b93d-6796-6aed-8a38c975d581
-  ws-opts:
-    headers:
-      Host: pahobac.org
-    path: /linkvws
-  xudp: true
-- alpn:
-  - ''
-  alterId: '0'
-  cipher: auto
-  name: Taiwan_Chang-hua_vmess_1133
-  network: ws
-  port: '443'
-  server: dee2309db4se3grs6e8hg4w61sd53g1.oylfmxz.cn
-  skip-cert-verify: false
-  tls: true
-  type: vmess
-  udp: true
-  uuid: d90e4077-bc7e-414d-a650-70bf1baae4d6
-  ws-opts:
-    headers:
-      Host: dee2309db4se3grs6e8hg4w61sd53g1.oylfmxz.cn
-    path: /
-  xudp: true
 proxy-groups:
 - name: 节点选择
   type: select
@@ -660,7 +464,7 @@ proxy-groups:
   - Unknown_vmess_109
   - Unknown_vmess_1010
   - United States_None_ss_1011
-  - Hong Kong_Central_vmess_1012
+  - Hong Kong_Tuen Mun_vmess_1012
   - China_None_ss_1013
   - China_None_ss_1014
   - Hong Kong_None_trojan_1015
@@ -673,15 +477,10 @@ proxy-groups:
   - China_None_ss_1022
   - United States_None_trojan_1023
   - China_None_ss_1024
-  - Hong Kong_Central_vmess_1025
-  - Taiwan_Chang-hua_vmess_1026
-  - None_None_trojan_1027
-  - None_None_trojan_1028
-  - United States_None_trojan_1029
-  - Japan_Tokyo_ss_1030
-  - Sweden_Stockholm_ss_1031
-  - The Netherlands_Amsterdam_vmess_1032
-  - Taiwan_Chang-hua_vmess_1033
+  - Hong Kong_Tuen Mun_vmess_1025
+  - Sweden_Stockholm_ss_1026
+  - Sweden_Stockholm_ss_1027
+  - Sweden_Stockholm_ss_1028
   - Unknown_vmess_111
   - Unknown_vmess_112
   - Unknown_vmess_113
@@ -693,7 +492,7 @@ proxy-groups:
   - Unknown_vmess_119
   - Unknown_vmess_1110
   - United States_None_ss_1111
-  - Hong Kong_Central_vmess_1112
+  - Hong Kong_Tuen Mun_vmess_1112
   - China_None_ss_1113
   - China_None_ss_1114
   - Hong Kong_None_trojan_1115
@@ -706,15 +505,8 @@ proxy-groups:
   - China_None_ss_1122
   - United States_None_trojan_1123
   - China_None_ss_1124
-  - Hong Kong_Central_vmess_1125
-  - Taiwan_Chang-hua_vmess_1126
-  - None_None_trojan_1127
-  - None_None_trojan_1128
-  - United States_None_trojan_1129
-  - Japan_Tokyo_ss_1130
-  - Sweden_Stockholm_ss_1131
-  - United States_None_vmess_1132
-  - Taiwan_Chang-hua_vmess_1133
+  - Hong Kong_Tuen Mun_vmess_1125
+  - United States_Ashburn_ss_1126
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -732,7 +524,7 @@ proxy-groups:
   - Unknown_vmess_109
   - Unknown_vmess_1010
   - United States_None_ss_1011
-  - Hong Kong_Central_vmess_1012
+  - Hong Kong_Tuen Mun_vmess_1012
   - China_None_ss_1013
   - China_None_ss_1014
   - Hong Kong_None_trojan_1015
@@ -745,15 +537,10 @@ proxy-groups:
   - China_None_ss_1022
   - United States_None_trojan_1023
   - China_None_ss_1024
-  - Hong Kong_Central_vmess_1025
-  - Taiwan_Chang-hua_vmess_1026
-  - None_None_trojan_1027
-  - None_None_trojan_1028
-  - United States_None_trojan_1029
-  - Japan_Tokyo_ss_1030
-  - Sweden_Stockholm_ss_1031
-  - The Netherlands_Amsterdam_vmess_1032
-  - Taiwan_Chang-hua_vmess_1033
+  - Hong Kong_Tuen Mun_vmess_1025
+  - Sweden_Stockholm_ss_1026
+  - Sweden_Stockholm_ss_1027
+  - Sweden_Stockholm_ss_1028
   - Unknown_vmess_111
   - Unknown_vmess_112
   - Unknown_vmess_113
@@ -765,7 +552,7 @@ proxy-groups:
   - Unknown_vmess_119
   - Unknown_vmess_1110
   - United States_None_ss_1111
-  - Hong Kong_Central_vmess_1112
+  - Hong Kong_Tuen Mun_vmess_1112
   - China_None_ss_1113
   - China_None_ss_1114
   - Hong Kong_None_trojan_1115
@@ -778,15 +565,8 @@ proxy-groups:
   - China_None_ss_1122
   - United States_None_trojan_1123
   - China_None_ss_1124
-  - Hong Kong_Central_vmess_1125
-  - Taiwan_Chang-hua_vmess_1126
-  - None_None_trojan_1127
-  - None_None_trojan_1128
-  - United States_None_trojan_1129
-  - Japan_Tokyo_ss_1130
-  - Sweden_Stockholm_ss_1131
-  - United States_None_vmess_1132
-  - Taiwan_Chang-hua_vmess_1133
+  - Hong Kong_Tuen Mun_vmess_1125
+  - United States_Ashburn_ss_1126
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
