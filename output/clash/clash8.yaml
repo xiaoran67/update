@@ -24,15 +24,6 @@ dns:
       - https://1.1.1.1/dns-query#🚀 节点选择
       - https://8.8.8.8/dns-query#🚀 节点选择
 proxies:
-  - name: 🇷🇺_RU_俄罗斯
-    type: vless
-    server: tr3.wba-pn.ru
-    port: 443
-    uuid: af2a0c18-b08c-471f-baa3-259ac2ce3a85
-    network: ws
-    tls: true
-    skip-cert-verify: true
-    udp: true
   - name: 🇨🇳_CN_中国->🇺🇸_US_美国
     type: vless
     server: us22.sofast.live
@@ -41,112 +32,7 @@ proxies:
     tls: false
     skip-cert-verify: true
     udp: true
-  - name: 🇭🇰_HK_中国香港->🇺🇸_US_美国
-    type: vmess
-    server: v4.hdacd.com
-    port: 30804
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-    alterId: 2
-    cipher: auto
-    tls: false
-    skip-cert-verify: true
-    udp: true
   - name: 🇺🇸_US_美国
-    type: vmess
-    server: guanwang.awsno.com
-    port: 443
-    uuid: 6a89a215-22bf-4bd7-9642-b95b2e09583a
-    alterId: 0
-    cipher: auto
-    tls: true
-    skip-cert-verify: true
-    servername: guanwang.awsno.com
-    network: ws
-    ws-opts:
-      path: /hls/cctv5phd.m3u8
-      headers:
-        Host: guanwang.awsno.com
-    udp: true
-  - name: 🇭🇰_HK_中国香港
-    type: vmess
-    server: dee2309db4944c248b6d4372c6641e7b.oylfmxz.cn
-    port: 443
-    uuid: d90e4077-bc7e-414d-a650-70bf1baae4d6
-    alterId: 0
-    cipher: auto
-    tls: true
-    skip-cert-verify: true
-    servername: dee2309db4944c248b6d4372c6641e7b.oylfmxz.cn
-    network: ws
-    ws-opts:
-      path: /
-      headers:
-        Host: dee2309db4944c248b6d4372c6641e7b.oylfmxz.cn
-    udp: true
-  - name: 🇭🇰_HK_中国香港->🇩🇪_DE_德国
-    type: vmess
-    server: v33.hdacd.com
-    port: 30833
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-    alterId: 2
-    cipher: auto
-    tls: false
-    skip-cert-verify: true
-    udp: true
-  - name: 🇨🇳_CN_中国->🇺🇸_US_美国_1
-    type: vless
-    server: jp.sofast.live
-    port: 52683
-    uuid: 399b6b23-cc40-4831-a494-61948e2df133
-    tls: false
-    skip-cert-verify: true
-    udp: true
-  - name: 🇭🇰_HK_中国香港_1
-    type: vmess
-    server: v10.hdacd.com
-    port: 30807
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-    alterId: 2
-    cipher: auto
-    tls: false
-    skip-cert-verify: true
-    udp: true
-  - name: 🇺🇸_US_美国_1
-    type: vless
-    server: 7-m16.PhUkEt2035.kdNS.fr
-    port: 443
-    uuid: ef5c5d5c-08c6-4549-b05e-d1ff29ecc8ba
-    network: ws
-    servername: 7-m16.PhUkEt2035.kdNS.fr
-    tls: true
-    ws-opts:
-      path: /JRr6VGcSLFc034DC6sDbwyWJLbB
-      headers:
-        Host: 7-m16.PhUkEt2035.kdNS.fr
-    skip-cert-verify: true
-    udp: true
-  - name: 🇨🇳_CN_中国
-    type: vmess
-    server: 112.132.215.108
-    port: 50002
-    uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
-    alterId: 64
-    cipher: auto
-    tls: false
-    skip-cert-verify: true
-    udp: true
-  - name: 🇭🇰_HK_中国香港_2
-    type: vmess
-    server: hkgb707.ifastcdncache.com
-    port: 60852
-    uuid: f8eca8df-a1a5-4918-a194-d34112a3673f
-    alterId: 2
-    cipher: auto
-    tls: false
-    skip-cert-verify: true
-    network: ws
-    udp: true
-  - name: 🇺🇸_US_美国_2
     type: vmess
     server: www.shopify.com
     port: 443
@@ -187,19 +73,67 @@ proxies:
       public-key: 1sSmdw90uTiGuitDvp_q8zcXTcHXKQS3IVjA7T1UNiY
     skip-cert-verify: true
     udp: true
-  - name: 🇫🇮_FI_芬兰
+  - name: 🇩🇪_DE_德国->🇱🇰_LK_斯里兰卡
     type: vless
-    server: hub-fi-03.hanvpn.cc
-    port: 443
-    uuid: d9d0f208-d582-41d5-bb7b-742671402810
+    server: free.sahanwickramasinghe.me
+    port: 80
+    uuid: 684f9a2e-4f96-497f-bfd9-ff1e34637952
     network: ws
-    servername: hub-fi-03.hanvpn.cc
+    tls: false
+    skip-cert-verify: true
+    udp: true
+  - name: 🇨🇳_CN_中国->🇺🇸_US_美国_1
+    type: vless
+    server: jp.sofast.live
+    port: 52683
+    uuid: 399b6b23-cc40-4831-a494-61948e2df133
+    tls: false
+    skip-cert-verify: true
+    udp: true
+  - name: 🇭🇰_HK_中国香港->🇩🇪_DE_德国
+    type: vmess
+    server: v33.hdacd.com
+    port: 30833
+    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+    alterId: 2
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    udp: true
+  - name: 🇨🇳_CN_中国
+    type: vmess
+    server: 112.132.215.108
+    port: 50002
+    uuid: 418048af-a293-4b99-9b0c-98ca3580dd24
+    alterId: 64
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    udp: true
+  - name: 🇺🇸_US_美国_1
+    type: vmess
+    server: guanwang.awsno.com
+    port: 443
+    uuid: 6a89a215-22bf-4bd7-9642-b95b2e09583a
+    alterId: 0
+    cipher: auto
     tls: true
-    client-fingerprint: chrome
+    skip-cert-verify: true
+    servername: guanwang.awsno.com
+    network: ws
     ws-opts:
-      path: /fi03-ws-8e47a
+      path: /hls/cctv5phd.m3u8
       headers:
-        Host: hub-fi-03.hanvpn.cc
+        Host: guanwang.awsno.com
+    udp: true
+  - name: 🇭🇰_HK_中国香港
+    type: vmess
+    server: v10.hdacd.com
+    port: 30807
+    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+    alterId: 2
+    cipher: auto
+    tls: false
     skip-cert-verify: true
     udp: true
 proxy-groups:
@@ -208,39 +142,29 @@ proxy-groups:
     proxies:
       - ♻️ 自动选择
       - DIRECT
-      - 🇷🇺_RU_俄罗斯
       - 🇨🇳_CN_中国->🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港->🇺🇸_US_美国
       - 🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港
-      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇭🇰_HK_中国香港_1
-      - 🇺🇸_US_美国_1
-      - 🇨🇳_CN_中国
-      - 🇭🇰_HK_中国香港_2
-      - 🇺🇸_US_美国_2
       - 🇩🇪_DE_德国
       - 🇩🇪_DE_德国_1
-      - 🇫🇮_FI_芬兰
+      - 🇩🇪_DE_德国->🇱🇰_LK_斯里兰卡
+      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港
   - name: ♻️ 自动选择
     type: url-test
     proxies:
-      - 🇷🇺_RU_俄罗斯
       - 🇨🇳_CN_中国->🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港->🇺🇸_US_美国
       - 🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港
-      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇭🇰_HK_中国香港_1
-      - 🇺🇸_US_美国_1
-      - 🇨🇳_CN_中国
-      - 🇭🇰_HK_中国香港_2
-      - 🇺🇸_US_美国_2
       - 🇩🇪_DE_德国
       - 🇩🇪_DE_德国_1
-      - 🇫🇮_FI_芬兰
+      - 🇩🇪_DE_德国->🇱🇰_LK_斯里兰卡
+      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
@@ -250,81 +174,61 @@ proxy-groups:
       - 🚀 节点选择
       - ♻️ 自动选择
       - 🎯 全球直连
-      - 🇷🇺_RU_俄罗斯
       - 🇨🇳_CN_中国->🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港->🇺🇸_US_美国
       - 🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港
-      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇭🇰_HK_中国香港_1
-      - 🇺🇸_US_美国_1
-      - 🇨🇳_CN_中国
-      - 🇭🇰_HK_中国香港_2
-      - 🇺🇸_US_美国_2
       - 🇩🇪_DE_德国
       - 🇩🇪_DE_德国_1
-      - 🇫🇮_FI_芬兰
+      - 🇩🇪_DE_德国->🇱🇰_LK_斯里兰卡
+      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港
   - name: 📲 电报信息
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
-      - 🇷🇺_RU_俄罗斯
       - 🇨🇳_CN_中国->🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港->🇺🇸_US_美国
       - 🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港
-      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇭🇰_HK_中国香港_1
-      - 🇺🇸_US_美国_1
-      - 🇨🇳_CN_中国
-      - 🇭🇰_HK_中国香港_2
-      - 🇺🇸_US_美国_2
       - 🇩🇪_DE_德国
       - 🇩🇪_DE_德国_1
-      - 🇫🇮_FI_芬兰
+      - 🇩🇪_DE_德国->🇱🇰_LK_斯里兰卡
+      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港
   - name: Ⓜ️ 微软服务
     type: select
     proxies:
       - 🎯 全球直连
       - 🚀 节点选择
-      - 🇷🇺_RU_俄罗斯
       - 🇨🇳_CN_中国->🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港->🇺🇸_US_美国
       - 🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港
-      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇭🇰_HK_中国香港_1
-      - 🇺🇸_US_美国_1
-      - 🇨🇳_CN_中国
-      - 🇭🇰_HK_中国香港_2
-      - 🇺🇸_US_美国_2
       - 🇩🇪_DE_德国
       - 🇩🇪_DE_德国_1
-      - 🇫🇮_FI_芬兰
+      - 🇩🇪_DE_德国->🇱🇰_LK_斯里兰卡
+      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港
   - name: 🍎 苹果服务
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
-      - 🇷🇺_RU_俄罗斯
       - 🇨🇳_CN_中国->🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港->🇺🇸_US_美国
       - 🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港
-      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇭🇰_HK_中国香港_1
-      - 🇺🇸_US_美国_1
-      - 🇨🇳_CN_中国
-      - 🇭🇰_HK_中国香港_2
-      - 🇺🇸_US_美国_2
       - 🇩🇪_DE_德国
       - 🇩🇪_DE_德国_1
-      - 🇫🇮_FI_芬兰
+      - 🇩🇪_DE_德国->🇱🇰_LK_斯里兰卡
+      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港
   - name: 🎯 全球直连
     type: select
     proxies:
@@ -352,21 +256,16 @@ proxy-groups:
       - 🚀 节点选择
       - 🎯 全球直连
       - ♻️ 自动选择
-      - 🇷🇺_RU_俄罗斯
       - 🇨🇳_CN_中国->🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港->🇺🇸_US_美国
       - 🇺🇸_US_美国
-      - 🇭🇰_HK_中国香港
-      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇭🇰_HK_中国香港_1
-      - 🇺🇸_US_美国_1
-      - 🇨🇳_CN_中国
-      - 🇭🇰_HK_中国香港_2
-      - 🇺🇸_US_美国_2
       - 🇩🇪_DE_德国
       - 🇩🇪_DE_德国_1
-      - 🇫🇮_FI_芬兰
+      - 🇩🇪_DE_德国->🇱🇰_LK_斯里兰卡
+      - 🇨🇳_CN_中国->🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港->🇩🇪_DE_德国
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_1
+      - 🇭🇰_HK_中国香港
 rule-providers:
   LocalAreaNetwork:
     type: http
