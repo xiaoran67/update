@@ -6,48 +6,7 @@ log-level: info
 external-controller: '127.0.0.1:9090'
 
 proxies:
-  - name: "节点日期：2026-10-19"
-    type: vless
-    server: "78.159.250.214"
-    port: 443
-    uuid: "4054fdc2-ee80-4419-8a8e-d937df4719e2"
-    flow: "xtls-rprx-vision"
-    udp: true
-    tls: true
-    client-fingerprint: "chrome"
-    servername: "qq.utiltools.site"
-    reality-opts:
-      public-key: "drY21DHNOr6ezJLA2B10mzTExeJ9-gVBfTBNLwVBtWI"
-      short-id: "00000000"
-  - name: "JP【机场推荐：https://a9a.xyz】1"
-    type: vless
-    server: "101.142.129.72"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fp=chrome"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "CA【机场推荐：https://a9a.xyz】2"
-    type: vless
-    server: "www.speedtest.net"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@vpn748359672.opengw.net:1458?ed=2560#Telegram---bored_vpn"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "CA【机场推荐：https://a9a.xyz】3"
+  - name: "节点日期：2026-10-20"
     type: vless
     server: "162.159.130.234"
     port: 443
@@ -58,82 +17,12 @@ proxies:
     servername: "snip.edgeoneai.cc.cd"
     network: ws
     ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443?ed=2560#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443?ed=2560"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "DE【机场推荐：https://a9a.xyz】4"
+  - name: "HK【机场推荐：https://a9a.xyz】1"
     type: vless
-    server: "2.28.42.209"
-    port: 8443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "VN【机场推荐：https://a9a.xyz】5"
-    type: vless
-    server: "103.161.178.215"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "VN【机场推荐：https://a9a.xyz】6"
-    type: vless
-    server: "103.161.179.171"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "US【机场推荐：https://a9a.xyz】7"
-    type: vless
-    server: "45.61.149.205"
-    port: 8443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "NL【机场推荐：https://a9a.xyz】8"
-    type: vless
-    server: "195.133.17.250"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fp=chrome"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "LT【机场推荐：https://a9a.xyz】9"
-    type: vless
-    server: "130.78.190.134"
+    server: "85.121.245.104"
     port: 443
     uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
     udp: true
@@ -145,29 +34,9 @@ proxies:
       path: "/"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "CN【机场推荐：https://a9a.xyz】10"
+  - name: "VN【机场推荐：https://a9a.xyz】2"
     type: vless
-    server: "us22.sofast.live"
-    port: 58011
-    uuid: "0afc6426-606c-48e7-bd70-3c424a416842"
-    udp: true
-  - name: "NL【机场推荐：https://a9a.xyz】11"
-    type: vless
-    server: "z1q3pv4g78.rucdncomp.pro"
-    port: 443
-    uuid: "c720cb74-4c84-4fce-b8ae-637dbaa16199"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "z1q3pv4g78.rucdncomp.pro"
-    network: ws
-    ws-opts:
-      path: "/useraction/events/b892639b7195/"
-      headers:
-        Host: "z1q3pv4g78.rucdncomp.pro"
-  - name: "CA【机场推荐：https://a9a.xyz】12"
-    type: vless
-    server: "saas.sin.fan"
+    server: "103.161.178.205"
     port: 443
     uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
     udp: true
@@ -176,121 +45,10 @@ proxies:
     servername: "snip.edgeoneai.cc.cd"
     network: ws
     ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443?ed=2560fp=chrome"
+      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "NO【机场推荐：https://a9a.xyz】13"
-    type: vless
-    server: "185.14.97.217"
-    port: 8443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fp=chrome"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "PL【机场推荐：https://a9a.xyz】14"
-    type: vless
-    server: "104.245.245.16"
-    port: 8443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fp=chrome"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "CA【机场推荐：https://a9a.xyz】15"
-    type: vless
-    server: "172.64.150.43"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fp=unsafe"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "CA【机场推荐：https://a9a.xyz】16"
-    type: vless
-    server: "104.17.147.22"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fp=chrome"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "US【机场推荐：https://a9a.xyz】17"
-    type: vless
-    server: "179.255.123.130"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443fp=chrome"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "CA【机场推荐：https://a9a.xyz】18"
-    type: vless
-    server: "104.17.148.22"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fp=chrome"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "SG【机场推荐：https://a9a.xyz】19"
-    type: vless
-    server: "43.174.195.1"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443fp=chrome"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "DE【机场推荐：https://a9a.xyz】20"
-    type: vless
-    server: "177.1.186.43"
-    port: 443
-    uuid: "318c935d-c195-41d3-99ad-9bbcfdab3386"
-    flow: "xtls-rprx-vision"
-    udp: true
-    tls: true
-    client-fingerprint: "chrome"
-    servername: "de5.srv.vbuste-bot.com"
-    reality-opts:
-      public-key: "0-or5ogGhYbBgsVSrSC2Fhxyp2BN97Y9pqIdg61Qd08"
-      short-id: "4be4110078ebed4a"
-  - name: "VN【机场推荐：https://a9a.xyz】21"
+  - name: "VN【机场推荐：https://a9a.xyz】3"
     type: vless
     server: "103.161.178.72"
     port: 443
@@ -304,9 +62,9 @@ proxies:
       path: "/fp=chrome"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "JP【机场推荐：https://a9a.xyz】22"
+  - name: "CA【机场推荐：https://a9a.xyz】4"
     type: vless
-    server: "45.192.243.25"
+    server: "104.17.147.22"
     port: 443
     uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
     udp: true
@@ -318,9 +76,334 @@ proxies:
       path: "/"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "MY【机场推荐：https://a9a.xyz】23"
+  - name: "CA【机场推荐：https://a9a.xyz】5"
     type: vless
-    server: "76.13.188.13"
+    server: "saas.sin.fan"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443?ed=2560"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "CN【机场推荐：https://a9a.xyz】6"
+    type: vless
+    server: "us22.sofast.live"
+    port: 58011
+    uuid: "0afc6426-606c-48e7-bd70-3c424a416842"
+    udp: true
+  - name: "RU【机场推荐：https://a9a.xyz】7"
+    type: vless
+    server: "b58e68t.lt1.h1clayd.click"
+    port: 443
+    uuid: "f90b7d43-69e2-4b46-a672-8029bc6796a2"
+    udp: true
+    tls: true
+    client-fingerprint: "random"
+    servername: "b58e68t.lt1.h1clayd.click"
+    reality-opts:
+      public-key: "MbRONgV8ADD5B_aKDBv15LAW2a8QZok5bkkZexRRVAs"
+      short-id: "2301ac8aee8bf6d4"
+  - name: "DE【机场推荐：https://a9a.xyz】8"
+    type: vless
+    server: "31.76.96.60"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "SG【机场推荐：https://a9a.xyz】9"
+    type: vless
+    server: "188.166.234.177"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "JP【机场推荐：https://a9a.xyz】10"
+    type: vless
+    server: "101.142.129.72"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "NL【机场推荐：https://a9a.xyz】11"
+    type: vless
+    server: "195.133.17.250"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "CA【机场推荐：https://a9a.xyz】12"
+    type: vless
+    server: "188.114.98.0"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fdip"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "CA【机场推荐：https://a9a.xyz】13"
+    type: vless
+    server: "188.114.97.6"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fdip=sstp://vpn:vpn@vpn748359672.opengw.net:1458?ed=2560#Telegram---PLANB_NET---PLANB_NET---PLANB_NET---PLANB_NET"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "SG【机场推荐：https://a9a.xyz】14"
+    type: vless
+    server: "43.174.195.1"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "DE【机场推荐：https://a9a.xyz】15"
+    type: vless
+    server: "ge-s-1.pythonmakemigreat.wiki"
+    port: 443
+    uuid: "f8d52ece-fad4-478d-875d-df6eed3befa7"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "chrome"
+    servername: "ge-s-1.pythonmakemigreat.wiki"
+    reality-opts:
+      public-key: "5fkwwCKZzMsE6Eb_b3iqluu-1AWIfnYl-p0N3EL9Al8"
+      short-id: "2c9a2790ad5900b2"
+  - name: "VN【机场推荐：https://a9a.xyz】16"
+    type: vless
+    server: "103.161.178.215"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "VN【机场推荐：https://a9a.xyz】17"
+    type: vless
+    server: "103.38.236.248"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "CA【机场推荐：https://a9a.xyz】18"
+    type: vless
+    server: "speedtest.org"
+    port: 8443
+    uuid: "c3571d81-38bd-44a8-9b75-5af8a125fc42"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "pbsjv.megalionzone-vexina.sbs"
+    network: ws
+    ws-opts:
+      path: "/bala"
+      headers:
+        Host: "pbsjv.megalionzone-vexina.sbs"
+  - name: "KR【机场推荐：https://a9a.xyz】19"
+    type: vless
+    server: "3.37.58.69"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "PL【机场推荐：https://a9a.xyz】20"
+    type: vless
+    server: "104.245.245.16"
+    port: 8443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "CA【机场推荐：https://a9a.xyz】21"
+    type: vless
+    server: "172.64.150.43"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "CA【机场推荐：https://a9a.xyz】22"
+    type: vless
+    server: "www.speedtest.net"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fdip=sstp://vpn:vpn@vpn748359672.opengw.net:1458?ed=2560#Telegram---bored_vpn"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "TW【机场推荐：https://a9a.xyz】23"
+    type: vless
+    server: "152.32.167.33"
+    port: 443
+    uuid: "91ad30e9-ab06-4b4c-9fb9-1c2aa97d8b3a"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "chrome"
+    servername: "www.amazon.com"
+    reality-opts:
+      public-key: "Q8QwBSGN6J-FqgDV1pYNm0VThS_xNRyQ3DPPa9YZ3j4"
+      short-id: "cff998a4"
+  - name: "NL【机场推荐：https://a9a.xyz】24"
+    type: vless
+    server: "star-nl7.open-fields.org"
+    port: 8443
+    uuid: "7c941273-b86f-4037-b63b-58db91130342"
+    flow: "xtls-rprx-vision-udp443"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "star-nl7.open-fields.org"
+  - name: "DE【机场推荐：https://a9a.xyz】25"
+    type: vless
+    server: "78.17.178.125"
+    port: 443
+    uuid: "6c713691-3ca2-4446-ad25-113d1bed6b03"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "chrome"
+    servername: "cdn.tbank.ru"
+    reality-opts:
+      public-key: "jcp4Lj_qYzxtkalm_XFjrmvqEMGRG7sb19yMwLe16WE"
+      short-id: "e0215064d8d1fd7c"
+  - name: "JP【机场推荐：https://a9a.xyz】26"
+    type: vless
+    server: "60.130.209.253"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fp=chrome"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "CA【机场推荐：https://a9a.xyz】27"
+    type: vless
+    server: "104.17.148.22"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fp=chrome"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "CN【机场推荐：https://a9a.xyz】28"
+    type: vless
+    server: "jp.sofast.live"
+    port: 52683
+    uuid: "399b6b23-cc40-4831-a494-61948e2df133"
+    udp: true
+  - name: "LT【机场推荐：https://a9a.xyz】29"
+    type: vless
+    server: "130.78.190.134"
+    port: 443
+    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "snip.edgeoneai.cc.cd"
+    network: ws
+    ws-opts:
+      path: "/fp=chrome"
+      headers:
+        Host: "snip.edgeoneai.cc.cd"
+  - name: "DE【机场推荐：https://a9a.xyz】30"
+    type: vless
+    server: "2.28.42.209"
     port: 8443
     uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
     udp: true
@@ -332,91 +415,7 @@ proxies:
       path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "CA【机场推荐：https://a9a.xyz】24"
-    type: vless
-    server: "162.159.135.234"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "US【机场推荐：https://a9a.xyz】25"
-    type: vless
-    server: "179.253.251.112"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "KR【机场推荐：https://a9a.xyz】26"
-    type: vless
-    server: "144.24.71.172"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "SG【机场推荐：https://a9a.xyz】27"
-    type: vless
-    server: "161.118.219.229"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "MY【机场推荐：https://a9a.xyz】28"
-    type: vless
-    server: "187.52.127.204"
-    port: 8443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "VN【机场推荐：https://a9a.xyz】29"
-    type: vless
-    server: "103.199.18.84"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "RU【机场推荐：https://a9a.xyz】30"
+  - name: "RU【机场推荐：https://a9a.xyz】31"
     type: vless
     server: "139.100.226.187"
     port: 8443
@@ -430,9 +429,9 @@ proxies:
       path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "SG【机场推荐：https://a9a.xyz】31"
+  - name: "VN【机场推荐：https://a9a.xyz】32"
     type: vless
-    server: "157.245.50.181"
+    server: "103.161.179.171"
     port: 443
     uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
     udp: true
@@ -444,9 +443,9 @@ proxies:
       path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "SG【机场推荐：https://a9a.xyz】32"
+  - name: "SG【机场推荐：https://a9a.xyz】33"
     type: vless
-    server: "129.212.232.171"
+    server: "149.104.5.126"
     port: 443
     uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
     udp: true
@@ -455,21 +454,7 @@ proxies:
     servername: "snip.edgeoneai.cc.cd"
     network: ws
     ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "VN【机场推荐：https://a9a.xyz】33"
-    type: vless
-    server: "103.161.178.205"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
+      path: "/"
       headers:
         Host: "snip.edgeoneai.cc.cd"
   - name: "SG【机场推荐：https://a9a.xyz】34"
@@ -486,9 +471,15 @@ proxies:
       path: "/"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "SE【机场推荐：https://a9a.xyz】35"
+  - name: "GB【机场推荐：https://a9a.xyz】35"
     type: vless
-    server: "109.120.133.26"
+    server: "16.61.117.36"
+    port: 22224
+    uuid: "e4514801-0d5a-42ba-869f-39bd605aef9e"
+    udp: true
+  - name: "US【机场推荐：https://a9a.xyz】36"
+    type: vless
+    server: "45.61.149.205"
     port: 8443
     uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
     udp: true
@@ -497,37 +488,10 @@ proxies:
     servername: "snip.edgeoneai.cc.cd"
     network: ws
     ws-opts:
-      path: "/"
+      path: "/fdip=sstp://vpn:vpn@public-vpn-200.opengw.net:443"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "SG【机场推荐：https://a9a.xyz】36"
-    type: vless
-    server: "ofve43bx.zf-all.9999231.xyz"
-    port: 1003
-    uuid: "a7c5d30b-ce9b-4e34-b5cb-66f8308790ef"
-    flow: "xtls-rprx-vision"
-    udp: true
-    tls: true
-    client-fingerprint: "chrome"
-    servername: "thtrjhtyjjfd.weebly.com"
-    reality-opts:
-      public-key: "VNxeZH2-AUjHiZ3NpQpG54DN-0WFk9Rej1s9Zu_IYQk"
-      short-id: "661613a7"
-  - name: "TR【机场推荐：https://a9a.xyz】37"
-    type: vless
-    server: "130.94.1.177"
-    port: 443
-    uuid: "495c7195-85b8-498a-bf20-2ea9ce9175b5"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "snip.edgeoneai.cc.cd"
-    network: ws
-    ws-opts:
-      path: "/"
-      headers:
-        Host: "snip.edgeoneai.cc.cd"
-  - name: "CA【机场推荐：https://a9a.xyz】38"
+  - name: "CA【机场推荐：https://a9a.xyz】37"
     type: vless
     server: "104.19.45.195"
     port: 443
@@ -541,25 +505,7 @@ proxies:
       path: "/?TELEGRAM-TOOTFFARANGIfp=chrome"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "GB【机场推荐：https://a9a.xyz】39"
-    type: vless
-    server: "35.178.165.98"
-    port: 22223
-    uuid: "e4514801-0d5a-42ba-869f-39bd605aef9e"
-    udp: true
-  - name: "CN【机场推荐：https://a9a.xyz】40"
-    type: vless
-    server: "jp.sofast.live"
-    port: 52683
-    uuid: "399b6b23-cc40-4831-a494-61948e2df133"
-    udp: true
-  - name: "GB【机场推荐：https://a9a.xyz】41"
-    type: vless
-    server: "35.178.165.98"
-    port: 22224
-    uuid: "e4514801-0d5a-42ba-869f-39bd605aef9e"
-    udp: true
-  - name: "DE【机场推荐：https://a9a.xyz】42"
+  - name: "DE【机场推荐：https://a9a.xyz】38"
     type: vless
     server: "103.160.59.198"
     port: 443
@@ -573,7 +519,7 @@ proxies:
       path: "/fp=chrome"
       headers:
         Host: "snip.edgeoneai.cc.cd"
-  - name: "KR【机场推荐：https://a9a.xyz】43"
+  - name: "KR【机场推荐：https://a9a.xyz】39"
     type: vless
     server: "152.67.198.36"
     port: 443
@@ -594,100 +540,92 @@ proxy-groups:
     proxies:
       - "♻️ 自动选择"
       - "🎯 直连模式"
-      - "节点日期：2026-10-19"
-      - "JP【机场推荐：https://a9a.xyz】1"
-      - "CA【机场推荐：https://a9a.xyz】2"
-      - "CA【机场推荐：https://a9a.xyz】3"
-      - "DE【机场推荐：https://a9a.xyz】4"
-      - "VN【机场推荐：https://a9a.xyz】5"
-      - "VN【机场推荐：https://a9a.xyz】6"
-      - "US【机场推荐：https://a9a.xyz】7"
-      - "NL【机场推荐：https://a9a.xyz】8"
-      - "LT【机场推荐：https://a9a.xyz】9"
-      - "CN【机场推荐：https://a9a.xyz】10"
+      - "节点日期：2026-10-20"
+      - "HK【机场推荐：https://a9a.xyz】1"
+      - "VN【机场推荐：https://a9a.xyz】2"
+      - "VN【机场推荐：https://a9a.xyz】3"
+      - "CA【机场推荐：https://a9a.xyz】4"
+      - "CA【机场推荐：https://a9a.xyz】5"
+      - "CN【机场推荐：https://a9a.xyz】6"
+      - "RU【机场推荐：https://a9a.xyz】7"
+      - "DE【机场推荐：https://a9a.xyz】8"
+      - "SG【机场推荐：https://a9a.xyz】9"
+      - "JP【机场推荐：https://a9a.xyz】10"
       - "NL【机场推荐：https://a9a.xyz】11"
       - "CA【机场推荐：https://a9a.xyz】12"
-      - "NO【机场推荐：https://a9a.xyz】13"
-      - "PL【机场推荐：https://a9a.xyz】14"
-      - "CA【机场推荐：https://a9a.xyz】15"
-      - "CA【机场推荐：https://a9a.xyz】16"
-      - "US【机场推荐：https://a9a.xyz】17"
+      - "CA【机场推荐：https://a9a.xyz】13"
+      - "SG【机场推荐：https://a9a.xyz】14"
+      - "DE【机场推荐：https://a9a.xyz】15"
+      - "VN【机场推荐：https://a9a.xyz】16"
+      - "VN【机场推荐：https://a9a.xyz】17"
       - "CA【机场推荐：https://a9a.xyz】18"
-      - "SG【机场推荐：https://a9a.xyz】19"
-      - "DE【机场推荐：https://a9a.xyz】20"
-      - "VN【机场推荐：https://a9a.xyz】21"
-      - "JP【机场推荐：https://a9a.xyz】22"
-      - "MY【机场推荐：https://a9a.xyz】23"
-      - "CA【机场推荐：https://a9a.xyz】24"
-      - "US【机场推荐：https://a9a.xyz】25"
-      - "KR【机场推荐：https://a9a.xyz】26"
-      - "SG【机场推荐：https://a9a.xyz】27"
-      - "MY【机场推荐：https://a9a.xyz】28"
-      - "VN【机场推荐：https://a9a.xyz】29"
-      - "RU【机场推荐：https://a9a.xyz】30"
-      - "SG【机场推荐：https://a9a.xyz】31"
-      - "SG【机场推荐：https://a9a.xyz】32"
-      - "VN【机场推荐：https://a9a.xyz】33"
+      - "KR【机场推荐：https://a9a.xyz】19"
+      - "PL【机场推荐：https://a9a.xyz】20"
+      - "CA【机场推荐：https://a9a.xyz】21"
+      - "CA【机场推荐：https://a9a.xyz】22"
+      - "TW【机场推荐：https://a9a.xyz】23"
+      - "NL【机场推荐：https://a9a.xyz】24"
+      - "DE【机场推荐：https://a9a.xyz】25"
+      - "JP【机场推荐：https://a9a.xyz】26"
+      - "CA【机场推荐：https://a9a.xyz】27"
+      - "CN【机场推荐：https://a9a.xyz】28"
+      - "LT【机场推荐：https://a9a.xyz】29"
+      - "DE【机场推荐：https://a9a.xyz】30"
+      - "RU【机场推荐：https://a9a.xyz】31"
+      - "VN【机场推荐：https://a9a.xyz】32"
+      - "SG【机场推荐：https://a9a.xyz】33"
       - "SG【机场推荐：https://a9a.xyz】34"
-      - "SE【机场推荐：https://a9a.xyz】35"
-      - "SG【机场推荐：https://a9a.xyz】36"
-      - "TR【机场推荐：https://a9a.xyz】37"
-      - "CA【机场推荐：https://a9a.xyz】38"
-      - "GB【机场推荐：https://a9a.xyz】39"
-      - "CN【机场推荐：https://a9a.xyz】40"
-      - "GB【机场推荐：https://a9a.xyz】41"
-      - "DE【机场推荐：https://a9a.xyz】42"
-      - "KR【机场推荐：https://a9a.xyz】43"
+      - "GB【机场推荐：https://a9a.xyz】35"
+      - "US【机场推荐：https://a9a.xyz】36"
+      - "CA【机场推荐：https://a9a.xyz】37"
+      - "DE【机场推荐：https://a9a.xyz】38"
+      - "KR【机场推荐：https://a9a.xyz】39"
   - name: "♻️ 自动选择"
     type: url-test
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
     proxies:
-      - "节点日期：2026-10-19"
-      - "JP【机场推荐：https://a9a.xyz】1"
-      - "CA【机场推荐：https://a9a.xyz】2"
-      - "CA【机场推荐：https://a9a.xyz】3"
-      - "DE【机场推荐：https://a9a.xyz】4"
-      - "VN【机场推荐：https://a9a.xyz】5"
-      - "VN【机场推荐：https://a9a.xyz】6"
-      - "US【机场推荐：https://a9a.xyz】7"
-      - "NL【机场推荐：https://a9a.xyz】8"
-      - "LT【机场推荐：https://a9a.xyz】9"
-      - "CN【机场推荐：https://a9a.xyz】10"
+      - "节点日期：2026-10-20"
+      - "HK【机场推荐：https://a9a.xyz】1"
+      - "VN【机场推荐：https://a9a.xyz】2"
+      - "VN【机场推荐：https://a9a.xyz】3"
+      - "CA【机场推荐：https://a9a.xyz】4"
+      - "CA【机场推荐：https://a9a.xyz】5"
+      - "CN【机场推荐：https://a9a.xyz】6"
+      - "RU【机场推荐：https://a9a.xyz】7"
+      - "DE【机场推荐：https://a9a.xyz】8"
+      - "SG【机场推荐：https://a9a.xyz】9"
+      - "JP【机场推荐：https://a9a.xyz】10"
       - "NL【机场推荐：https://a9a.xyz】11"
       - "CA【机场推荐：https://a9a.xyz】12"
-      - "NO【机场推荐：https://a9a.xyz】13"
-      - "PL【机场推荐：https://a9a.xyz】14"
-      - "CA【机场推荐：https://a9a.xyz】15"
-      - "CA【机场推荐：https://a9a.xyz】16"
-      - "US【机场推荐：https://a9a.xyz】17"
+      - "CA【机场推荐：https://a9a.xyz】13"
+      - "SG【机场推荐：https://a9a.xyz】14"
+      - "DE【机场推荐：https://a9a.xyz】15"
+      - "VN【机场推荐：https://a9a.xyz】16"
+      - "VN【机场推荐：https://a9a.xyz】17"
       - "CA【机场推荐：https://a9a.xyz】18"
-      - "SG【机场推荐：https://a9a.xyz】19"
-      - "DE【机场推荐：https://a9a.xyz】20"
-      - "VN【机场推荐：https://a9a.xyz】21"
-      - "JP【机场推荐：https://a9a.xyz】22"
-      - "MY【机场推荐：https://a9a.xyz】23"
-      - "CA【机场推荐：https://a9a.xyz】24"
-      - "US【机场推荐：https://a9a.xyz】25"
-      - "KR【机场推荐：https://a9a.xyz】26"
-      - "SG【机场推荐：https://a9a.xyz】27"
-      - "MY【机场推荐：https://a9a.xyz】28"
-      - "VN【机场推荐：https://a9a.xyz】29"
-      - "RU【机场推荐：https://a9a.xyz】30"
-      - "SG【机场推荐：https://a9a.xyz】31"
-      - "SG【机场推荐：https://a9a.xyz】32"
-      - "VN【机场推荐：https://a9a.xyz】33"
+      - "KR【机场推荐：https://a9a.xyz】19"
+      - "PL【机场推荐：https://a9a.xyz】20"
+      - "CA【机场推荐：https://a9a.xyz】21"
+      - "CA【机场推荐：https://a9a.xyz】22"
+      - "TW【机场推荐：https://a9a.xyz】23"
+      - "NL【机场推荐：https://a9a.xyz】24"
+      - "DE【机场推荐：https://a9a.xyz】25"
+      - "JP【机场推荐：https://a9a.xyz】26"
+      - "CA【机场推荐：https://a9a.xyz】27"
+      - "CN【机场推荐：https://a9a.xyz】28"
+      - "LT【机场推荐：https://a9a.xyz】29"
+      - "DE【机场推荐：https://a9a.xyz】30"
+      - "RU【机场推荐：https://a9a.xyz】31"
+      - "VN【机场推荐：https://a9a.xyz】32"
+      - "SG【机场推荐：https://a9a.xyz】33"
       - "SG【机场推荐：https://a9a.xyz】34"
-      - "SE【机场推荐：https://a9a.xyz】35"
-      - "SG【机场推荐：https://a9a.xyz】36"
-      - "TR【机场推荐：https://a9a.xyz】37"
-      - "CA【机场推荐：https://a9a.xyz】38"
-      - "GB【机场推荐：https://a9a.xyz】39"
-      - "CN【机场推荐：https://a9a.xyz】40"
-      - "GB【机场推荐：https://a9a.xyz】41"
-      - "DE【机场推荐：https://a9a.xyz】42"
-      - "KR【机场推荐：https://a9a.xyz】43"
+      - "GB【机场推荐：https://a9a.xyz】35"
+      - "US【机场推荐：https://a9a.xyz】36"
+      - "CA【机场推荐：https://a9a.xyz】37"
+      - "DE【机场推荐：https://a9a.xyz】38"
+      - "KR【机场推荐：https://a9a.xyz】39"
   - name: "🎯 直连模式"
     type: select
     proxies:
