@@ -26,28 +26,10 @@ dns:
 proxies:
   - name: 🇮🇹_IT_意大利
     type: ss
-    server: 202.50.253.45
+    server: 202.50.253.54
     port: 19999
     cipher: aes-256-gcm
     password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-    skip-cert-verify: true
-    udp: true
-  - name: 🇮🇹_IT_意大利_1
-    type: ss
-    server: 202.50.253.99
-    port: 19999
-    cipher: aes-256-gcm
-    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-    skip-cert-verify: true
-    udp: true
-  - name: 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
-    type: vmess
-    server: v4.hdacd.com
-    port: 30804
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-    alterId: 2
-    cipher: auto
-    tls: false
     skip-cert-verify: true
     udp: true
   - name: 🇨🇳_CN_中国
@@ -60,7 +42,37 @@ proxies:
     tls: false
     skip-cert-verify: true
     udp: true
-  - name: 🇮🇹_IT_意大利_2
+  - name: 🇨🇳_CN_中国_1
+    type: vmess
+    server: 120.48.133.162
+    port: 10086
+    uuid: a01e5d56-464f-45b9-b600-164db4700162
+    alterId: 0
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    network: ws
+    udp: true
+  - name: 🇮🇪_IE_爱尔兰
+    type: vless
+    server: 52.31.133.142
+    port: 443
+    uuid: 7060231d-b9ba-495f-a218-bf427940cf3e
+    network: http
+    tls: false
+    skip-cert-verify: true
+    udp: true
+  - name: 🇨🇳_CN_中国->🇫🇷_FR_法国
+    type: vmess
+    server: v35.hdacd.com
+    port: 30835
+    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+    alterId: 2
+    cipher: auto
+    tls: false
+    skip-cert-verify: true
+    udp: true
+  - name: 🇮🇹_IT_意大利_1
     type: ss
     server: 202.50.253.72
     port: 19999
@@ -68,38 +80,48 @@ proxies:
     password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
     skip-cert-verify: true
     udp: true
-  - name: 🇺🇸_US_美国->🇩🇪_DE_德国
+  - name: 🇪🇸_ES_西班牙
     type: vless
-    server: uiuxtestsdcv-development-r6dg9.lucity.app
+    server: 18.101.197.136
     port: 443
-    uuid: 58b06206-cd53-23d6-279a-0f0dd259cb0a
-    network: ws
-    servername: uiuxtestsdcv-development-r6dg9.lucity.app
-    tls: true
-    client-fingerprint: chrome
-    ws-opts:
-      path: /ws/58b06206-cd53-23d6-279a-0f0dd259cb0a
-      headers:
-        Host: uiuxtestsdcv-development-r6dg9.lucity.app
-    skip-cert-verify: true
-    udp: true
-  - name: 🇮🇹_IT_意大利_3
-    type: ss
-    server: 202.50.253.81
-    port: 19999
-    cipher: aes-256-gcm
-    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-    skip-cert-verify: true
-    udp: true
-  - name: 🇮🇹_IT_意大利_4
-    type: ss
-    server: 202.50.253.63
-    port: 19999
-    cipher: aes-256-gcm
-    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+    uuid: 7060231d-b9ba-495f-a218-bf427940cf3e
+    network: http
+    tls: false
     skip-cert-verify: true
     udp: true
   - name: 🇺🇸_US_美国
+    type: vless
+    server: 3.147.42.150
+    port: 443
+    uuid: 7060231d-b9ba-495f-a218-bf427940cf3e
+    network: http
+    tls: false
+    skip-cert-verify: true
+    udp: true
+  - name: 🇮🇹_IT_意大利_2
+    type: ss
+    server: 202.50.253.18
+    port: 19999
+    cipher: aes-256-gcm
+    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+    skip-cert-verify: true
+    udp: true
+  - name: 🇫🇮_FI_芬兰
+    type: vless
+    server: hw3.divarkhaghazi.com.
+    port: 465
+    uuid: 924e20da-fcad-4e7e-8113-c62d27a0d01e
+    network: ws
+    servername: hw3.divarkhaghazi.com.
+    tls: true
+    client-fingerprint: chrome
+    ws-opts:
+      path: /
+      headers:
+        Host: hw3.divarkhaghazi.com.
+    skip-cert-verify: true
+    udp: true
+  - name: 🇺🇸_US_美国_1
     type: vmess
     server: guanwang.awsno.com
     port: 443
@@ -115,14 +137,6 @@ proxies:
       headers:
         Host: guanwang.awsno.com
     udp: true
-  - name: 🇮🇹_IT_意大利_5
-    type: ss
-    server: 202.50.253.90
-    port: 19999
-    cipher: aes-256-gcm
-    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-    skip-cert-verify: true
-    udp: true
   - name: 🇨🇳_CN_中国->🇳🇱_NL_荷兰
     type: vmess
     server: v29.hdacd.com
@@ -133,14 +147,12 @@ proxies:
     tls: false
     skip-cert-verify: true
     udp: true
-  - name: 🇨🇳_CN_中国->🇫🇷_FR_法国
-    type: vmess
-    server: v35.hdacd.com
-    port: 30835
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-    alterId: 2
-    cipher: auto
-    tls: false
+  - name: 🇮🇹_IT_意大利_3
+    type: ss
+    server: 202.50.253.45
+    port: 19999
+    cipher: aes-256-gcm
+    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
     skip-cert-verify: true
     udp: true
   - name: 🇨🇳_CN_中国->🇺🇸_US_美国
@@ -151,54 +163,58 @@ proxies:
     tls: false
     skip-cert-verify: true
     udp: true
-  - name: 🇨🇳_CN_中国_1
+  - name: 🇮🇪_IE_爱尔兰_1
+    type: vless
+    server: 54.154.201.249
+    port: 443
+    uuid: 7060231d-b9ba-495f-a218-bf427940cf3e
+    network: http
+    tls: false
+    skip-cert-verify: true
+    udp: true
+  - name: 🇨🇳_CN_中国->🇯🇵_JP_日本
     type: vmess
-    server: 120.48.133.162
-    port: 10086
-    uuid: a01e5d56-464f-45b9-b600-164db4700162
-    alterId: 0
+    server: v6.hdacd.com
+    port: 30806
+    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+    alterId: 2
     cipher: auto
     tls: false
     skip-cert-verify: true
-    network: ws
     udp: true
-  - name: 🇨🇳_CN_中国->🇺🇸_US_美国_1
-    type: vless
-    server: us22.sofast.live
-    port: 58011
-    uuid: 0afc6426-606c-48e7-bd70-3c424a416842
-    tls: false
-    skip-cert-verify: true
-    udp: true
-  - name: 🇬🇧_GB_英国
-    type: vless
-    server: 51.24.209.55
-    port: 22222
-    uuid: e4514801-0d5a-42ba-869f-39bd605aef9e
-    tls: false
-    skip-cert-verify: true
-    udp: true
-  - name: 🇮🇹_IT_意大利_6
+  - name: 🇮🇹_IT_意大利_4
     type: ss
-    server: 202.50.253.18
+    server: 202.50.253.99
     port: 19999
     cipher: aes-256-gcm
     password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
     skip-cert-verify: true
     udp: true
-  - name: 🇬🇧_GB_英国_1
-    type: vless
-    server: 51.24.209.55
-    port: 22223
-    uuid: e4514801-0d5a-42ba-869f-39bd605aef9e
+  - name: 🇮🇹_IT_意大利_5
+    type: ss
+    server: 202.50.253.90
+    port: 19999
+    cipher: aes-256-gcm
+    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+    skip-cert-verify: true
+    udp: true
+  - name: 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
+    type: vmess
+    server: v4.hdacd.com
+    port: 30804
+    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+    alterId: 2
+    cipher: auto
     tls: false
     skip-cert-verify: true
     udp: true
-  - name: 🇬🇧_GB_英国_2
-    type: vless
-    server: 51.24.209.55
-    port: 22224
-    uuid: e4514801-0d5a-42ba-869f-39bd605aef9e
+  - name: 🇨🇳_CN_中国->🇺🇸_US_美国_1
+    type: vmess
+    server: v24.hdacd.com
+    port: 30824
+    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
+    alterId: 2
+    cipher: auto
     tls: false
     skip-cert-verify: true
     udp: true
@@ -209,46 +225,48 @@ proxy-groups:
       - ♻️ 自动选择
       - DIRECT
       - 🇮🇹_IT_意大利
-      - 🇮🇹_IT_意大利_1
-      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国
-      - 🇮🇹_IT_意大利_2
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
-      - 🇮🇹_IT_意大利_3
-      - 🇮🇹_IT_意大利_4
-      - 🇺🇸_US_美国
-      - 🇮🇹_IT_意大利_5
-      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
-      - 🇨🇳_CN_中国->🇫🇷_FR_法国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇨🇳_CN_中国_1
+      - 🇮🇪_IE_爱尔兰
+      - 🇨🇳_CN_中国->🇫🇷_FR_法国
+      - 🇮🇹_IT_意大利_1
+      - 🇪🇸_ES_西班牙
+      - 🇺🇸_US_美国
+      - 🇮🇹_IT_意大利_2
+      - 🇫🇮_FI_芬兰
+      - 🇺🇸_US_美国_1
+      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
+      - 🇮🇹_IT_意大利_3
+      - 🇨🇳_CN_中国->🇺🇸_US_美国
+      - 🇮🇪_IE_爱尔兰_1
+      - 🇨🇳_CN_中国->🇯🇵_JP_日本
+      - 🇮🇹_IT_意大利_4
+      - 🇮🇹_IT_意大利_5
+      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇬🇧_GB_英国
-      - 🇮🇹_IT_意大利_6
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧_GB_英国_2
   - name: ♻️ 自动选择
     type: url-test
     proxies:
       - 🇮🇹_IT_意大利
-      - 🇮🇹_IT_意大利_1
-      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国
-      - 🇮🇹_IT_意大利_2
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
-      - 🇮🇹_IT_意大利_3
-      - 🇮🇹_IT_意大利_4
-      - 🇺🇸_US_美国
-      - 🇮🇹_IT_意大利_5
-      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
-      - 🇨🇳_CN_中国->🇫🇷_FR_法国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇨🇳_CN_中国_1
+      - 🇮🇪_IE_爱尔兰
+      - 🇨🇳_CN_中国->🇫🇷_FR_法国
+      - 🇮🇹_IT_意大利_1
+      - 🇪🇸_ES_西班牙
+      - 🇺🇸_US_美国
+      - 🇮🇹_IT_意大利_2
+      - 🇫🇮_FI_芬兰
+      - 🇺🇸_US_美国_1
+      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
+      - 🇮🇹_IT_意大利_3
+      - 🇨🇳_CN_中国->🇺🇸_US_美国
+      - 🇮🇪_IE_爱尔兰_1
+      - 🇨🇳_CN_中国->🇯🇵_JP_日本
+      - 🇮🇹_IT_意大利_4
+      - 🇮🇹_IT_意大利_5
+      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇬🇧_GB_英国
-      - 🇮🇹_IT_意大利_6
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧_GB_英国_2
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
@@ -259,96 +277,100 @@ proxy-groups:
       - ♻️ 自动选择
       - 🎯 全球直连
       - 🇮🇹_IT_意大利
-      - 🇮🇹_IT_意大利_1
-      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国
-      - 🇮🇹_IT_意大利_2
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
-      - 🇮🇹_IT_意大利_3
-      - 🇮🇹_IT_意大利_4
-      - 🇺🇸_US_美国
-      - 🇮🇹_IT_意大利_5
-      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
-      - 🇨🇳_CN_中国->🇫🇷_FR_法国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇨🇳_CN_中国_1
+      - 🇮🇪_IE_爱尔兰
+      - 🇨🇳_CN_中国->🇫🇷_FR_法国
+      - 🇮🇹_IT_意大利_1
+      - 🇪🇸_ES_西班牙
+      - 🇺🇸_US_美国
+      - 🇮🇹_IT_意大利_2
+      - 🇫🇮_FI_芬兰
+      - 🇺🇸_US_美国_1
+      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
+      - 🇮🇹_IT_意大利_3
+      - 🇨🇳_CN_中国->🇺🇸_US_美国
+      - 🇮🇪_IE_爱尔兰_1
+      - 🇨🇳_CN_中国->🇯🇵_JP_日本
+      - 🇮🇹_IT_意大利_4
+      - 🇮🇹_IT_意大利_5
+      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇬🇧_GB_英国
-      - 🇮🇹_IT_意大利_6
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧_GB_英国_2
   - name: 📲 电报信息
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
       - 🇮🇹_IT_意大利
-      - 🇮🇹_IT_意大利_1
-      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国
-      - 🇮🇹_IT_意大利_2
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
-      - 🇮🇹_IT_意大利_3
-      - 🇮🇹_IT_意大利_4
-      - 🇺🇸_US_美国
-      - 🇮🇹_IT_意大利_5
-      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
-      - 🇨🇳_CN_中国->🇫🇷_FR_法国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇨🇳_CN_中国_1
+      - 🇮🇪_IE_爱尔兰
+      - 🇨🇳_CN_中国->🇫🇷_FR_法国
+      - 🇮🇹_IT_意大利_1
+      - 🇪🇸_ES_西班牙
+      - 🇺🇸_US_美国
+      - 🇮🇹_IT_意大利_2
+      - 🇫🇮_FI_芬兰
+      - 🇺🇸_US_美国_1
+      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
+      - 🇮🇹_IT_意大利_3
+      - 🇨🇳_CN_中国->🇺🇸_US_美国
+      - 🇮🇪_IE_爱尔兰_1
+      - 🇨🇳_CN_中国->🇯🇵_JP_日本
+      - 🇮🇹_IT_意大利_4
+      - 🇮🇹_IT_意大利_5
+      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇬🇧_GB_英国
-      - 🇮🇹_IT_意大利_6
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧_GB_英国_2
   - name: Ⓜ️ 微软服务
     type: select
     proxies:
       - 🎯 全球直连
       - 🚀 节点选择
       - 🇮🇹_IT_意大利
-      - 🇮🇹_IT_意大利_1
-      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国
-      - 🇮🇹_IT_意大利_2
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
-      - 🇮🇹_IT_意大利_3
-      - 🇮🇹_IT_意大利_4
-      - 🇺🇸_US_美国
-      - 🇮🇹_IT_意大利_5
-      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
-      - 🇨🇳_CN_中国->🇫🇷_FR_法国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇨🇳_CN_中国_1
+      - 🇮🇪_IE_爱尔兰
+      - 🇨🇳_CN_中国->🇫🇷_FR_法国
+      - 🇮🇹_IT_意大利_1
+      - 🇪🇸_ES_西班牙
+      - 🇺🇸_US_美国
+      - 🇮🇹_IT_意大利_2
+      - 🇫🇮_FI_芬兰
+      - 🇺🇸_US_美国_1
+      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
+      - 🇮🇹_IT_意大利_3
+      - 🇨🇳_CN_中国->🇺🇸_US_美国
+      - 🇮🇪_IE_爱尔兰_1
+      - 🇨🇳_CN_中国->🇯🇵_JP_日本
+      - 🇮🇹_IT_意大利_4
+      - 🇮🇹_IT_意大利_5
+      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇬🇧_GB_英国
-      - 🇮🇹_IT_意大利_6
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧_GB_英国_2
   - name: 🍎 苹果服务
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
       - 🇮🇹_IT_意大利
-      - 🇮🇹_IT_意大利_1
-      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国
-      - 🇮🇹_IT_意大利_2
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
-      - 🇮🇹_IT_意大利_3
-      - 🇮🇹_IT_意大利_4
-      - 🇺🇸_US_美国
-      - 🇮🇹_IT_意大利_5
-      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
-      - 🇨🇳_CN_中国->🇫🇷_FR_法国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇨🇳_CN_中国_1
+      - 🇮🇪_IE_爱尔兰
+      - 🇨🇳_CN_中国->🇫🇷_FR_法国
+      - 🇮🇹_IT_意大利_1
+      - 🇪🇸_ES_西班牙
+      - 🇺🇸_US_美国
+      - 🇮🇹_IT_意大利_2
+      - 🇫🇮_FI_芬兰
+      - 🇺🇸_US_美国_1
+      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
+      - 🇮🇹_IT_意大利_3
+      - 🇨🇳_CN_中国->🇺🇸_US_美国
+      - 🇮🇪_IE_爱尔兰_1
+      - 🇨🇳_CN_中国->🇯🇵_JP_日本
+      - 🇮🇹_IT_意大利_4
+      - 🇮🇹_IT_意大利_5
+      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇬🇧_GB_英国
-      - 🇮🇹_IT_意大利_6
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧_GB_英国_2
   - name: 🎯 全球直连
     type: select
     proxies:
@@ -377,24 +399,25 @@ proxy-groups:
       - 🎯 全球直连
       - ♻️ 自动选择
       - 🇮🇹_IT_意大利
-      - 🇮🇹_IT_意大利_1
-      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国
-      - 🇮🇹_IT_意大利_2
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
-      - 🇮🇹_IT_意大利_3
-      - 🇮🇹_IT_意大利_4
-      - 🇺🇸_US_美国
-      - 🇮🇹_IT_意大利_5
-      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
-      - 🇨🇳_CN_中国->🇫🇷_FR_法国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇨🇳_CN_中国_1
+      - 🇮🇪_IE_爱尔兰
+      - 🇨🇳_CN_中国->🇫🇷_FR_法国
+      - 🇮🇹_IT_意大利_1
+      - 🇪🇸_ES_西班牙
+      - 🇺🇸_US_美国
+      - 🇮🇹_IT_意大利_2
+      - 🇫🇮_FI_芬兰
+      - 🇺🇸_US_美国_1
+      - 🇨🇳_CN_中国->🇳🇱_NL_荷兰
+      - 🇮🇹_IT_意大利_3
+      - 🇨🇳_CN_中国->🇺🇸_US_美国
+      - 🇮🇪_IE_爱尔兰_1
+      - 🇨🇳_CN_中国->🇯🇵_JP_日本
+      - 🇮🇹_IT_意大利_4
+      - 🇮🇹_IT_意大利_5
+      - 🇨🇳_CN_中国->🇮🇪_IE_爱尔兰
       - 🇨🇳_CN_中国->🇺🇸_US_美国_1
-      - 🇬🇧_GB_英国
-      - 🇮🇹_IT_意大利_6
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧_GB_英国_2
 rule-providers:
   LocalAreaNetwork:
     type: http
