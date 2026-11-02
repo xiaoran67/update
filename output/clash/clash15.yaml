@@ -6,21 +6,14 @@ log-level: info
 external-controller: '127.0.0.1:9090'
 
 proxies:
-  - name: "节点日期：2026-11-01"
+  - name: "节点日期：2026-11-02"
     type: ss
-    server: "202.50.253.90"
+    server: "202.50.253.54"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】1"
-    type: ss
-    server: "202.50.253.27"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "CA【机场推荐：https://a9a.xyz】2"
+  - name: "CA【机场推荐：https://a9a.xyz】1"
     type: vmess
     server: "guanwang.awsno.com"
     port: 443
@@ -35,16 +28,23 @@ proxies:
       path: "/hls/cctv5phd.m3u8"
       headers:
         Host: "guanwang.awsno.com"
+  - name: "IT【机场推荐：https://a9a.xyz】2"
+    type: ss
+    server: "202.50.253.27"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
   - name: "IT【机场推荐：https://a9a.xyz】3"
     type: ss
-    server: "202.50.253.72"
+    server: "202.50.253.90"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
   - name: "IT【机场推荐：https://a9a.xyz】4"
     type: ss
-    server: "202.50.253.63"
+    server: "202.50.253.45"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
@@ -58,28 +58,28 @@ proxies:
     udp: true
   - name: "IT【机场推荐：https://a9a.xyz】6"
     type: ss
-    server: "202.50.253.45"
+    server: "202.50.253.18"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
   - name: "IT【机场推荐：https://a9a.xyz】7"
     type: ss
-    server: "202.50.253.99"
+    server: "202.50.253.63"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
   - name: "IT【机场推荐：https://a9a.xyz】8"
     type: ss
-    server: "202.50.253.54"
+    server: "202.50.253.72"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
   - name: "IT【机场推荐：https://a9a.xyz】9"
     type: ss
-    server: "202.50.253.18"
+    server: "202.50.253.99"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
@@ -91,29 +91,7 @@ proxies:
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
-  - name: "KZ【机场推荐：https://a9a.xyz】11"
-    type: vless
-    server: "95.56.251.12"
-    port: 47443
-    uuid: "1fe01c8a-ab37-4e95-bbfc-95d4a608931e"
-    flow: "xtls-rprx-vision"
-    udp: true
-    tls: true
-    client-fingerprint: "firefox"
-    servername: "kz1.waspnest.space"
-    reality-opts:
-      public-key: "z1GSwCEACvO9RLcMVpcURiT8er4oeIdeSJhraw_0cGU"
-      short-id: "ae97223a8f799877"
-  - name: "SG【机场推荐：https://a9a.xyz】12"
-    type: vless
-    server: "sg1.zestapp778.com"
-    port: 56984
-    uuid: "e9a8144e-5237-488a-afb1-9ca3d8d54c80"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "sg1.zestapp778.com"
-  - name: "RU【机场推荐：https://a9a.xyz】13"
+  - name: "RU【机场推荐：https://a9a.xyz】11"
     type: vless
     server: "87.242.119.253"
     port: 443
@@ -122,44 +100,13 @@ proxies:
     tls: true
     skip-cert-verify: false
     servername: "hvtlr-ru-47sb.fade.mom"
-  - name: "FI【机场推荐：https://a9a.xyz】14"
-    type: vless
-    server: "tau1.freerunet.online"
-    port: 443
-    uuid: "ca14493b-b984-4ffb-bc0e-9cb5da969e15"
-    flow: "xtls-rprx-vision"
+  - name: "RU【机场推荐：https://a9a.xyz】12"
+    type: ss
+    server: "46.17.46.27"
+    port: 18443
+    cipher: "aes-256-gcm"
+    password: "cCMJgJTA3BA489YUYrFq7XHXSiSpWlLa"
     udp: true
-    tls: true
-    client-fingerprint: "qq"
-    servername: "tau1.freerunet.online"
-    reality-opts:
-      public-key: "l1mx_plNc2oiWxJCcZLh3SGfFU-5QxYpgQ__Ea59WEg"
-      short-id: "4a7b1c8d"
-  - name: "IL【机场推荐：https://a9a.xyz】15"
-    type: vless
-    server: "79.182.39.37"
-    port: 27591
-    uuid: "056405e8-de9f-4d0d-8145-956f13cc34da"
-    udp: true
-    tls: true
-    client-fingerprint: "firefox"
-    servername: "www.samsung.com"
-    reality-opts:
-      public-key: "LY0H47MWx87_L_JBzxFAuTzKZB53U7MrZQK8-dNnMxM"
-      short-id: "6c5c7900406a1ae7"
-  - name: "FI【机场推荐：https://a9a.xyz】16"
-    type: vless
-    server: "178.236.245.59"
-    port: 443
-    uuid: "ca14493b-b984-4ffb-bc0e-9cb5da969e15"
-    flow: "xtls-rprx-vision"
-    udp: true
-    tls: true
-    client-fingerprint: "firefox"
-    servername: "tau1.freerunet.online"
-    reality-opts:
-      public-key: "l1mx_plNc2oiWxJCcZLh3SGfFU-5QxYpgQ__Ea59WEg"
-      short-id: "4a7b1c8d"
 
 proxy-groups:
   - name: "🚀 节点选择"
@@ -167,9 +114,9 @@ proxy-groups:
     proxies:
       - "♻️ 自动选择"
       - "🎯 直连模式"
-      - "节点日期：2026-11-01"
-      - "IT【机场推荐：https://a9a.xyz】1"
-      - "CA【机场推荐：https://a9a.xyz】2"
+      - "节点日期：2026-11-02"
+      - "CA【机场推荐：https://a9a.xyz】1"
+      - "IT【机场推荐：https://a9a.xyz】2"
       - "IT【机场推荐：https://a9a.xyz】3"
       - "IT【机场推荐：https://a9a.xyz】4"
       - "IT【机场推荐：https://a9a.xyz】5"
@@ -178,21 +125,17 @@ proxy-groups:
       - "IT【机场推荐：https://a9a.xyz】8"
       - "IT【机场推荐：https://a9a.xyz】9"
       - "IT【机场推荐：https://a9a.xyz】10"
-      - "KZ【机场推荐：https://a9a.xyz】11"
-      - "SG【机场推荐：https://a9a.xyz】12"
-      - "RU【机场推荐：https://a9a.xyz】13"
-      - "FI【机场推荐：https://a9a.xyz】14"
-      - "IL【机场推荐：https://a9a.xyz】15"
-      - "FI【机场推荐：https://a9a.xyz】16"
+      - "RU【机场推荐：https://a9a.xyz】11"
+      - "RU【机场推荐：https://a9a.xyz】12"
   - name: "♻️ 自动选择"
     type: url-test
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
     proxies:
-      - "节点日期：2026-11-01"
-      - "IT【机场推荐：https://a9a.xyz】1"
-      - "CA【机场推荐：https://a9a.xyz】2"
+      - "节点日期：2026-11-02"
+      - "CA【机场推荐：https://a9a.xyz】1"
+      - "IT【机场推荐：https://a9a.xyz】2"
       - "IT【机场推荐：https://a9a.xyz】3"
       - "IT【机场推荐：https://a9a.xyz】4"
       - "IT【机场推荐：https://a9a.xyz】5"
@@ -201,12 +144,8 @@ proxy-groups:
       - "IT【机场推荐：https://a9a.xyz】8"
       - "IT【机场推荐：https://a9a.xyz】9"
       - "IT【机场推荐：https://a9a.xyz】10"
-      - "KZ【机场推荐：https://a9a.xyz】11"
-      - "SG【机场推荐：https://a9a.xyz】12"
-      - "RU【机场推荐：https://a9a.xyz】13"
-      - "FI【机场推荐：https://a9a.xyz】14"
-      - "IL【机场推荐：https://a9a.xyz】15"
-      - "FI【机场推荐：https://a9a.xyz】16"
+      - "RU【机场推荐：https://a9a.xyz】11"
+      - "RU【机场推荐：https://a9a.xyz】12"
   - name: "🎯 直连模式"
     type: select
     proxies:
