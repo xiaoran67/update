@@ -6,37 +6,164 @@ log-level: info
 external-controller: '127.0.0.1:9090'
 
 proxies:
-  - name: "节点日期：2026-11-04"
+  - name: "节点日期：2026-11-05"
+    type: ss
+    server: "46.17.46.27"
+    port: 18443
+    cipher: "aes-256-gcm"
+    password: "cCMJgJTA3BA489YUYrFq7XHXSiSpWlLa"
+    udp: true
+  - name: "IT【机场推荐：https://a9a.xyz】1"
     type: ss
     server: "202.50.253.27"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】1"
+  - name: "IT【机场推荐：https://a9a.xyz】2"
     type: ss
     server: "202.50.253.90"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
-  - name: "RU【机场推荐：https://a9a.xyz】2"
+  - name: "HK【机场推荐：https://a9a.xyz】3"
     type: vless
-    server: "87.242.119.253"
-    port: 443
-    uuid: "aba9cdd4-026c-0001-87a9-9b3e5f24dd82"
+    server: "152.175.6.229"
+    port: 31884
+    uuid: "e9a8144e-5237-488a-afb1-9ca3d8d54c80"
     udp: true
     tls: true
     skip-cert-verify: false
-    servername: "hvtlr-ru-47sb.fade.mom"
-  - name: "IT【机场推荐：https://a9a.xyz】3"
+    servername: "hk010.zestapp778.com"
+  - name: "IT【机场推荐：https://a9a.xyz】4"
     type: ss
     server: "202.50.253.63"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
-  - name: "CA【机场推荐：https://a9a.xyz】4"
+  - name: "IT【机场推荐：https://a9a.xyz】5"
+    type: ss
+    server: "202.50.253.54"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【机场推荐：https://a9a.xyz】6"
+    type: ss
+    server: "202.50.253.72"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【机场推荐：https://a9a.xyz】7"
+    type: ss
+    server: "202.50.253.18"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【机场推荐：https://a9a.xyz】8"
+    type: ss
+    server: "202.50.253.99"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【机场推荐：https://a9a.xyz】9"
+    type: ss
+    server: "202.50.253.45"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【机场推荐：https://a9a.xyz】10"
+    type: ss
+    server: "202.50.253.36"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【机场推荐：https://a9a.xyz】11"
+    type: ss
+    server: "202.50.253.81"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "CA【机场推荐：https://a9a.xyz】12"
+    type: vmess
+    server: "172.67.190.164"
+    port: 443
+    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
+    cipher: "auto"
+    alterId: 0
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: "guanwang.awsno.com"
+    network: ws
+    ws-opts:
+      path: "/hls/cctv5phd.m3u8"
+      headers:
+        Host: "guanwang.awsno.com"
+  - name: "CA【机场推荐：https://a9a.xyz】13"
+    type: vmess
+    server: "www.shopify.com"
+    port: 443
+    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
+    cipher: "auto"
+    alterId: 0
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: "guanwang.awsno.com"
+    network: ws
+    ws-opts:
+      path: "/hls/cctv5phd.m3u8"
+      headers:
+        Host: "guanwang.awsno.com"
+  - name: "FR【机场推荐：https://a9a.xyz】14"
+    type: vless
+    server: "edge.bookmai.com"
+    port: 443
+    uuid: "b9bfa54d-bc44-4592-a6d6-89a9665d286f"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "chrome"
+    servername: "mother-earth.fyi"
+    reality-opts:
+      public-key: "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc"
+  - name: "SG【机场推荐：https://a9a.xyz】15"
+    type: vless
+    server: "134.255.211.36"
+    port: 443
+    uuid: "c5f59ef3-9540-49fa-bd1e-c6c2f79df49a"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "chrome"
+    servername: "sg-sin.probe.geomyip.com"
+    reality-opts:
+      public-key: "KcI3PoYu2yF7whv-e0C7JnRyUoUiUDu6tOlUBPYYbCk"
+      short-id: "2e96bf6afa823abb"
+  - name: "DE【机场推荐：https://a9a.xyz】16"
+    type: vless
+    server: "z1q3pv4g78.rucdncomp.pro"
+    port: 443
+    uuid: "c720cb74-4c84-4fce-b8ae-637dbaa16199"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "z1q3pv4g78.rucdncomp.pro"
+    network: ws
+    ws-opts:
+      path: "/useraction/events/b892639b7195/"
+      headers:
+        Host: "z1q3pv4g78.rucdncomp.pro"
+  - name: "CA【机场推荐：https://a9a.xyz】17"
     type: vmess
     server: "guanwang.awsno.com"
     port: 443
@@ -51,96 +178,7 @@ proxies:
       path: "/hls/cctv5phd.m3u8"
       headers:
         Host: "guanwang.awsno.com"
-  - name: "IT【机场推荐：https://a9a.xyz】5"
-    type: ss
-    server: "202.50.253.54"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】6"
-    type: ss
-    server: "202.50.253.36"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】7"
-    type: ss
-    server: "202.50.253.99"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】8"
-    type: ss
-    server: "202.50.253.72"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】9"
-    type: ss
-    server: "202.50.253.18"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "HK【机场推荐：https://a9a.xyz】10"
-    type: ss
-    server: "xunlinknode.csdjhajkshdjkas.com"
-    port: 40006
-    cipher: "chacha20-ietf-poly1305"
-    password: "28789988-887e-4e41-83cd-27bbfb7999ad"
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】11"
-    type: ss
-    server: "202.50.253.81"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】12"
-    type: ss
-    server: "202.50.253.45"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "RU【机场推荐：https://a9a.xyz】13"
-    type: ss
-    server: "46.17.46.27"
-    port: 18443
-    cipher: "aes-256-gcm"
-    password: "cCMJgJTA3BA489YUYrFq7XHXSiSpWlLa"
-    udp: true
-  - name: "NL【机场推荐：https://a9a.xyz】14"
-    type: vless
-    server: "156.252.229.136"
-    port: 8443
-    uuid: "3e21e3d3-6d26-4155-b851-764dd8e8c6b5"
-    udp: true
-    tls: true
-    client-fingerprint: "chrome"
-    servername: "play.googleapis.com"
-    reality-opts:
-      public-key: "7jPluypHwPilf_Mq7JOY96SwKkbK35WuIlN1HwGQ_0A"
-      short-id: "974f7f8f"
-  - name: "CA【机场推荐：https://a9a.xyz】15"
-    type: vless
-    server: "cf.090227.xyz"
-    port: 443
-    uuid: "d342d11e-d224-4463-b982-532309285094"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "ccc.010304.xyz"
-    network: ws
-    ws-opts:
-      path: "/fp=chromefp=chrome"
-      headers:
-        Host: "ccc.010304.xyz"
-  - name: "NL【机场推荐：https://a9a.xyz】16"
+  - name: "NL【机场推荐：https://a9a.xyz】18"
     type: vless
     server: "79.182.39.57"
     port: 443
@@ -152,20 +190,7 @@ proxies:
     reality-opts:
       public-key: "5-9YzvyXcZ4J5Z4OaVTUbxUU2InvnwT17m0XY-Jse1E"
       short-id: "257420d9d430152a"
-  - name: "US【机场推荐：https://a9a.xyz】17"
-    type: vless
-    server: "38.244.5.231"
-    port: 443
-    uuid: "1bd6c8a2-01db-4a3d-8b2c-0b2f2c3e8b5a"
-    flow: "xtls-rprx-vision"
-    udp: true
-    tls: true
-    client-fingerprint: "chrome"
-    servername: "www.cloudflare.com"
-    reality-opts:
-      public-key: "DUpNPvLjiL1GzeF7DfKWba-LYLz1KPuQXewhgNGPiDM"
-      short-id: "ab0a5b56"
-  - name: "RU【机场推荐：https://a9a.xyz】18"
+  - name: "RU【机场推荐：https://a9a.xyz】19"
     type: vless
     server: "147.45.161.4"
     port: 443
@@ -178,20 +203,6 @@ proxies:
     reality-opts:
       public-key: "xTePrM5IyjR8o52B2mRAO2nNivfyMpBZxya93MQk4Qc"
       short-id: "2a40b6d6495debf3"
-  - name: "CA【机场推荐：https://a9a.xyz】19"
-    type: vless
-    server: "172.67.159.207"
-    port: 443
-    uuid: "d342d11e-d224-4463-b982-532309285094"
-    udp: true
-    tls: true
-    skip-cert-verify: false
-    servername: "ccc.010304.xyz"
-    network: ws
-    ws-opts:
-      path: "/fp=chromefp=chrome"
-      headers:
-        Host: "ccc.010304.xyz"
 
 proxy-groups:
   - name: "🚀 节点选择"
@@ -199,52 +210,52 @@ proxy-groups:
     proxies:
       - "♻️ 自动选择"
       - "🎯 直连模式"
-      - "节点日期：2026-11-04"
+      - "节点日期：2026-11-05"
       - "IT【机场推荐：https://a9a.xyz】1"
-      - "RU【机场推荐：https://a9a.xyz】2"
-      - "IT【机场推荐：https://a9a.xyz】3"
-      - "CA【机场推荐：https://a9a.xyz】4"
+      - "IT【机场推荐：https://a9a.xyz】2"
+      - "HK【机场推荐：https://a9a.xyz】3"
+      - "IT【机场推荐：https://a9a.xyz】4"
       - "IT【机场推荐：https://a9a.xyz】5"
       - "IT【机场推荐：https://a9a.xyz】6"
       - "IT【机场推荐：https://a9a.xyz】7"
       - "IT【机场推荐：https://a9a.xyz】8"
       - "IT【机场推荐：https://a9a.xyz】9"
-      - "HK【机场推荐：https://a9a.xyz】10"
+      - "IT【机场推荐：https://a9a.xyz】10"
       - "IT【机场推荐：https://a9a.xyz】11"
-      - "IT【机场推荐：https://a9a.xyz】12"
-      - "RU【机场推荐：https://a9a.xyz】13"
-      - "NL【机场推荐：https://a9a.xyz】14"
-      - "CA【机场推荐：https://a9a.xyz】15"
-      - "NL【机场推荐：https://a9a.xyz】16"
-      - "US【机场推荐：https://a9a.xyz】17"
-      - "RU【机场推荐：https://a9a.xyz】18"
-      - "CA【机场推荐：https://a9a.xyz】19"
+      - "CA【机场推荐：https://a9a.xyz】12"
+      - "CA【机场推荐：https://a9a.xyz】13"
+      - "FR【机场推荐：https://a9a.xyz】14"
+      - "SG【机场推荐：https://a9a.xyz】15"
+      - "DE【机场推荐：https://a9a.xyz】16"
+      - "CA【机场推荐：https://a9a.xyz】17"
+      - "NL【机场推荐：https://a9a.xyz】18"
+      - "RU【机场推荐：https://a9a.xyz】19"
   - name: "♻️ 自动选择"
     type: url-test
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
     proxies:
-      - "节点日期：2026-11-04"
+      - "节点日期：2026-11-05"
       - "IT【机场推荐：https://a9a.xyz】1"
-      - "RU【机场推荐：https://a9a.xyz】2"
-      - "IT【机场推荐：https://a9a.xyz】3"
-      - "CA【机场推荐：https://a9a.xyz】4"
+      - "IT【机场推荐：https://a9a.xyz】2"
+      - "HK【机场推荐：https://a9a.xyz】3"
+      - "IT【机场推荐：https://a9a.xyz】4"
       - "IT【机场推荐：https://a9a.xyz】5"
       - "IT【机场推荐：https://a9a.xyz】6"
       - "IT【机场推荐：https://a9a.xyz】7"
       - "IT【机场推荐：https://a9a.xyz】8"
       - "IT【机场推荐：https://a9a.xyz】9"
-      - "HK【机场推荐：https://a9a.xyz】10"
+      - "IT【机场推荐：https://a9a.xyz】10"
       - "IT【机场推荐：https://a9a.xyz】11"
-      - "IT【机场推荐：https://a9a.xyz】12"
-      - "RU【机场推荐：https://a9a.xyz】13"
-      - "NL【机场推荐：https://a9a.xyz】14"
-      - "CA【机场推荐：https://a9a.xyz】15"
-      - "NL【机场推荐：https://a9a.xyz】16"
-      - "US【机场推荐：https://a9a.xyz】17"
-      - "RU【机场推荐：https://a9a.xyz】18"
-      - "CA【机场推荐：https://a9a.xyz】19"
+      - "CA【机场推荐：https://a9a.xyz】12"
+      - "CA【机场推荐：https://a9a.xyz】13"
+      - "FR【机场推荐：https://a9a.xyz】14"
+      - "SG【机场推荐：https://a9a.xyz】15"
+      - "DE【机场推荐：https://a9a.xyz】16"
+      - "CA【机场推荐：https://a9a.xyz】17"
+      - "NL【机场推荐：https://a9a.xyz】18"
+      - "RU【机场推荐：https://a9a.xyz】19"
   - name: "🎯 直连模式"
     type: select
     proxies:
