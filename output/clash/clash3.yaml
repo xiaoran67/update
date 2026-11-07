@@ -181,477 +181,705 @@ proxies:
   port: 445
   server: 51.222.12.127
   type: ss
+- cipher: aes-256-gcm
+  name: Switzerland_Zurich_ss_1022
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 23.166.88.127
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_1023
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 186.190.215.251
+  type: ss
+- cipher: aes-256-gcm
+  name: Czechia_None_ss_1024
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 79.127.184.104
+  type: ss
+- cipher: aes-256-gcm
+  name: France_None_ss_1025
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 57.129.83.85
+  type: ss
+- cipher: aes-256-gcm
+  name: Germany_Frankfurt am Main_ss_1026
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 193.108.119.3
+  type: ss
+- cipher: aes-256-gcm
+  name: Germany_Frankfurt am Main_ss_1027
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 23.157.88.43
+  type: ss
+- cipher: aes-256-gcm
+  name: Germany_Frankfurt am Main_ss_1028
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 193.108.119.2
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_1029
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 66.163.118.103
+  type: ss
+- cipher: aes-256-gcm
+  name: Canada_None_ss_1030
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.17.71.167
+  type: ss
+- cipher: aes-256-gcm
+  name: Czechia_None_ss_1031
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 79.127.139.242
+  type: ss
 - cipher: chacha20-ietf-poly1305
-  name: The Netherlands_None_ss_1022
+  name: The Netherlands_None_ss_1032
   password: v1c-i5SSFXP8n4g1Wbc0L9gX82x5O2Qa
   port: 1354
   server: dns27.m3hrzd.ir
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: The Netherlands_None_ss_1023
+  name: The Netherlands_None_ss_1033
   password: v1c-i5SSFXP8n4g1Wbc0L9gX82x5O2Qa
   port: 1346
   server: dns22.m3hrzd.ir
   type: ss
 - cipher: aes-256-gcm
-  name: United Kingdom_None_ss_1024
+  name: France_Paris_ss_1034
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 23.162.152.22
+  type: ss
+- cipher: aes-256-gcm
+  name: France_Paris_ss_1035
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.109.228.110
+  type: ss
+- cipher: aes-256-gcm
+  name: Canada_None_ss_1036
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.17.64.27
+  type: ss
+- cipher: aes-256-gcm
+  name: France_Paris_ss_1037
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 172.99.189.142
+  type: ss
+- cipher: aes-256-gcm
+  name: Canada_None_ss_1038
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.17.64.175
+  type: ss
+- cipher: aes-256-gcm
+  name: Canada_None_ss_1039
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.17.64.22
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_London_ss_1040
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 198.244.201.129
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_London_ss_1041
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 198.244.202.215
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_London_ss_1042
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 142.202.51.22
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_London_ss_1043
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.114.120.221
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_None_ss_1044
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 185.176.206.9
   type: ss
 - cipher: aes-128-gcm
-  name: Denmark_None_ss_1025
+  name: Denmark_None_ss_1045
   password: shadowsocks
   port: 443
   server: 158.173.24.73
   type: ss
 - cipher: aes-256-gcm
-  name: Bulgaria_None_ss_1026
+  name: Bulgaria_None_ss_1046
   password: RexnBgU7EV5ADxG
   port: 7001
   server: 94.156.250.148
   type: ss
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1027
+  name: Italy_Milan_ss_1047
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.50.215.234
+  type: ss
+- cipher: aes-256-gcm
+  name: Italy_None_ss_1048
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.63
   type: ss
-  udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1028
+  name: Italy_None_ss_1049
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.54
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1029
+  name: Italy_None_ss_1050
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.72
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1030
+  name: Italy_None_ss_1051
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.18
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1031
+  name: Italy_None_ss_1052
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.99
   type: ss
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1032
+  name: Italy_None_ss_1053
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.45
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1033
+  name: Italy_None_ss_1054
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.36
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1034
+  name: Italy_None_ss_1055
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.81
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1035
+  name: Italy_None_ss_1056
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.90
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1036
+  name: Italy_None_ss_1057
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.27
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: United States_Ashburn_ss_1037
+  name: United States_Ashburn_ss_1058
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 185.164.175.81
   type: ss
 - cipher: aes-256-gcm
-  name: United States_Saratoga_ss_1038
+  name: United States_Saratoga_ss_1059
   password: BeaUf9c0AEWH40Pu
   port: 8388
   server: 154.36.158.197
   type: ss
 - cipher: aes-256-gcm
-  name: Japan_Tokyo_ss_1039
+  name: Japan_Tokyo_ss_1060
   password: 3eOFeNssde7PYYMv
-  port: 80
+  port: 443
   server: 84.247.155.196
   type: ss
 - cipher: aes-128-gcm
-  name: United States_Washington_ss_1040
+  name: United States_Washington_ss_1061
   password: shadowsocks
   port: 443
   server: 149.22.87.204
   type: ss
 - cipher: aes-128-gcm
-  name: United States_Washington_ss_1041
+  name: United States_Washington_ss_1062
   password: shadowsocks
   port: 443
   server: 149.22.87.240
   type: ss
+- cipher: aes-128-gcm
+  name: United States_Washington_ss_1063
+  password: shadowsocks
+  port: 443
+  server: 149.22.87.241
+  type: ss
 - cipher: aes-256-gcm
-  name: South Korea_Seoul_ss_1042
+  name: South Korea_Seoul_ss_1064
   password: Y6R9pAtvxxzmGC
-  port: 9090
+  port: 8888
   server: 141.164.45.187
   type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_1065
+  password: BWyPPTusFKhGgzKh
+  port: 8388
+  server: 64.177.90.30
+  type: ss
 - cipher: chacha20-ietf-poly1305
-  name: Hong Kong_Central_ss_1043
+  name: Hong Kong_Central_ss_1066
   password: 28789988-887e-4e41-83cd-27bbfb7999ad
   port: 40006
   server: xunlinknode.csdjhajkshdjkas.com
   type: ss
+- cipher: chacha20-ietf-poly1305
+  name: The Netherlands_Amsterdam_ss_1067
+  password: hCgbUnMaoAfSgvE8IKdnGu
+  port: 24759
+  server: 77.221.132.206
+  type: ss
 - cipher: aes-256-gcm
-  name: Iran_None_ss_1044
+  name: Iran_None_ss_1068
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 151.241.19.36
   type: ss
 - cipher: aes-256-gcm
-  name: Iran_None_ss_1045
+  name: Iran_None_ss_1069
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 151.241.19.29
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: The Netherlands_None_ss_1046
+  name: The Netherlands_None_ss_1070
   password: v1c-i5SSFXP8n4g1Wbc0L9gX82x5O2Qa
   port: 8044
   server: 185.4.115.146
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: United Kingdom_Enfield_ss_1047
-  password: oZIoA69Q8yhcQV8ka3Pa3A
-  port: 443
-  server: 82.38.31.170
-  type: ss
-- cipher: chacha20-ietf-poly1305
-  name: United Kingdom_Enfield_ss_1048
-  password: oZIoA69Q8yhcQV8ka3Pa3A
-  port: 443
-  server: 82.38.31.159
-  type: ss
-- cipher: chacha20-ietf-poly1305
-  name: Norway_Oslo_ss_1049
+  name: Norway_Oslo_ss_1071
   password: ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44=
   port: 990
   server: 185.213.23.63
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: France_None_ss_1050
+  name: France_None_ss_1072
   password: 6heexyz
   port: 443
-  server: pl140.vpnbook.com
+  server: 54.36.174.140
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: France_None_ss_1051
+  name: France_None_ss_1073
   password: 6heexyz
   port: 443
-  server: 54.36.174.134
+  server: pl134.vpnbook.com
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: Romania_Bucharest_ss_1052
+  name: Romania_Bucharest_ss_1074
   password: U83u9OGpvSatIUW7LsWffr
   port: 64546
   server: 194.68.44.42
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: United States_None_ss_1053
+  name: United States_None_ss_1075
   password: QFWzCw2uX9B9i6qAYeFBIE
   port: 443
   server: 154.46.31.106
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: The Netherlands_None_ss_1054
+  name: The Netherlands_None_ss_1076
   password: v1c-i5SSFXP8n4g1Wbc0L9gX82x5O2Qa
   port: 1355
   server: dns27.m3hrzd.ir
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: Russia_None_ss_1055
+  name: Russia_None_ss_1077
   password: VVlAff77CnAU43Aoc5j15Y
   port: 5112
   server: 90.156.203.62
   type: ss
 - cipher: aes-256-gcm
-  name: United States_Reston_ss_1056
+  name: Sweden_Stockholm_ss_1078
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
-  server: 172.111.38.72
+  server: 138.199.55.243
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_Singapore_ss_1079
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 51.79.228.131
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_None_ss_1080
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 15.235.182.183
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_None_ss_1081
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 15.235.164.133
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_Singapore_ss_1082
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.88.106.74
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_Singapore_ss_1083
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.88.107.74
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_Singapore_ss_1084
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.88.107.47
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Miami_ss_1085
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.91.107.188
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Los Angeles_ss_1086
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 23.150.152.38
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Dallas_ss_1087
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.88.62.203
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1088
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.88.63.99
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1089
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.121.43.231
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1090
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.40.57.138
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1091
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.121.43.225
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Tempe_ss_1092
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.22.17.219
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1093
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.40.57.133
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_1094
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 216.106.178.169
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Santa Clara_ss_1095
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 169.197.142.68
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Miami_ss_1096
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 162.251.62.31
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1097
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.121.43.18
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Santa Clara_ss_1098
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 137.184.89.151
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_New York_ss_1099
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.91.100.39
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Chicago_ss_10100
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.128.66.32
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_10101
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 84.20.27.183
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_10102
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 172.111.36.123
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: United States_None_ss_1057
-  password: LCvps-199-168-136-193-bak8443
-  port: 443
-  server: 49.51.39.148
-  type: ss
-- cipher: chacha20-ietf-poly1305
-  name: United States_Clifton_ss_1058
-  password: DZRy4Q3QH0jUGfKFl2jDCZ
-  port: 28960
-  server: 138.197.89.234
-  type: ss
-- cipher: chacha20-ietf-poly1305
-  name: South Africa_Johannesburg_ss_1059
+  name: South Africa_Johannesburg_ss_10103
   password: aduB9HGxQHjA2SBMRjkHX6
   port: 443
   server: 102.37.156.224
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: South Africa_Johannesburg_ss_1060
+  name: South Africa_Johannesburg_ss_10104
   password: Xsy8Ox4yOV3xLlpxtjzs3X
   port: 16233
   server: 102.133.165.160
   type: ss
-- name: United States_None_trojan_1061
+- name: Hong Kong_None_trojan_10105
+  password: d9064589-74af-432a-9390-5d8a9da281bf
+  port: 20086
+  server: sclass-c1.catcat321.com
+  type: trojan
+- name: Hong Kong_None_trojan_10106
   password: d9064589-74af-432a-9390-5d8a9da281bf
   port: 20123
   server: sclass-00.catcat321.com
   skip-cert-verify: true
   sni: hk.catxstar.com
   type: trojan
-- name: United States_None_trojan_1062
+- name: Hong Kong_None_trojan_10107
   password: d9064589-74af-432a-9390-5d8a9da281bf
   port: 20086
   server: sclass-c1.catcat321.com
   skip-cert-verify: true
   sni: hk.catxstar.com
   type: trojan
-- name: Australia_Sydney_trojan_1063
+- name: Australia_Sydney_trojan_10108
+  network: tcp
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 45.63.30.142
+  skip-cert-verify: true
   sni: connectwithemployerstohireyouridealteam.com
   type: trojan
-- name: Brazil_Osasco_trojan_1064
+- name: Brazil_Osasco_trojan_10109
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 216.238.104.154
   type: trojan
-- name: United States_Turtle Creek_trojan_1065
+- name: United States_Turtle Creek_trojan_10110
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.201
+  sni: resources.connectingpeoplewithgreatjobs.com
+  type: trojan
+- name: United States_Turtle Creek_trojan_10111
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.89
+  sni: www.connectingpeoplewithgreatjobs.com
+  type: trojan
+- name: United States_Turtle Creek_trojan_10112
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.74
+  sni: api.connectingpeoplewithgreatjobs.com
+  type: trojan
+- name: United States_Turtle Creek_trojan_10113
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.93
+  sni: connectingpeoplewithgreatjobs.com
+  type: trojan
+- name: United States_Turtle Creek_trojan_10114
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.79
+  type: trojan
+- name: United States_Turtle Creek_trojan_10115
   network: tcp
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 216.152.147.79
   sni: blog.connectingpeoplewithgreatjobs.com
   type: trojan
-- name: United States_Turtle Creek_trojan_1066
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 216.152.147.74
-  skip-cert-verify: true
-  sni: api.connectingpeoplewithgreatjobs.com
+- name: Canada_Toronto_trojan_10116
+  password: 5t6i121em5lkmsmk
+  port: 46977
+  server: ca001.zestapp778.com
+  sni: ca001.zestapp778.com
   type: trojan
-- name: United States_Turtle Creek_trojan_1067
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 216.152.147.79
-  type: trojan
-- name: United States_Turtle Creek_trojan_1068
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 216.152.147.152
-  sni: learn.connectingpeoplewithgreatjobs.com
-  type: trojan
-- name: United States_Turtle Creek_trojan_1069
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 216.152.147.74
-  type: trojan
-- name: Unknown_trojan_1070
+- name: Unknown_trojan_10117
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 208.69.78.19
   type: trojan
-- name: Chile_Santiago_trojan_1071
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 64.176.7.205
-  type: trojan
-- name: United States_None_trojan_1072
-  password: happybirthdaydaniel
-  port: 25267
-  server: de-bots4.h1cloud.net
-  type: trojan
-- name: Germany_Frankfurt am Main_trojan_1073
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 193.108.119.29
-  sni: blog.iloverussia2026.com
-  type: trojan
-- name: Germany_Frankfurt am Main_trojan_1074
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 193.108.119.78
-  type: trojan
-- name: Germany_Frankfurt am Main_trojan_1075
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 193.108.119.15
-  sni: courses.iloverussia2026.com
-  type: trojan
-- name: Israel_None_trojan_1076
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 64.176.163.182
-  sni: exploreeducationsectoropportunitiestodayandadvancecareers.com
-  type: trojan
-- name: South Korea_Seoul_trojan_1077
-  network: tcp
-  password: 5t6i121em5lkmsmk
-  port: 48851
-  server: kr002.zestapp778.com
-  skip-cert-verify: true
-  sni: kr002.zestapp778.com
-  type: trojan
-- name: Malaysia_Kuala Lumpur_trojan_1078
-  password: 5931134d1cde66bf83a54acdfebe7ab2
-  port: 443
-  server: 47.250.84.25
-  sni: moltbot.doctoroyy.net
-  type: trojan
-- name: United States_None_trojan_1079
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 66.163.127.155
-  type: trojan
-- name: United States_None_trojan_1080
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 66.163.127.155
-  sni: indyourperfectremotetechjobfromthecomfortofhome.com
-  type: trojan
-- name: United States_None_trojan_1081
-  network: tcp
-  password: 5t6i121em5lkmsmk
-  port: 46298
-  server: ph001.zestapp778.com
-  sni: ph001.zestapp778.com
-  type: trojan
-- name: Poland_Warsaw_trojan_1082
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 70.34.252.255
-  sni: browseexecutivejobopeningsandenhanceleadershipcareer.com
-  type: trojan
-- name: Sweden_Stockholm_trojan_1083
-  password: FkQH0Q5EFneySv20Qj3yoArD2GSb2XZF
-  port: 443
-  server: connect-se.mimowhat.online
-  sni: connect-se.mimowhat.online
-  type: trojan
-- name: Singapore_Singapore_trojan_1084
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 149.28.130.108
-  sni: searchcreativejobsandshowcaseyourartistictalents.com
-  type: trojan
-- name: Singapore_Singapore_trojan_1085
-  password: e26a229d-e8f2-4ff9-8c7d-58a9d83ee437
-  port: 8886
-  server: 139.180.146.200
-  type: trojan
-- name: United States_Santa Clara_trojan_1086
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 167.88.61.52
-  sni: courses.browseseniorrolesandenhanceyourcareertoday.com
-  type: trojan
-- name: United States_Santa Clara_trojan_1087
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 167.88.61.193
-  type: trojan
-- name: United States_Santa Clara_trojan_1088
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 167.88.61.20
-  skip-cert-verify: true
-  sni: api.browseseniorrolesandenhanceyourcareertoday.com
-  type: trojan
-- client-fingerprint: chrome
-  name: Unknown_trojan_1089
-  network: tcp
+- name: Unknown_trojan_10118
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 208.69.78.33
   skip-cert-verify: true
   sni: courses.yourultimateprofessionalcareerhub.com
   type: trojan
-  udp: true
-- client-fingerprint: chrome
-  name: United States_None_trojan_1090
+- name: Chile_Santiago_trojan_10119
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
-  server: 216.106.186.46
-  skip-cert-verify: false
-  sni: cdn.findlocaljobnetworkandbuildcommunityconnections.com
+  server: 64.176.7.205
   type: trojan
-  udp: true
-- alterId: 0
-  cipher: auto
-  name: France_None_vmess_1091
-  network: ws
-  port: 16644
-  server: m.cnmjin.net
-  skip-cert-verify: true
-  tls: false
-  type: vmess
-  uuid: 545ee947-78b4-4c47-9c01-7a1d983273f8
-  ws-opts:
-    headers:
-      Host: 8b6efbd394b2946b0781661c2a1ba8f1.mobgslb.tbcache.com
-    path: /
-- alpn:
-  - ''
-  alterId: 0
-  cipher: auto
-  name: Hong Kong_Hong Kong_vmess_1092
-  network: ws
-  port: 44867
-  server: 47.244.120.197
-  skip-cert-verify: true
-  tls: false
-  type: vmess
-  udp: true
-  uuid: 845e6b08-2919-4290-ade0-5dc7dcea59ca
-  ws-opts:
-    path: /arki
-- cipher: chacha20-ietf-poly1305
-  name: South Korea_None_ss_1093
-  password: 7e68e32f-8015-4f37-9082-70e8b0b58043
-  port: 8443
-  server: 13.125.233.159
-  type: ss
-  udp: true
-- cipher: chacha20-ietf-poly1305
-  name: Singapore_Singapore_ss_1094
-  password: 7e68e32f-8015-4f37-9082-70e8b0b58043
-  port: 8443
-  server: 13.212.85.246
-  type: ss
-  udp: true
+- name: Brazil_João Pessoa_trojan_10120
+  password: happybirthdaydaniel
+  port: 25267
+  server: de-bots4.h1cloud.net
+  type: trojan
+- name: Germany_Frankfurt am Main_trojan_10121
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.96
+  sni: learn.iloverussia2026.com
+  type: trojan
+- name: Germany_Frankfurt am Main_trojan_10122
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.193
+  type: trojan
+- name: Germany_Frankfurt am Main_trojan_10123
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.193
+  sni: resources.iloverussia2026.com
+  type: trojan
+- name: Germany_Frankfurt am Main_trojan_10124
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.78
+  type: trojan
+- name: Israel_None_trojan_10125
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 64.176.163.182
+  sni: exploreeducationsectoropportunitiestodayandadvancecareers.com
+  type: trojan
+- name: Malaysia_Kuala Lumpur_trojan_10126
+  password: 5931134d1cde66bf83a54acdfebe7ab2
+  port: 443
+  server: 47.250.84.25
+  sni: moltbot.doctoroyy.net
+  type: trojan
+- name: United States_None_trojan_10127
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.127.155
+  type: trojan
+- name: United States_None_trojan_10128
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.127.215
+  type: trojan
+- name: United States_None_trojan_10129
+  network: tcp
+  password: 5t6i121em5lkmsmk
+  port: 46298
+  server: ph001.zestapp778.com
+  sni: ph001.zestapp778.com
+  type: trojan
+- name: Poland_Warsaw_trojan_10130
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 70.34.252.255
+  sni: browseexecutivejobopeningsandenhanceleadershipcareer.com
+  type: trojan
+- name: Sweden_Spanga_trojan_10131
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 70.34.207.14
+  sni: searchhealthcarejobsandbuildmedicalcareerpathway.com
+  type: trojan
+- name: Sweden_Stockholm_trojan_10132
+  password: FkQH0Q5EFneySv20Qj3yoArD2GSb2XZF
+  port: 443
+  server: connect-se.mimowhat.online
+  sni: connect-se.mimowhat.online
+  type: trojan
+- name: Singapore_Singapore_trojan_10133
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 149.28.130.108
+  sni: searchcreativejobsandshowcaseyourartistictalents.com
+  type: trojan
+- name: Singapore_Singapore_trojan_10134
+  password: e26a229d-e8f2-4ff9-8c7d-58a9d83ee437
+  port: 8886
+  server: 139.180.146.200
+  type: trojan
+- name: United States_None_trojan_10135
+  network: tcp
+  password: 5t6i121em5lkmsmk
+  port: 33079
+  server: th001.zestapp778.com
+  sni: th001.zestapp778.com
+  type: trojan
+- name: Thailand_Bangkok_trojan_10136
+  network: tcp
+  password: 5t6i121em5lkmsmk
+  port: 57277
+  server: us001.zestapp778.com
+  sni: us001.zestapp778.com
+  type: trojan
 - alpn:
   - ''
   alterId: 0
@@ -663,7 +891,7 @@ proxies:
     method: GET
     path:
     - /QQqun-737805443
-  name: United States_Buffalo_vmess_1095
+  name: United States_Buffalo_vmess_10137
   network: http
   port: 1288
   server: 107.175.76.215
@@ -672,6 +900,86 @@ proxies:
   type: vmess
   udp: true
   uuid: 29a72eac-a4d1-4526-8fa0-d3ecc4e38b44
+- alpn:
+  - ''
+  alterId: 0
+  cipher: auto
+  name: Hong Kong_Hong Kong_vmess_10138
+  network: ws
+  port: 44867
+  server: 47.244.120.197
+  skip-cert-verify: true
+  tls: false
+  type: vmess
+  udp: true
+  uuid: 845e6b08-2919-4290-ade0-5dc7dcea59ca
+  ws-opts:
+    path: /arki
+- alterId: 0
+  cipher: auto
+  name: Hong Kong_Hong Kong_vmess_10139
+  network: ws
+  port: 23026
+  server: 47.244.120.197
+  skip-cert-verify: true
+  tls: false
+  type: vmess
+  udp: true
+  uuid: b9de1bc9-baa7-41ac-86f7-ccd59695cb21
+  ws-opts:
+    headers:
+      Host: 47.244.120.197
+    path: /arki
+- alterId: 0
+  cipher: auto
+  name: Hong Kong_Hong Kong_vmess_10140
+  network: ws
+  port: 36703
+  server: 47.244.120.197
+  skip-cert-verify: true
+  tls: false
+  type: vmess
+  udp: true
+  uuid: 45b83519-9c4f-4052-a11b-02e017b636d4
+  ws-opts:
+    path: /arki
+- cipher: chacha20-ietf-poly1305
+  name: South Korea_Incheon_ss_10141
+  password: 7e68e32f-8015-4f37-9082-70e8b0b58043
+  port: 8443
+  server: 3.38.104.26
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: Russia_Moscow_ss_10142
+  password: cCMJgJTA3BA489YUYrFq7XHXSiSpWlLa
+  port: 18443
+  server: 46.17.47.58
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: United States_Wilmington_ss_10143
+  password: V7WLaYdujkwnj6xxXq-2BSxGWEcSJtTA
+  port: 1080
+  server: 88.216.254.18
+  type: ss
+  udp: true
+- alterId: 0
+  cipher: auto
+  name: None_None_vmess_10144
+  network: ws
+  port: 443
+  server: 104.21.7.133
+  servername: vmess.lbw666.dpdns.org
+  skip-cert-verify: true
+  tls: true
+  type: vmess
+  udp: true
+  uuid: 0cf6d970-3f1d-4aae-a989-92a8f76ae3db
+  ws-opts:
+    headers:
+      Host: vmess.lbw666.dpdns.org
+    path: /ws
 - alterId: 0
   cipher: auto
   name: Unknown_vmess_111
@@ -828,496 +1136,705 @@ proxies:
   port: 445
   server: 51.222.12.127
   type: ss
+- cipher: aes-256-gcm
+  name: Switzerland_Zurich_ss_1122
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 23.166.88.127
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_1123
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 186.190.215.251
+  type: ss
+- cipher: aes-256-gcm
+  name: Czechia_None_ss_1124
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 79.127.184.104
+  type: ss
+- cipher: aes-256-gcm
+  name: France_None_ss_1125
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 57.129.83.85
+  type: ss
+- cipher: aes-256-gcm
+  name: Germany_Frankfurt am Main_ss_1126
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 193.108.119.3
+  type: ss
+- cipher: aes-256-gcm
+  name: Germany_Frankfurt am Main_ss_1127
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 23.157.88.43
+  type: ss
+- cipher: aes-256-gcm
+  name: Germany_Frankfurt am Main_ss_1128
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 193.108.119.2
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_1129
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 66.163.118.103
+  type: ss
+- cipher: aes-256-gcm
+  name: Canada_None_ss_1130
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.17.71.167
+  type: ss
+- cipher: aes-256-gcm
+  name: Czechia_None_ss_1131
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 79.127.139.242
+  type: ss
 - cipher: chacha20-ietf-poly1305
-  name: The Netherlands_None_ss_1122
+  name: The Netherlands_None_ss_1132
   password: v1c-i5SSFXP8n4g1Wbc0L9gX82x5O2Qa
   port: 1354
   server: dns27.m3hrzd.ir
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: The Netherlands_None_ss_1123
+  name: The Netherlands_None_ss_1133
   password: v1c-i5SSFXP8n4g1Wbc0L9gX82x5O2Qa
   port: 1346
   server: dns22.m3hrzd.ir
   type: ss
 - cipher: aes-256-gcm
-  name: United Kingdom_None_ss_1124
+  name: France_Paris_ss_1134
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 23.162.152.22
+  type: ss
+- cipher: aes-256-gcm
+  name: France_Paris_ss_1135
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.109.228.110
+  type: ss
+- cipher: aes-256-gcm
+  name: Canada_None_ss_1136
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.17.64.27
+  type: ss
+- cipher: aes-256-gcm
+  name: France_Paris_ss_1137
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 172.99.189.142
+  type: ss
+- cipher: aes-256-gcm
+  name: Canada_None_ss_1138
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.17.64.175
+  type: ss
+- cipher: aes-256-gcm
+  name: Canada_None_ss_1139
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.17.64.22
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_London_ss_1140
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 198.244.201.129
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_London_ss_1141
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 198.244.202.215
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_London_ss_1142
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 142.202.51.22
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_London_ss_1143
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.114.120.221
+  type: ss
+- cipher: aes-256-gcm
+  name: United Kingdom_None_ss_1144
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 185.176.206.9
   type: ss
 - cipher: aes-128-gcm
-  name: Denmark_None_ss_1125
+  name: Denmark_None_ss_1145
   password: shadowsocks
   port: 443
   server: 158.173.24.73
   type: ss
 - cipher: aes-256-gcm
-  name: Bulgaria_None_ss_1126
+  name: Bulgaria_None_ss_1146
   password: RexnBgU7EV5ADxG
   port: 7001
   server: 94.156.250.148
   type: ss
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1127
+  name: Italy_Milan_ss_1147
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.50.215.234
+  type: ss
+- cipher: aes-256-gcm
+  name: Italy_None_ss_1148
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.63
   type: ss
-  udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1128
+  name: Italy_None_ss_1149
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.54
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1129
+  name: Italy_None_ss_1150
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.72
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1130
+  name: Italy_None_ss_1151
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.18
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1131
+  name: Italy_None_ss_1152
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.99
   type: ss
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1132
+  name: Italy_None_ss_1153
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.45
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1133
+  name: Italy_None_ss_1154
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.36
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1134
+  name: Italy_None_ss_1155
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.81
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1135
+  name: Italy_None_ss_1156
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.90
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: Italy_None_ss_1136
+  name: Italy_None_ss_1157
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 202.50.253.27
   type: ss
   udp: true
 - cipher: aes-256-gcm
-  name: United States_Ashburn_ss_1137
+  name: United States_Ashburn_ss_1158
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 185.164.175.81
   type: ss
 - cipher: aes-256-gcm
-  name: United States_Saratoga_ss_1138
+  name: United States_Saratoga_ss_1159
   password: BeaUf9c0AEWH40Pu
   port: 8388
   server: 154.36.158.197
   type: ss
 - cipher: aes-256-gcm
-  name: Japan_Tokyo_ss_1139
+  name: Japan_Tokyo_ss_1160
   password: 3eOFeNssde7PYYMv
-  port: 80
+  port: 443
   server: 84.247.155.196
   type: ss
 - cipher: aes-128-gcm
-  name: United States_Washington_ss_1140
+  name: United States_Washington_ss_1161
   password: shadowsocks
   port: 443
   server: 149.22.87.204
   type: ss
 - cipher: aes-128-gcm
-  name: United States_Washington_ss_1141
+  name: United States_Washington_ss_1162
   password: shadowsocks
   port: 443
   server: 149.22.87.240
   type: ss
+- cipher: aes-128-gcm
+  name: United States_Washington_ss_1163
+  password: shadowsocks
+  port: 443
+  server: 149.22.87.241
+  type: ss
 - cipher: aes-256-gcm
-  name: South Korea_Seoul_ss_1142
+  name: South Korea_Seoul_ss_1164
   password: Y6R9pAtvxxzmGC
-  port: 9090
+  port: 8888
   server: 141.164.45.187
   type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_1165
+  password: BWyPPTusFKhGgzKh
+  port: 8388
+  server: 64.177.90.30
+  type: ss
 - cipher: chacha20-ietf-poly1305
-  name: Hong Kong_Central_ss_1143
+  name: Hong Kong_Central_ss_1166
   password: 28789988-887e-4e41-83cd-27bbfb7999ad
   port: 40006
   server: xunlinknode.csdjhajkshdjkas.com
   type: ss
+- cipher: chacha20-ietf-poly1305
+  name: The Netherlands_Amsterdam_ss_1167
+  password: hCgbUnMaoAfSgvE8IKdnGu
+  port: 24759
+  server: 77.221.132.206
+  type: ss
 - cipher: aes-256-gcm
-  name: Iran_None_ss_1144
+  name: Iran_None_ss_1168
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 151.241.19.36
   type: ss
 - cipher: aes-256-gcm
-  name: Iran_None_ss_1145
+  name: Iran_None_ss_1169
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
   server: 151.241.19.29
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: The Netherlands_None_ss_1146
+  name: The Netherlands_None_ss_1170
   password: v1c-i5SSFXP8n4g1Wbc0L9gX82x5O2Qa
   port: 8044
   server: 185.4.115.146
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: United Kingdom_Enfield_ss_1147
-  password: oZIoA69Q8yhcQV8ka3Pa3A
-  port: 443
-  server: 82.38.31.170
-  type: ss
-- cipher: chacha20-ietf-poly1305
-  name: United Kingdom_Enfield_ss_1148
-  password: oZIoA69Q8yhcQV8ka3Pa3A
-  port: 443
-  server: 82.38.31.159
-  type: ss
-- cipher: chacha20-ietf-poly1305
-  name: Norway_Oslo_ss_1149
+  name: Norway_Oslo_ss_1171
   password: ARgvGZywA+gacgGV26Bvmu05+wZmRW/j+AdU+Z8Bt44=
   port: 990
   server: 185.213.23.63
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: France_None_ss_1150
+  name: France_None_ss_1172
   password: 6heexyz
   port: 443
-  server: pl140.vpnbook.com
+  server: 54.36.174.140
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: France_None_ss_1151
+  name: France_None_ss_1173
   password: 6heexyz
   port: 443
-  server: 54.36.174.134
+  server: pl134.vpnbook.com
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: Romania_Bucharest_ss_1152
+  name: Romania_Bucharest_ss_1174
   password: U83u9OGpvSatIUW7LsWffr
   port: 64546
   server: 194.68.44.42
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: United States_None_ss_1153
+  name: United States_None_ss_1175
   password: QFWzCw2uX9B9i6qAYeFBIE
   port: 443
   server: 154.46.31.106
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: The Netherlands_None_ss_1154
+  name: The Netherlands_None_ss_1176
   password: v1c-i5SSFXP8n4g1Wbc0L9gX82x5O2Qa
   port: 1355
   server: dns27.m3hrzd.ir
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: Russia_None_ss_1155
+  name: Russia_None_ss_1177
   password: VVlAff77CnAU43Aoc5j15Y
   port: 5112
   server: 90.156.203.62
   type: ss
 - cipher: aes-256-gcm
-  name: United States_Reston_ss_1156
+  name: Sweden_Stockholm_ss_1178
   password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
   port: 19999
-  server: 172.111.38.72
+  server: 138.199.55.243
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_Singapore_ss_1179
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 51.79.228.131
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_None_ss_1180
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 15.235.182.183
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_None_ss_1181
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 15.235.164.133
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_Singapore_ss_1182
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.88.106.74
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_Singapore_ss_1183
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.88.107.74
+  type: ss
+- cipher: aes-256-gcm
+  name: Singapore_Singapore_ss_1184
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.88.107.47
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Miami_ss_1185
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.91.107.188
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Los Angeles_ss_1186
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 23.150.152.38
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Dallas_ss_1187
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.88.62.203
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1188
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 167.88.63.99
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1189
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.121.43.231
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1190
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.40.57.138
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1191
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.121.43.225
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Tempe_ss_1192
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.22.17.219
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1193
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 149.40.57.133
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_1194
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 216.106.178.169
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Santa Clara_ss_1195
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 169.197.142.68
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Miami_ss_1196
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 162.251.62.31
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_1197
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.121.43.18
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Santa Clara_ss_1198
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 137.184.89.151
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_New York_ss_1199
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.91.100.39
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Chicago_ss_11100
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 38.128.66.32
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_None_ss_11101
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 84.20.27.183
+  type: ss
+- cipher: aes-256-gcm
+  name: United States_Atlanta_ss_11102
+  password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
+  port: 19999
+  server: 172.111.36.123
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: United States_None_ss_1157
-  password: LCvps-199-168-136-193-bak8443
-  port: 443
-  server: 49.51.39.148
-  type: ss
-- cipher: chacha20-ietf-poly1305
-  name: United States_Clifton_ss_1158
-  password: DZRy4Q3QH0jUGfKFl2jDCZ
-  port: 28960
-  server: 138.197.89.234
-  type: ss
-- cipher: chacha20-ietf-poly1305
-  name: South Africa_Johannesburg_ss_1159
+  name: South Africa_Johannesburg_ss_11103
   password: aduB9HGxQHjA2SBMRjkHX6
   port: 443
   server: 102.37.156.224
   type: ss
 - cipher: chacha20-ietf-poly1305
-  name: South Africa_Johannesburg_ss_1160
+  name: South Africa_Johannesburg_ss_11104
   password: Xsy8Ox4yOV3xLlpxtjzs3X
   port: 16233
   server: 102.133.165.160
   type: ss
-- name: United States_None_trojan_1161
+- name: Hong Kong_None_trojan_11105
+  password: d9064589-74af-432a-9390-5d8a9da281bf
+  port: 20086
+  server: sclass-c1.catcat321.com
+  type: trojan
+- name: Hong Kong_None_trojan_11106
   password: d9064589-74af-432a-9390-5d8a9da281bf
   port: 20123
   server: sclass-00.catcat321.com
   skip-cert-verify: true
   sni: hk.catxstar.com
   type: trojan
-- name: United States_None_trojan_1162
+- name: Hong Kong_None_trojan_11107
   password: d9064589-74af-432a-9390-5d8a9da281bf
   port: 20086
   server: sclass-c1.catcat321.com
   skip-cert-verify: true
   sni: hk.catxstar.com
   type: trojan
-- name: Australia_Sydney_trojan_1163
+- name: Australia_Sydney_trojan_11108
+  network: tcp
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 45.63.30.142
+  skip-cert-verify: true
   sni: connectwithemployerstohireyouridealteam.com
   type: trojan
-- name: Brazil_Osasco_trojan_1164
+- name: Brazil_Osasco_trojan_11109
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 216.238.104.154
   type: trojan
-- name: United States_Turtle Creek_trojan_1165
+- name: United States_Turtle Creek_trojan_11110
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.201
+  sni: resources.connectingpeoplewithgreatjobs.com
+  type: trojan
+- name: United States_Turtle Creek_trojan_11111
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.89
+  sni: www.connectingpeoplewithgreatjobs.com
+  type: trojan
+- name: United States_Turtle Creek_trojan_11112
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.74
+  sni: api.connectingpeoplewithgreatjobs.com
+  type: trojan
+- name: United States_Turtle Creek_trojan_11113
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.93
+  sni: connectingpeoplewithgreatjobs.com
+  type: trojan
+- name: United States_Turtle Creek_trojan_11114
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 216.152.147.79
+  type: trojan
+- name: United States_Turtle Creek_trojan_11115
   network: tcp
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 216.152.147.79
   sni: blog.connectingpeoplewithgreatjobs.com
   type: trojan
-- name: United States_Turtle Creek_trojan_1166
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 216.152.147.74
-  skip-cert-verify: true
-  sni: api.connectingpeoplewithgreatjobs.com
+- name: Canada_Toronto_trojan_11116
+  password: 5t6i121em5lkmsmk
+  port: 46977
+  server: ca001.zestapp778.com
+  sni: ca001.zestapp778.com
   type: trojan
-- name: United States_Turtle Creek_trojan_1167
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 216.152.147.79
-  type: trojan
-- name: United States_Turtle Creek_trojan_1168
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 216.152.147.152
-  sni: learn.connectingpeoplewithgreatjobs.com
-  type: trojan
-- name: United States_Turtle Creek_trojan_1169
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 216.152.147.74
-  type: trojan
-- name: Unknown_trojan_1170
+- name: Unknown_trojan_11117
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 208.69.78.19
   type: trojan
-- name: Chile_Santiago_trojan_1171
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 64.176.7.205
-  type: trojan
-- name: United States_None_trojan_1172
-  password: happybirthdaydaniel
-  port: 25267
-  server: de-bots4.h1cloud.net
-  type: trojan
-- name: Germany_Frankfurt am Main_trojan_1173
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 193.108.119.29
-  sni: blog.iloverussia2026.com
-  type: trojan
-- name: Germany_Frankfurt am Main_trojan_1174
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 193.108.119.78
-  type: trojan
-- name: Germany_Frankfurt am Main_trojan_1175
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 193.108.119.15
-  sni: courses.iloverussia2026.com
-  type: trojan
-- name: Israel_None_trojan_1176
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 64.176.163.182
-  sni: exploreeducationsectoropportunitiestodayandadvancecareers.com
-  type: trojan
-- name: South Korea_Seoul_trojan_1177
-  network: tcp
-  password: 5t6i121em5lkmsmk
-  port: 48851
-  server: kr002.zestapp778.com
-  skip-cert-verify: true
-  sni: kr002.zestapp778.com
-  type: trojan
-- name: Malaysia_Kuala Lumpur_trojan_1178
-  password: 5931134d1cde66bf83a54acdfebe7ab2
-  port: 443
-  server: 47.250.84.25
-  sni: moltbot.doctoroyy.net
-  type: trojan
-- name: United States_None_trojan_1179
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 66.163.127.155
-  type: trojan
-- name: United States_None_trojan_1180
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 66.163.127.155
-  sni: indyourperfectremotetechjobfromthecomfortofhome.com
-  type: trojan
-- name: United States_None_trojan_1181
-  network: tcp
-  password: 5t6i121em5lkmsmk
-  port: 46298
-  server: ph001.zestapp778.com
-  sni: ph001.zestapp778.com
-  type: trojan
-- name: Poland_Warsaw_trojan_1182
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 70.34.252.255
-  sni: browseexecutivejobopeningsandenhanceleadershipcareer.com
-  type: trojan
-- name: Sweden_Stockholm_trojan_1183
-  password: FkQH0Q5EFneySv20Qj3yoArD2GSb2XZF
-  port: 443
-  server: connect-se.mimowhat.online
-  sni: connect-se.mimowhat.online
-  type: trojan
-- name: Singapore_Singapore_trojan_1184
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 149.28.130.108
-  sni: searchcreativejobsandshowcaseyourartistictalents.com
-  type: trojan
-- name: Singapore_Singapore_trojan_1185
-  password: e26a229d-e8f2-4ff9-8c7d-58a9d83ee437
-  port: 8886
-  server: 139.180.146.200
-  type: trojan
-- name: United States_Santa Clara_trojan_1186
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 167.88.61.52
-  sni: courses.browseseniorrolesandenhanceyourcareertoday.com
-  type: trojan
-- name: United States_Santa Clara_trojan_1187
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 167.88.61.193
-  type: trojan
-- name: United States_Santa Clara_trojan_1188
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 167.88.61.20
-  skip-cert-verify: true
-  sni: api.browseseniorrolesandenhanceyourcareertoday.com
-  type: trojan
-- alpn:
-  - ''
-  alterId: '0'
-  cipher: auto
-  http-opts:
-    headers:
-      Host:
-      - down-cdn.dingtalk.com
-    path:
-    - /QQqun-737805443
-  name: United States_Buffalo_vmess_1189
-  network: http
-  port: 52080
-  server: 23.94.83.37
-  skip-cert-verify: false
-  tls: false
-  type: vmess
-  udp: true
-  uuid: 355c1760-9bde-4b77-916b-5191e7f704a3
-  xudp: true
-- client-fingerprint: chrome
-  name: United States_None_trojan_1190
-  network: tcp
-  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
-  port: 443
-  server: 216.106.186.46
-  skip-cert-verify: false
-  sni: cdn.findlocaljobnetworkandbuildcommunityconnections.com
-  type: trojan
-  udp: true
-- name: Unknown_trojan_1191
+- name: Unknown_trojan_11118
   password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
   port: 443
   server: 208.69.78.33
   skip-cert-verify: true
   sni: courses.yourultimateprofessionalcareerhub.com
   type: trojan
-  udp: true
-- alterId: 0
-  cipher: auto
-  name: France_None_vmess_1192
-  network: ws
-  port: 16644
-  server: m.cnmjin.net
-  skip-cert-verify: true
-  tls: false
-  type: vmess
-  uuid: 545ee947-78b4-4c47-9c01-7a1d983273f8
-  ws-opts:
-    headers:
-      Host: 8b6efbd394b2946b0781661c2a1ba8f1.mobgslb.tbcache.com
-    path: /
-- alpn:
-  - ''
-  alterId: 0
-  cipher: auto
-  name: Hong Kong_Hong Kong_vmess_1193
-  network: ws
-  port: 44867
-  server: 47.244.120.197
-  skip-cert-verify: true
-  tls: false
-  type: vmess
-  udp: true
-  uuid: 845e6b08-2919-4290-ade0-5dc7dcea59ca
-  ws-opts:
-    path: /arki
-- cipher: chacha20-ietf-poly1305
-  name: South Korea_None_ss_1194
-  password: 7e68e32f-8015-4f37-9082-70e8b0b58043
-  port: 8443
-  server: 13.125.233.159
-  type: ss
-  udp: true
-- cipher: chacha20-ietf-poly1305
-  name: Singapore_Singapore_ss_1195
-  password: 7e68e32f-8015-4f37-9082-70e8b0b58043
-  port: 8443
-  server: 13.212.85.246
-  type: ss
-  udp: true
+- name: Chile_Santiago_trojan_11119
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 64.176.7.205
+  type: trojan
+- name: Brazil_João Pessoa_trojan_11120
+  password: happybirthdaydaniel
+  port: 25267
+  server: de-bots4.h1cloud.net
+  type: trojan
+- name: Germany_Frankfurt am Main_trojan_11121
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.96
+  sni: learn.iloverussia2026.com
+  type: trojan
+- name: Germany_Frankfurt am Main_trojan_11122
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.193
+  type: trojan
+- name: Germany_Frankfurt am Main_trojan_11123
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.193
+  sni: resources.iloverussia2026.com
+  type: trojan
+- name: Germany_Frankfurt am Main_trojan_11124
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 193.108.119.78
+  type: trojan
+- name: Israel_None_trojan_11125
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 64.176.163.182
+  sni: exploreeducationsectoropportunitiestodayandadvancecareers.com
+  type: trojan
+- name: Malaysia_Kuala Lumpur_trojan_11126
+  password: 5931134d1cde66bf83a54acdfebe7ab2
+  port: 443
+  server: 47.250.84.25
+  sni: moltbot.doctoroyy.net
+  type: trojan
+- name: United States_None_trojan_11127
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.127.155
+  type: trojan
+- name: United States_None_trojan_11128
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 66.163.127.215
+  type: trojan
+- name: United States_None_trojan_11129
+  network: tcp
+  password: 5t6i121em5lkmsmk
+  port: 46298
+  server: ph001.zestapp778.com
+  sni: ph001.zestapp778.com
+  type: trojan
+- name: Poland_Warsaw_trojan_11130
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 70.34.252.255
+  sni: browseexecutivejobopeningsandenhanceleadershipcareer.com
+  type: trojan
+- name: Sweden_Spanga_trojan_11131
+  network: tcp
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 70.34.207.14
+  sni: searchhealthcarejobsandbuildmedicalcareerpathway.com
+  type: trojan
+- name: Sweden_Stockholm_trojan_11132
+  password: FkQH0Q5EFneySv20Qj3yoArD2GSb2XZF
+  port: 443
+  server: connect-se.mimowhat.online
+  sni: connect-se.mimowhat.online
+  type: trojan
+- name: Singapore_Singapore_trojan_11133
+  password: 0ab6c98dae3b48e8b9c4a776b6c9c19a
+  port: 443
+  server: 149.28.130.108
+  sni: searchcreativejobsandshowcaseyourartistictalents.com
+  type: trojan
+- name: Singapore_Singapore_trojan_11134
+  password: e26a229d-e8f2-4ff9-8c7d-58a9d83ee437
+  port: 8886
+  server: 139.180.146.200
+  type: trojan
+- name: United States_None_trojan_11135
+  network: tcp
+  password: 5t6i121em5lkmsmk
+  port: 33079
+  server: th001.zestapp778.com
+  sni: th001.zestapp778.com
+  type: trojan
+- name: Thailand_Bangkok_trojan_11136
+  network: tcp
+  password: 5t6i121em5lkmsmk
+  port: 57277
+  server: us001.zestapp778.com
+  sni: us001.zestapp778.com
+  type: trojan
 - alpn:
   - ''
   alterId: 0
@@ -1329,7 +1846,7 @@ proxies:
     method: GET
     path:
     - /QQqun-737805443
-  name: United States_Buffalo_vmess_1196
+  name: United States_Buffalo_vmess_11137
   network: http
   port: 1288
   server: 107.175.76.215
@@ -1338,6 +1855,86 @@ proxies:
   type: vmess
   udp: true
   uuid: 29a72eac-a4d1-4526-8fa0-d3ecc4e38b44
+- alpn:
+  - ''
+  alterId: 0
+  cipher: auto
+  name: Hong Kong_Hong Kong_vmess_11138
+  network: ws
+  port: 44867
+  server: 47.244.120.197
+  skip-cert-verify: true
+  tls: false
+  type: vmess
+  udp: true
+  uuid: 845e6b08-2919-4290-ade0-5dc7dcea59ca
+  ws-opts:
+    path: /arki
+- alterId: 0
+  cipher: auto
+  name: Hong Kong_Hong Kong_vmess_11139
+  network: ws
+  port: 23026
+  server: 47.244.120.197
+  skip-cert-verify: true
+  tls: false
+  type: vmess
+  udp: true
+  uuid: b9de1bc9-baa7-41ac-86f7-ccd59695cb21
+  ws-opts:
+    headers:
+      Host: 47.244.120.197
+    path: /arki
+- alterId: 0
+  cipher: auto
+  name: Hong Kong_Hong Kong_vmess_11140
+  network: ws
+  port: 36703
+  server: 47.244.120.197
+  skip-cert-verify: true
+  tls: false
+  type: vmess
+  udp: true
+  uuid: 45b83519-9c4f-4052-a11b-02e017b636d4
+  ws-opts:
+    path: /arki
+- cipher: chacha20-ietf-poly1305
+  name: South Korea_Incheon_ss_11141
+  password: 7e68e32f-8015-4f37-9082-70e8b0b58043
+  port: 8443
+  server: 3.38.104.26
+  type: ss
+  udp: true
+- cipher: aes-256-gcm
+  name: Russia_Moscow_ss_11142
+  password: cCMJgJTA3BA489YUYrFq7XHXSiSpWlLa
+  port: 18443
+  server: 46.17.47.58
+  type: ss
+  udp: true
+- cipher: chacha20-ietf-poly1305
+  name: United States_Wilmington_ss_11143
+  password: V7WLaYdujkwnj6xxXq-2BSxGWEcSJtTA
+  port: 1080
+  server: 88.216.254.18
+  type: ss
+  udp: true
+- alterId: 0
+  cipher: auto
+  name: None_None_vmess_11144
+  network: ws
+  port: 443
+  server: 104.21.7.133
+  servername: vmess.lbw666.dpdns.org
+  skip-cert-verify: true
+  tls: true
+  type: vmess
+  udp: true
+  uuid: 0cf6d970-3f1d-4aae-a989-92a8f76ae3db
+  ws-opts:
+    headers:
+      Host: vmess.lbw666.dpdns.org
+    path: /ws
 proxy-groups:
 - name: 节点选择
   type: select
@@ -1365,80 +1962,129 @@ proxy-groups:
   - Canada_None_ss_1019
   - Canada_Victoria_ss_1020
   - Canada_None_ss_1021
-  - The Netherlands_None_ss_1022
-  - The Netherlands_None_ss_1023
-  - United Kingdom_None_ss_1024
-  - Denmark_None_ss_1025
-  - Bulgaria_None_ss_1026
-  - Italy_None_ss_1027
-  - Italy_None_ss_1028
-  - Italy_None_ss_1029
-  - Italy_None_ss_1030
-  - Italy_None_ss_1031
-  - Italy_None_ss_1032
-  - Italy_None_ss_1033
-  - Italy_None_ss_1034
-  - Italy_None_ss_1035
-  - Italy_None_ss_1036
-  - United States_Ashburn_ss_1037
-  - United States_Saratoga_ss_1038
-  - Japan_Tokyo_ss_1039
-  - United States_Washington_ss_1040
-  - United States_Washington_ss_1041
-  - South Korea_Seoul_ss_1042
-  - Hong Kong_Central_ss_1043
-  - Iran_None_ss_1044
-  - Iran_None_ss_1045
-  - The Netherlands_None_ss_1046
-  - United Kingdom_Enfield_ss_1047
-  - United Kingdom_Enfield_ss_1048
-  - Norway_Oslo_ss_1049
-  - France_None_ss_1050
-  - France_None_ss_1051
-  - Romania_Bucharest_ss_1052
-  - United States_None_ss_1053
-  - The Netherlands_None_ss_1054
-  - Russia_None_ss_1055
-  - United States_Reston_ss_1056
-  - United States_None_ss_1057
-  - United States_Clifton_ss_1058
-  - South Africa_Johannesburg_ss_1059
-  - South Africa_Johannesburg_ss_1060
-  - United States_None_trojan_1061
-  - United States_None_trojan_1062
-  - Australia_Sydney_trojan_1063
-  - Brazil_Osasco_trojan_1064
-  - United States_Turtle Creek_trojan_1065
-  - United States_Turtle Creek_trojan_1066
-  - United States_Turtle Creek_trojan_1067
-  - United States_Turtle Creek_trojan_1068
-  - United States_Turtle Creek_trojan_1069
-  - Unknown_trojan_1070
-  - Chile_Santiago_trojan_1071
-  - United States_None_trojan_1072
-  - Germany_Frankfurt am Main_trojan_1073
-  - Germany_Frankfurt am Main_trojan_1074
-  - Germany_Frankfurt am Main_trojan_1075
-  - Israel_None_trojan_1076
-  - South Korea_Seoul_trojan_1077
-  - Malaysia_Kuala Lumpur_trojan_1078
-  - United States_None_trojan_1079
-  - United States_None_trojan_1080
-  - United States_None_trojan_1081
-  - Poland_Warsaw_trojan_1082
-  - Sweden_Stockholm_trojan_1083
-  - Singapore_Singapore_trojan_1084
-  - Singapore_Singapore_trojan_1085
-  - United States_Santa Clara_trojan_1086
-  - United States_Santa Clara_trojan_1087
-  - United States_Santa Clara_trojan_1088
-  - Unknown_trojan_1089
-  - United States_None_trojan_1090
-  - France_None_vmess_1091
-  - Hong Kong_Hong Kong_vmess_1092
-  - South Korea_None_ss_1093
-  - Singapore_Singapore_ss_1094
-  - United States_Buffalo_vmess_1095
+  - Switzerland_Zurich_ss_1022
+  - United States_None_ss_1023
+  - Czechia_None_ss_1024
+  - France_None_ss_1025
+  - Germany_Frankfurt am Main_ss_1026
+  - Germany_Frankfurt am Main_ss_1027
+  - Germany_Frankfurt am Main_ss_1028
+  - United States_None_ss_1029
+  - Canada_None_ss_1030
+  - Czechia_None_ss_1031
+  - The Netherlands_None_ss_1032
+  - The Netherlands_None_ss_1033
+  - France_Paris_ss_1034
+  - France_Paris_ss_1035
+  - Canada_None_ss_1036
+  - France_Paris_ss_1037
+  - Canada_None_ss_1038
+  - Canada_None_ss_1039
+  - United Kingdom_London_ss_1040
+  - United Kingdom_London_ss_1041
+  - United Kingdom_London_ss_1042
+  - United Kingdom_London_ss_1043
+  - United Kingdom_None_ss_1044
+  - Denmark_None_ss_1045
+  - Bulgaria_None_ss_1046
+  - Italy_Milan_ss_1047
+  - Italy_None_ss_1048
+  - Italy_None_ss_1049
+  - Italy_None_ss_1050
+  - Italy_None_ss_1051
+  - Italy_None_ss_1052
+  - Italy_None_ss_1053
+  - Italy_None_ss_1054
+  - Italy_None_ss_1055
+  - Italy_None_ss_1056
+  - Italy_None_ss_1057
+  - United States_Ashburn_ss_1058
+  - United States_Saratoga_ss_1059
+  - Japan_Tokyo_ss_1060
+  - United States_Washington_ss_1061
+  - United States_Washington_ss_1062
+  - United States_Washington_ss_1063
+  - South Korea_Seoul_ss_1064
+  - United States_None_ss_1065
+  - Hong Kong_Central_ss_1066
+  - The Netherlands_Amsterdam_ss_1067
+  - Iran_None_ss_1068
+  - Iran_None_ss_1069
+  - The Netherlands_None_ss_1070
+  - Norway_Oslo_ss_1071
+  - France_None_ss_1072
+  - France_None_ss_1073
+  - Romania_Bucharest_ss_1074
+  - United States_None_ss_1075
+  - The Netherlands_None_ss_1076
+  - Russia_None_ss_1077
+  - Sweden_Stockholm_ss_1078
+  - Singapore_Singapore_ss_1079
+  - Singapore_None_ss_1080
+  - Singapore_None_ss_1081
+  - Singapore_Singapore_ss_1082
+  - Singapore_Singapore_ss_1083
+  - Singapore_Singapore_ss_1084
+  - United States_Miami_ss_1085
+  - United States_Los Angeles_ss_1086
+  - United States_Dallas_ss_1087
+  - United States_Atlanta_ss_1088
+  - United States_Atlanta_ss_1089
+  - United States_Atlanta_ss_1090
+  - United States_Atlanta_ss_1091
+  - United States_Tempe_ss_1092
+  - United States_Atlanta_ss_1093
+  - United States_None_ss_1094
+  - United States_Santa Clara_ss_1095
+  - United States_Miami_ss_1096
+  - United States_Atlanta_ss_1097
+  - United States_Santa Clara_ss_1098
+  - United States_New York_ss_1099
+  - United States_Chicago_ss_10100
+  - United States_None_ss_10101
+  - United States_Atlanta_ss_10102
+  - South Africa_Johannesburg_ss_10103
+  - South Africa_Johannesburg_ss_10104
+  - Hong Kong_None_trojan_10105
+  - Hong Kong_None_trojan_10106
+  - Hong Kong_None_trojan_10107
+  - Australia_Sydney_trojan_10108
+  - Brazil_Osasco_trojan_10109
+  - United States_Turtle Creek_trojan_10110
+  - United States_Turtle Creek_trojan_10111
+  - United States_Turtle Creek_trojan_10112
+  - United States_Turtle Creek_trojan_10113
+  - United States_Turtle Creek_trojan_10114
+  - United States_Turtle Creek_trojan_10115
+  - Canada_Toronto_trojan_10116
+  - Unknown_trojan_10117
+  - Unknown_trojan_10118
+  - Chile_Santiago_trojan_10119
+  - Brazil_João Pessoa_trojan_10120
+  - Germany_Frankfurt am Main_trojan_10121
+  - Germany_Frankfurt am Main_trojan_10122
+  - Germany_Frankfurt am Main_trojan_10123
+  - Germany_Frankfurt am Main_trojan_10124
+  - Israel_None_trojan_10125
+  - Malaysia_Kuala Lumpur_trojan_10126
+  - United States_None_trojan_10127
+  - United States_None_trojan_10128
+  - United States_None_trojan_10129
+  - Poland_Warsaw_trojan_10130
+  - Sweden_Spanga_trojan_10131
+  - Sweden_Stockholm_trojan_10132
+  - Singapore_Singapore_trojan_10133
+  - Singapore_Singapore_trojan_10134
+  - United States_None_trojan_10135
+  - Thailand_Bangkok_trojan_10136
+  - United States_Buffalo_vmess_10137
+  - Hong Kong_Hong Kong_vmess_10138
+  - Hong Kong_Hong Kong_vmess_10139
+  - Hong Kong_Hong Kong_vmess_10140
+  - South Korea_Incheon_ss_10141
+  - Russia_Moscow_ss_10142
+  - United States_Wilmington_ss_10143
+  - None_None_vmess_10144
   - Unknown_vmess_111
   - Unknown_vmess_112
   - Unknown_vmess_113
@@ -1460,81 +2106,129 @@ proxy-groups:
   - Canada_None_ss_1119
   - Canada_Victoria_ss_1120
   - Canada_None_ss_1121
-  - The Netherlands_None_ss_1122
-  - The Netherlands_None_ss_1123
-  - United Kingdom_None_ss_1124
-  - Denmark_None_ss_1125
-  - Bulgaria_None_ss_1126
-  - Italy_None_ss_1127
-  - Italy_None_ss_1128
-  - Italy_None_ss_1129
-  - Italy_None_ss_1130
-  - Italy_None_ss_1131
-  - Italy_None_ss_1132
-  - Italy_None_ss_1133
-  - Italy_None_ss_1134
-  - Italy_None_ss_1135
-  - Italy_None_ss_1136
-  - United States_Ashburn_ss_1137
-  - United States_Saratoga_ss_1138
-  - Japan_Tokyo_ss_1139
-  - United States_Washington_ss_1140
-  - United States_Washington_ss_1141
-  - South Korea_Seoul_ss_1142
-  - Hong Kong_Central_ss_1143
-  - Iran_None_ss_1144
-  - Iran_None_ss_1145
-  - The Netherlands_None_ss_1146
-  - United Kingdom_Enfield_ss_1147
-  - United Kingdom_Enfield_ss_1148
-  - Norway_Oslo_ss_1149
-  - France_None_ss_1150
-  - France_None_ss_1151
-  - Romania_Bucharest_ss_1152
-  - United States_None_ss_1153
-  - The Netherlands_None_ss_1154
-  - Russia_None_ss_1155
-  - United States_Reston_ss_1156
-  - United States_None_ss_1157
-  - United States_Clifton_ss_1158
-  - South Africa_Johannesburg_ss_1159
-  - South Africa_Johannesburg_ss_1160
-  - United States_None_trojan_1161
-  - United States_None_trojan_1162
-  - Australia_Sydney_trojan_1163
-  - Brazil_Osasco_trojan_1164
-  - United States_Turtle Creek_trojan_1165
-  - United States_Turtle Creek_trojan_1166
-  - United States_Turtle Creek_trojan_1167
-  - United States_Turtle Creek_trojan_1168
-  - United States_Turtle Creek_trojan_1169
-  - Unknown_trojan_1170
-  - Chile_Santiago_trojan_1171
-  - United States_None_trojan_1172
-  - Germany_Frankfurt am Main_trojan_1173
-  - Germany_Frankfurt am Main_trojan_1174
-  - Germany_Frankfurt am Main_trojan_1175
-  - Israel_None_trojan_1176
-  - South Korea_Seoul_trojan_1177
-  - Malaysia_Kuala Lumpur_trojan_1178
-  - United States_None_trojan_1179
-  - United States_None_trojan_1180
-  - United States_None_trojan_1181
-  - Poland_Warsaw_trojan_1182
-  - Sweden_Stockholm_trojan_1183
-  - Singapore_Singapore_trojan_1184
-  - Singapore_Singapore_trojan_1185
-  - United States_Santa Clara_trojan_1186
-  - United States_Santa Clara_trojan_1187
-  - United States_Santa Clara_trojan_1188
-  - United States_Buffalo_vmess_1189
-  - United States_None_trojan_1190
-  - Unknown_trojan_1191
-  - France_None_vmess_1192
-  - Hong Kong_Hong Kong_vmess_1193
-  - South Korea_None_ss_1194
-  - Singapore_Singapore_ss_1195
-  - United States_Buffalo_vmess_1196
+  - Switzerland_Zurich_ss_1122
+  - United States_None_ss_1123
+  - Czechia_None_ss_1124
+  - France_None_ss_1125
+  - Germany_Frankfurt am Main_ss_1126
+  - Germany_Frankfurt am Main_ss_1127
+  - Germany_Frankfurt am Main_ss_1128
+  - United States_None_ss_1129
+  - Canada_None_ss_1130
+  - Czechia_None_ss_1131
+  - The Netherlands_None_ss_1132
+  - The Netherlands_None_ss_1133
+  - France_Paris_ss_1134
+  - France_Paris_ss_1135
+  - Canada_None_ss_1136
+  - France_Paris_ss_1137
+  - Canada_None_ss_1138
+  - Canada_None_ss_1139
+  - United Kingdom_London_ss_1140
+  - United Kingdom_London_ss_1141
+  - United Kingdom_London_ss_1142
+  - United Kingdom_London_ss_1143
+  - United Kingdom_None_ss_1144
+  - Denmark_None_ss_1145
+  - Bulgaria_None_ss_1146
+  - Italy_Milan_ss_1147
+  - Italy_None_ss_1148
+  - Italy_None_ss_1149
+  - Italy_None_ss_1150
+  - Italy_None_ss_1151
+  - Italy_None_ss_1152
+  - Italy_None_ss_1153
+  - Italy_None_ss_1154
+  - Italy_None_ss_1155
+  - Italy_None_ss_1156
+  - Italy_None_ss_1157
+  - United States_Ashburn_ss_1158
+  - United States_Saratoga_ss_1159
+  - Japan_Tokyo_ss_1160
+  - United States_Washington_ss_1161
+  - United States_Washington_ss_1162
+  - United States_Washington_ss_1163
+  - South Korea_Seoul_ss_1164
+  - United States_None_ss_1165
+  - Hong Kong_Central_ss_1166
+  - The Netherlands_Amsterdam_ss_1167
+  - Iran_None_ss_1168
+  - Iran_None_ss_1169
+  - The Netherlands_None_ss_1170
+  - Norway_Oslo_ss_1171
+  - France_None_ss_1172
+  - France_None_ss_1173
+  - Romania_Bucharest_ss_1174
+  - United States_None_ss_1175
+  - The Netherlands_None_ss_1176
+  - Russia_None_ss_1177
+  - Sweden_Stockholm_ss_1178
+  - Singapore_Singapore_ss_1179
+  - Singapore_None_ss_1180
+  - Singapore_None_ss_1181
+  - Singapore_Singapore_ss_1182
+  - Singapore_Singapore_ss_1183
+  - Singapore_Singapore_ss_1184
+  - United States_Miami_ss_1185
+  - United States_Los Angeles_ss_1186
+  - United States_Dallas_ss_1187
+  - United States_Atlanta_ss_1188
+  - United States_Atlanta_ss_1189
+  - United States_Atlanta_ss_1190
+  - United States_Atlanta_ss_1191
+  - United States_Tempe_ss_1192
+  - United States_Atlanta_ss_1193
+  - United States_None_ss_1194
+  - United States_Santa Clara_ss_1195
+  - United States_Miami_ss_1196
+  - United States_Atlanta_ss_1197
+  - United States_Santa Clara_ss_1198
+  - United States_New York_ss_1199
+  - United States_Chicago_ss_11100
+  - United States_None_ss_11101
+  - United States_Atlanta_ss_11102
+  - South Africa_Johannesburg_ss_11103
+  - South Africa_Johannesburg_ss_11104
+  - Hong Kong_None_trojan_11105
+  - Hong Kong_None_trojan_11106
+  - Hong Kong_None_trojan_11107
+  - Australia_Sydney_trojan_11108
+  - Brazil_Osasco_trojan_11109
+  - United States_Turtle Creek_trojan_11110
+  - United States_Turtle Creek_trojan_11111
+  - United States_Turtle Creek_trojan_11112
+  - United States_Turtle Creek_trojan_11113
+  - United States_Turtle Creek_trojan_11114
+  - United States_Turtle Creek_trojan_11115
+  - Canada_Toronto_trojan_11116
+  - Unknown_trojan_11117
+  - Unknown_trojan_11118
+  - Chile_Santiago_trojan_11119
+  - Brazil_João Pessoa_trojan_11120
+  - Germany_Frankfurt am Main_trojan_11121
+  - Germany_Frankfurt am Main_trojan_11122
+  - Germany_Frankfurt am Main_trojan_11123
+  - Germany_Frankfurt am Main_trojan_11124
+  - Israel_None_trojan_11125
+  - Malaysia_Kuala Lumpur_trojan_11126
+  - United States_None_trojan_11127
+  - United States_None_trojan_11128
+  - United States_None_trojan_11129
+  - Poland_Warsaw_trojan_11130
+  - Sweden_Spanga_trojan_11131
+  - Sweden_Stockholm_trojan_11132
+  - Singapore_Singapore_trojan_11133
+  - Singapore_Singapore_trojan_11134
+  - United States_None_trojan_11135
+  - Thailand_Bangkok_trojan_11136
+  - United States_Buffalo_vmess_11137
+  - Hong Kong_Hong Kong_vmess_11138
+  - Hong Kong_Hong Kong_vmess_11139
+  - Hong Kong_Hong Kong_vmess_11140
+  - South Korea_Incheon_ss_11141
+  - Russia_Moscow_ss_11142
+  - United States_Wilmington_ss_11143
+  - None_None_vmess_11144
 - name: 自动选择
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -1562,80 +2256,129 @@ proxy-groups:
   - Canada_None_ss_1019
   - Canada_Victoria_ss_1020
   - Canada_None_ss_1021
-  - The Netherlands_None_ss_1022
-  - The Netherlands_None_ss_1023
-  - United Kingdom_None_ss_1024
-  - Denmark_None_ss_1025
-  - Bulgaria_None_ss_1026
-  - Italy_None_ss_1027
-  - Italy_None_ss_1028
-  - Italy_None_ss_1029
-  - Italy_None_ss_1030
-  - Italy_None_ss_1031
-  - Italy_None_ss_1032
-  - Italy_None_ss_1033
-  - Italy_None_ss_1034
-  - Italy_None_ss_1035
-  - Italy_None_ss_1036
-  - United States_Ashburn_ss_1037
-  - United States_Saratoga_ss_1038
-  - Japan_Tokyo_ss_1039
-  - United States_Washington_ss_1040
-  - United States_Washington_ss_1041
-  - South Korea_Seoul_ss_1042
-  - Hong Kong_Central_ss_1043
-  - Iran_None_ss_1044
-  - Iran_None_ss_1045
-  - The Netherlands_None_ss_1046
-  - United Kingdom_Enfield_ss_1047
-  - United Kingdom_Enfield_ss_1048
-  - Norway_Oslo_ss_1049
-  - France_None_ss_1050
-  - France_None_ss_1051
-  - Romania_Bucharest_ss_1052
-  - United States_None_ss_1053
-  - The Netherlands_None_ss_1054
-  - Russia_None_ss_1055
-  - United States_Reston_ss_1056
-  - United States_None_ss_1057
-  - United States_Clifton_ss_1058
-  - South Africa_Johannesburg_ss_1059
-  - South Africa_Johannesburg_ss_1060
-  - United States_None_trojan_1061
-  - United States_None_trojan_1062
-  - Australia_Sydney_trojan_1063
-  - Brazil_Osasco_trojan_1064
-  - United States_Turtle Creek_trojan_1065
-  - United States_Turtle Creek_trojan_1066
-  - United States_Turtle Creek_trojan_1067
-  - United States_Turtle Creek_trojan_1068
-  - United States_Turtle Creek_trojan_1069
-  - Unknown_trojan_1070
-  - Chile_Santiago_trojan_1071
-  - United States_None_trojan_1072
-  - Germany_Frankfurt am Main_trojan_1073
-  - Germany_Frankfurt am Main_trojan_1074
-  - Germany_Frankfurt am Main_trojan_1075
-  - Israel_None_trojan_1076
-  - South Korea_Seoul_trojan_1077
-  - Malaysia_Kuala Lumpur_trojan_1078
-  - United States_None_trojan_1079
-  - United States_None_trojan_1080
-  - United States_None_trojan_1081
-  - Poland_Warsaw_trojan_1082
-  - Sweden_Stockholm_trojan_1083
-  - Singapore_Singapore_trojan_1084
-  - Singapore_Singapore_trojan_1085
-  - United States_Santa Clara_trojan_1086
-  - United States_Santa Clara_trojan_1087
-  - United States_Santa Clara_trojan_1088
-  - Unknown_trojan_1089
-  - United States_None_trojan_1090
-  - France_None_vmess_1091
-  - Hong Kong_Hong Kong_vmess_1092
-  - South Korea_None_ss_1093
-  - Singapore_Singapore_ss_1094
-  - United States_Buffalo_vmess_1095
+  - Switzerland_Zurich_ss_1022
+  - United States_None_ss_1023
+  - Czechia_None_ss_1024
+  - France_None_ss_1025
+  - Germany_Frankfurt am Main_ss_1026
+  - Germany_Frankfurt am Main_ss_1027
+  - Germany_Frankfurt am Main_ss_1028
+  - United States_None_ss_1029
+  - Canada_None_ss_1030
+  - Czechia_None_ss_1031
+  - The Netherlands_None_ss_1032
+  - The Netherlands_None_ss_1033
+  - France_Paris_ss_1034
+  - France_Paris_ss_1035
+  - Canada_None_ss_1036
+  - France_Paris_ss_1037
+  - Canada_None_ss_1038
+  - Canada_None_ss_1039
+  - United Kingdom_London_ss_1040
+  - United Kingdom_London_ss_1041
+  - United Kingdom_London_ss_1042
+  - United Kingdom_London_ss_1043
+  - United Kingdom_None_ss_1044
+  - Denmark_None_ss_1045
+  - Bulgaria_None_ss_1046
+  - Italy_Milan_ss_1047
+  - Italy_None_ss_1048
+  - Italy_None_ss_1049
+  - Italy_None_ss_1050
+  - Italy_None_ss_1051
+  - Italy_None_ss_1052
+  - Italy_None_ss_1053
+  - Italy_None_ss_1054
+  - Italy_None_ss_1055
+  - Italy_None_ss_1056
+  - Italy_None_ss_1057
+  - United States_Ashburn_ss_1058
+  - United States_Saratoga_ss_1059
+  - Japan_Tokyo_ss_1060
+  - United States_Washington_ss_1061
+  - United States_Washington_ss_1062
+  - United States_Washington_ss_1063
+  - South Korea_Seoul_ss_1064
+  - United States_None_ss_1065
+  - Hong Kong_Central_ss_1066
+  - The Netherlands_Amsterdam_ss_1067
+  - Iran_None_ss_1068
+  - Iran_None_ss_1069
+  - The Netherlands_None_ss_1070
+  - Norway_Oslo_ss_1071
+  - France_None_ss_1072
+  - France_None_ss_1073
+  - Romania_Bucharest_ss_1074
+  - United States_None_ss_1075
+  - The Netherlands_None_ss_1076
+  - Russia_None_ss_1077
+  - Sweden_Stockholm_ss_1078
+  - Singapore_Singapore_ss_1079
+  - Singapore_None_ss_1080
+  - Singapore_None_ss_1081
+  - Singapore_Singapore_ss_1082
+  - Singapore_Singapore_ss_1083
+  - Singapore_Singapore_ss_1084
+  - United States_Miami_ss_1085
+  - United States_Los Angeles_ss_1086
+  - United States_Dallas_ss_1087
+  - United States_Atlanta_ss_1088
+  - United States_Atlanta_ss_1089
+  - United States_Atlanta_ss_1090
+  - United States_Atlanta_ss_1091
+  - United States_Tempe_ss_1092
+  - United States_Atlanta_ss_1093
+  - United States_None_ss_1094
+  - United States_Santa Clara_ss_1095
+  - United States_Miami_ss_1096
+  - United States_Atlanta_ss_1097
+  - United States_Santa Clara_ss_1098
+  - United States_New York_ss_1099
+  - United States_Chicago_ss_10100
+  - United States_None_ss_10101
+  - United States_Atlanta_ss_10102
+  - South Africa_Johannesburg_ss_10103
+  - South Africa_Johannesburg_ss_10104
+  - Hong Kong_None_trojan_10105
+  - Hong Kong_None_trojan_10106
+  - Hong Kong_None_trojan_10107
+  - Australia_Sydney_trojan_10108
+  - Brazil_Osasco_trojan_10109
+  - United States_Turtle Creek_trojan_10110
+  - United States_Turtle Creek_trojan_10111
+  - United States_Turtle Creek_trojan_10112
+  - United States_Turtle Creek_trojan_10113
+  - United States_Turtle Creek_trojan_10114
+  - United States_Turtle Creek_trojan_10115
+  - Canada_Toronto_trojan_10116
+  - Unknown_trojan_10117
+  - Unknown_trojan_10118
+  - Chile_Santiago_trojan_10119
+  - Brazil_João Pessoa_trojan_10120
+  - Germany_Frankfurt am Main_trojan_10121
+  - Germany_Frankfurt am Main_trojan_10122
+  - Germany_Frankfurt am Main_trojan_10123
+  - Germany_Frankfurt am Main_trojan_10124
+  - Israel_None_trojan_10125
+  - Malaysia_Kuala Lumpur_trojan_10126
+  - United States_None_trojan_10127
+  - United States_None_trojan_10128
+  - United States_None_trojan_10129
+  - Poland_Warsaw_trojan_10130
+  - Sweden_Spanga_trojan_10131
+  - Sweden_Stockholm_trojan_10132
+  - Singapore_Singapore_trojan_10133
+  - Singapore_Singapore_trojan_10134
+  - United States_None_trojan_10135
+  - Thailand_Bangkok_trojan_10136
+  - United States_Buffalo_vmess_10137
+  - Hong Kong_Hong Kong_vmess_10138
+  - Hong Kong_Hong Kong_vmess_10139
+  - Hong Kong_Hong Kong_vmess_10140
+  - South Korea_Incheon_ss_10141
+  - Russia_Moscow_ss_10142
+  - United States_Wilmington_ss_10143
+  - None_None_vmess_10144
   - Unknown_vmess_111
   - Unknown_vmess_112
   - Unknown_vmess_113
@@ -1657,81 +2400,129 @@ proxy-groups:
   - Canada_None_ss_1119
   - Canada_Victoria_ss_1120
   - Canada_None_ss_1121
-  - The Netherlands_None_ss_1122
-  - The Netherlands_None_ss_1123
-  - United Kingdom_None_ss_1124
-  - Denmark_None_ss_1125
-  - Bulgaria_None_ss_1126
-  - Italy_None_ss_1127
-  - Italy_None_ss_1128
-  - Italy_None_ss_1129
-  - Italy_None_ss_1130
-  - Italy_None_ss_1131
-  - Italy_None_ss_1132
-  - Italy_None_ss_1133
-  - Italy_None_ss_1134
-  - Italy_None_ss_1135
-  - Italy_None_ss_1136
-  - United States_Ashburn_ss_1137
-  - United States_Saratoga_ss_1138
-  - Japan_Tokyo_ss_1139
-  - United States_Washington_ss_1140
-  - United States_Washington_ss_1141
-  - South Korea_Seoul_ss_1142
-  - Hong Kong_Central_ss_1143
-  - Iran_None_ss_1144
-  - Iran_None_ss_1145
-  - The Netherlands_None_ss_1146
-  - United Kingdom_Enfield_ss_1147
-  - United Kingdom_Enfield_ss_1148
-  - Norway_Oslo_ss_1149
-  - France_None_ss_1150
-  - France_None_ss_1151
-  - Romania_Bucharest_ss_1152
-  - United States_None_ss_1153
-  - The Netherlands_None_ss_1154
-  - Russia_None_ss_1155
-  - United States_Reston_ss_1156
-  - United States_None_ss_1157
-  - United States_Clifton_ss_1158
-  - South Africa_Johannesburg_ss_1159
-  - South Africa_Johannesburg_ss_1160
-  - United States_None_trojan_1161
-  - United States_None_trojan_1162
-  - Australia_Sydney_trojan_1163
-  - Brazil_Osasco_trojan_1164
-  - United States_Turtle Creek_trojan_1165
-  - United States_Turtle Creek_trojan_1166
-  - United States_Turtle Creek_trojan_1167
-  - United States_Turtle Creek_trojan_1168
-  - United States_Turtle Creek_trojan_1169
-  - Unknown_trojan_1170
-  - Chile_Santiago_trojan_1171
-  - United States_None_trojan_1172
-  - Germany_Frankfurt am Main_trojan_1173
-  - Germany_Frankfurt am Main_trojan_1174
-  - Germany_Frankfurt am Main_trojan_1175
-  - Israel_None_trojan_1176
-  - South Korea_Seoul_trojan_1177
-  - Malaysia_Kuala Lumpur_trojan_1178
-  - United States_None_trojan_1179
-  - United States_None_trojan_1180
-  - United States_None_trojan_1181
-  - Poland_Warsaw_trojan_1182
-  - Sweden_Stockholm_trojan_1183
-  - Singapore_Singapore_trojan_1184
-  - Singapore_Singapore_trojan_1185
-  - United States_Santa Clara_trojan_1186
-  - United States_Santa Clara_trojan_1187
-  - United States_Santa Clara_trojan_1188
-  - United States_Buffalo_vmess_1189
-  - United States_None_trojan_1190
-  - Unknown_trojan_1191
-  - France_None_vmess_1192
-  - Hong Kong_Hong Kong_vmess_1193
-  - South Korea_None_ss_1194
-  - Singapore_Singapore_ss_1195
-  - United States_Buffalo_vmess_1196
+  - Switzerland_Zurich_ss_1122
+  - United States_None_ss_1123
+  - Czechia_None_ss_1124
+  - France_None_ss_1125
+  - Germany_Frankfurt am Main_ss_1126
+  - Germany_Frankfurt am Main_ss_1127
+  - Germany_Frankfurt am Main_ss_1128
+  - United States_None_ss_1129
+  - Canada_None_ss_1130
+  - Czechia_None_ss_1131
+  - The Netherlands_None_ss_1132
+  - The Netherlands_None_ss_1133
+  - France_Paris_ss_1134
+  - France_Paris_ss_1135
+  - Canada_None_ss_1136
+  - France_Paris_ss_1137
+  - Canada_None_ss_1138
+  - Canada_None_ss_1139
+  - United Kingdom_London_ss_1140
+  - United Kingdom_London_ss_1141
+  - United Kingdom_London_ss_1142
+  - United Kingdom_London_ss_1143
+  - United Kingdom_None_ss_1144
+  - Denmark_None_ss_1145
+  - Bulgaria_None_ss_1146
+  - Italy_Milan_ss_1147
+  - Italy_None_ss_1148
+  - Italy_None_ss_1149
+  - Italy_None_ss_1150
+  - Italy_None_ss_1151
+  - Italy_None_ss_1152
+  - Italy_None_ss_1153
+  - Italy_None_ss_1154
+  - Italy_None_ss_1155
+  - Italy_None_ss_1156
+  - Italy_None_ss_1157
+  - United States_Ashburn_ss_1158
+  - United States_Saratoga_ss_1159
+  - Japan_Tokyo_ss_1160
+  - United States_Washington_ss_1161
+  - United States_Washington_ss_1162
+  - United States_Washington_ss_1163
+  - South Korea_Seoul_ss_1164
+  - United States_None_ss_1165
+  - Hong Kong_Central_ss_1166
+  - The Netherlands_Amsterdam_ss_1167
+  - Iran_None_ss_1168
+  - Iran_None_ss_1169
+  - The Netherlands_None_ss_1170
+  - Norway_Oslo_ss_1171
+  - France_None_ss_1172
+  - France_None_ss_1173
+  - Romania_Bucharest_ss_1174
+  - United States_None_ss_1175
+  - The Netherlands_None_ss_1176
+  - Russia_None_ss_1177
+  - Sweden_Stockholm_ss_1178
+  - Singapore_Singapore_ss_1179
+  - Singapore_None_ss_1180
+  - Singapore_None_ss_1181
+  - Singapore_Singapore_ss_1182
+  - Singapore_Singapore_ss_1183
+  - Singapore_Singapore_ss_1184
+  - United States_Miami_ss_1185
+  - United States_Los Angeles_ss_1186
+  - United States_Dallas_ss_1187
+  - United States_Atlanta_ss_1188
+  - United States_Atlanta_ss_1189
+  - United States_Atlanta_ss_1190
+  - United States_Atlanta_ss_1191
+  - United States_Tempe_ss_1192
+  - United States_Atlanta_ss_1193
+  - United States_None_ss_1194
+  - United States_Santa Clara_ss_1195
+  - United States_Miami_ss_1196
+  - United States_Atlanta_ss_1197
+  - United States_Santa Clara_ss_1198
+  - United States_New York_ss_1199
+  - United States_Chicago_ss_11100
+  - United States_None_ss_11101
+  - United States_Atlanta_ss_11102
+  - South Africa_Johannesburg_ss_11103
+  - South Africa_Johannesburg_ss_11104
+  - Hong Kong_None_trojan_11105
+  - Hong Kong_None_trojan_11106
+  - Hong Kong_None_trojan_11107
+  - Australia_Sydney_trojan_11108
+  - Brazil_Osasco_trojan_11109
+  - United States_Turtle Creek_trojan_11110
+  - United States_Turtle Creek_trojan_11111
+  - United States_Turtle Creek_trojan_11112
+  - United States_Turtle Creek_trojan_11113
+  - United States_Turtle Creek_trojan_11114
+  - United States_Turtle Creek_trojan_11115
+  - Canada_Toronto_trojan_11116
+  - Unknown_trojan_11117
+  - Unknown_trojan_11118
+  - Chile_Santiago_trojan_11119
+  - Brazil_João Pessoa_trojan_11120
+  - Germany_Frankfurt am Main_trojan_11121
+  - Germany_Frankfurt am Main_trojan_11122
+  - Germany_Frankfurt am Main_trojan_11123
+  - Germany_Frankfurt am Main_trojan_11124
+  - Israel_None_trojan_11125
+  - Malaysia_Kuala Lumpur_trojan_11126
+  - United States_None_trojan_11127
+  - United States_None_trojan_11128
+  - United States_None_trojan_11129
+  - Poland_Warsaw_trojan_11130
+  - Sweden_Spanga_trojan_11131
+  - Sweden_Stockholm_trojan_11132
+  - Singapore_Singapore_trojan_11133
+  - Singapore_Singapore_trojan_11134
+  - United States_None_trojan_11135
+  - Thailand_Bangkok_trojan_11136
+  - United States_Buffalo_vmess_11137
+  - Hong Kong_Hong Kong_vmess_11138
+  - Hong Kong_Hong Kong_vmess_11139
+  - Hong Kong_Hong Kong_vmess_11140
+  - South Korea_Incheon_ss_11141
+  - Russia_Moscow_ss_11142
+  - United States_Wilmington_ss_11143
+  - None_None_vmess_11144
 rules:
 - DOMAIN,clash.razord.top,DIRECT
 - DOMAIN,yacd.haishan.me,DIRECT
