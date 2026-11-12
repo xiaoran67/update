@@ -6,7 +6,90 @@ log-level: info
 external-controller: '127.0.0.1:9090'
 
 proxies:
-  - name: "节点日期：2026-11-11"
+  - name: "节点日期：2026-11-12"
+    type: ss
+    server: "202.50.253.99"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://tt.vg/vip】1"
+    type: ss
+    server: "202.50.253.90"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://tt.vg/vip】2"
+    type: ss
+    server: "202.50.253.54"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://tt.vg/vip】3"
+    type: ss
+    server: "202.50.253.36"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://tt.vg/vip】4"
+    type: ss
+    server: "202.50.253.81"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://tt.vg/vip】5"
+    type: ss
+    server: "202.50.253.63"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://tt.vg/vip】6"
+    type: ss
+    server: "202.50.253.27"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://tt.vg/vip】7"
+    type: ss
+    server: "202.50.253.18"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://tt.vg/vip】8"
+    type: ss
+    server: "202.50.253.45"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://tt.vg/vip】9"
+    type: ss
+    server: "202.50.253.72"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "DE【高速节点：https://tt.vg/vip】10"
+    type: vless
+    server: "95.85.234.66"
+    port: 443
+    uuid: "3659f248-1797-4d6e-9982-a308565fec79"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "firefox"
+    servername: "fl-modx.webedg.net"
+    reality-opts:
+      public-key: "MuQH546CBdgYVBzNU_F5fimkbQ0srHxgLKDjl1Wz2Rw"
+      short-id: "00000000"
+  - name: "CN【高速节点：https://tt.vg/vip】11"
     type: vmess
     server: "39.108.113.127"
     port: 10086
@@ -17,7 +100,7 @@ proxies:
     network: ws
     ws-opts:
       path: "/"
-  - name: "CA【机场推荐：https://a9a.xyz】1"
+  - name: "CA【高速节点：https://tt.vg/vip】12"
     type: vmess
     server: "172.64.145.93"
     port: 443
@@ -33,7 +116,7 @@ proxies:
       path: "/hls/cctv5phd.m3u8"
       headers:
         Host: "guanwang.awsno.com"
-  - name: "CA【机场推荐：https://a9a.xyz】2"
+  - name: "CA【高速节点：https://tt.vg/vip】13"
     type: vmess
     server: "172.67.190.164"
     port: 443
@@ -49,90 +132,7 @@ proxies:
       path: "/hls/cctv5phd.m3u8"
       headers:
         Host: "guanwang.awsno.com"
-  - name: "IT【机场推荐：https://a9a.xyz】3"
-    type: ss
-    server: "202.50.253.36"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】4"
-    type: ss
-    server: "202.50.253.90"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】5"
-    type: ss
-    server: "202.50.253.63"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】6"
-    type: ss
-    server: "202.50.253.18"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】7"
-    type: ss
-    server: "202.50.253.27"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】8"
-    type: ss
-    server: "202.50.253.54"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】9"
-    type: ss
-    server: "202.50.253.99"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】10"
-    type: ss
-    server: "202.50.253.45"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】11"
-    type: ss
-    server: "202.50.253.72"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【机场推荐：https://a9a.xyz】12"
-    type: ss
-    server: "202.50.253.81"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "RU【机场推荐：https://a9a.xyz】13"
-    type: vless
-    server: "157.22.185.68"
-    port: 2058
-    uuid: "4ad9f982-b56a-444a-9684-35ce51307a36"
-    flow: "xtls-rprx-vision"
-    udp: true
-    tls: true
-    client-fingerprint: "firefox"
-    servername: "www.cloudflare.com"
-    reality-opts:
-      public-key: "lJBsn9ndieTIUBzXkJUhf6O0OE8pm29_z1fUtARwL0s"
-      short-id: "937255313d6ce673"
-  - name: "DE【机场推荐：https://a9a.xyz】14"
+  - name: "DE【高速节点：https://tt.vg/vip】14"
     type: vless
     server: "2.26.251.236"
     port: 443
@@ -145,6 +145,19 @@ proxies:
     reality-opts:
       public-key: "1iVMMhJZgXHRY7tRlR-1kypF0YeaBcB7EjcfHRsYZX4"
       short-id: "4ff31b18d1bd8227"
+  - name: "NL【高速节点：https://tt.vg/vip】15"
+    type: vless
+    server: "msk10.gacvpn.site"
+    port: 443
+    uuid: "3f5e89d5-591f-4ac9-b071-b05680b573c3"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "edge"
+    servername: "nl3-edge.gacvpn.site"
+    reality-opts:
+      public-key: "Caj4X3VjnHfdRQzWLmjFCiG_CGw0scYYni6UxVfBs38"
+      short-id: "db6a4219fb"
 
 proxy-groups:
   - name: "🚀 节点选择"
@@ -152,42 +165,44 @@ proxy-groups:
     proxies:
       - "♻️ 自动选择"
       - "🎯 直连模式"
-      - "节点日期：2026-11-11"
-      - "CA【机场推荐：https://a9a.xyz】1"
-      - "CA【机场推荐：https://a9a.xyz】2"
-      - "IT【机场推荐：https://a9a.xyz】3"
-      - "IT【机场推荐：https://a9a.xyz】4"
-      - "IT【机场推荐：https://a9a.xyz】5"
-      - "IT【机场推荐：https://a9a.xyz】6"
-      - "IT【机场推荐：https://a9a.xyz】7"
-      - "IT【机场推荐：https://a9a.xyz】8"
-      - "IT【机场推荐：https://a9a.xyz】9"
-      - "IT【机场推荐：https://a9a.xyz】10"
-      - "IT【机场推荐：https://a9a.xyz】11"
-      - "IT【机场推荐：https://a9a.xyz】12"
-      - "RU【机场推荐：https://a9a.xyz】13"
-      - "DE【机场推荐：https://a9a.xyz】14"
+      - "节点日期：2026-11-12"
+      - "IT【高速节点：https://tt.vg/vip】1"
+      - "IT【高速节点：https://tt.vg/vip】2"
+      - "IT【高速节点：https://tt.vg/vip】3"
+      - "IT【高速节点：https://tt.vg/vip】4"
+      - "IT【高速节点：https://tt.vg/vip】5"
+      - "IT【高速节点：https://tt.vg/vip】6"
+      - "IT【高速节点：https://tt.vg/vip】7"
+      - "IT【高速节点：https://tt.vg/vip】8"
+      - "IT【高速节点：https://tt.vg/vip】9"
+      - "DE【高速节点：https://tt.vg/vip】10"
+      - "CN【高速节点：https://tt.vg/vip】11"
+      - "CA【高速节点：https://tt.vg/vip】12"
+      - "CA【高速节点：https://tt.vg/vip】13"
+      - "DE【高速节点：https://tt.vg/vip】14"
+      - "NL【高速节点：https://tt.vg/vip】15"
   - name: "♻️ 自动选择"
     type: url-test
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
     proxies:
-      - "节点日期：2026-11-11"
-      - "CA【机场推荐：https://a9a.xyz】1"
-      - "CA【机场推荐：https://a9a.xyz】2"
-      - "IT【机场推荐：https://a9a.xyz】3"
-      - "IT【机场推荐：https://a9a.xyz】4"
-      - "IT【机场推荐：https://a9a.xyz】5"
-      - "IT【机场推荐：https://a9a.xyz】6"
-      - "IT【机场推荐：https://a9a.xyz】7"
-      - "IT【机场推荐：https://a9a.xyz】8"
-      - "IT【机场推荐：https://a9a.xyz】9"
-      - "IT【机场推荐：https://a9a.xyz】10"
-      - "IT【机场推荐：https://a9a.xyz】11"
-      - "IT【机场推荐：https://a9a.xyz】12"
-      - "RU【机场推荐：https://a9a.xyz】13"
-      - "DE【机场推荐：https://a9a.xyz】14"
+      - "节点日期：2026-11-12"
+      - "IT【高速节点：https://tt.vg/vip】1"
+      - "IT【高速节点：https://tt.vg/vip】2"
+      - "IT【高速节点：https://tt.vg/vip】3"
+      - "IT【高速节点：https://tt.vg/vip】4"
+      - "IT【高速节点：https://tt.vg/vip】5"
+      - "IT【高速节点：https://tt.vg/vip】6"
+      - "IT【高速节点：https://tt.vg/vip】7"
+      - "IT【高速节点：https://tt.vg/vip】8"
+      - "IT【高速节点：https://tt.vg/vip】9"
+      - "DE【高速节点：https://tt.vg/vip】10"
+      - "CN【高速节点：https://tt.vg/vip】11"
+      - "CA【高速节点：https://tt.vg/vip】12"
+      - "CA【高速节点：https://tt.vg/vip】13"
+      - "DE【高速节点：https://tt.vg/vip】14"
+      - "NL【高速节点：https://tt.vg/vip】15"
   - name: "🎯 直连模式"
     type: select
     proxies:
