@@ -38,6 +38,15 @@ dns:
     - https://1.1.1.1/dns-query
     - https://1.0.0.1/dns-query
 proxies:
+  - type: trojan
+    name: 🇨🇳_CN_中国->🇭🇰_HK_香港_IPV4
+    server: 112.49.65.212
+    port: 18000
+    password: 3b985d60-e252-4935-8e03-06afeb1144c9
+    tls: true
+    servername: www.biliimg.com
+    sni: www.biliimg.com
+    skip-cert-verify: true
   - type: hysteria2
     name: 🇺🇸_US_美国_IPV4
     server: starlink-ft.251313.xyz
@@ -47,27 +56,22 @@ proxies:
     servername: xship.top
     sni: xship.top
     skip-cert-verify: true
-  - type: trojan
-    name: 🇸🇬_SG_新加坡_IPV4
-    server: matrix.phonicsindia.mobi
-    port: 48994
-    password: Z5lvhmLqSc
+  - type: vless
+    name: 🇳🇱_NL_荷兰_IPV4
+    server: 79.182.39.131
+    port: 443
+    uuid: cda0862a-0f87-4be9-8ed8-1d0c9e382839
     tls: true
-    servername: m.microsoft.com
-    sni: m.microsoft.com
-    skip-cert-verify: true
-  - type: hysteria
-    name: 🇩🇪_DE_德国->🇳🇱_NL_荷兰_IPV4
-    server: 5.83.129.143
-    port: 26691
-    password: dongtaiwang.com
-    tls: true
-    skip-cert-verify: true
-    alpn:
-      - h3
-    up: "11"
-    down: "55"
-    auth-str: dongtaiwang.com
+    servername: 717252g.nl8.h1clayd.click
+    sni: 717252g.nl8.h1clayd.click
+    skip-cert-verify: false
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: PD8Jdlg3xB9QY--jwQjp8PFPzCS8-Oryw6-HWBcHMFU
+      short-id: d3bd772514c87d28
+    network: grpc
+    grpc-opts:
+      grpc-service-name: 204adda7e3da
   - type: anytls
     name: 🇹🇼_TW_台湾->🇩🇪_DE_德国_IPV4
     server: forwarded.frnhk.xyz
@@ -125,15 +129,6 @@ proxies:
         Host: guanwang.awsno.com
   - type: trojan
     name: 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4
-    server: sclass-b1.catcat321.com
-    port: 20028
-    password: d7563108-615c-4338-a7bd-77f359869a4a
-    tls: true
-    servername: hk.catxstar.com
-    sni: hk.catxstar.com
-    skip-cert-verify: false
-  - type: trojan
-    name: 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4 (2)
     server: sclass-b1.catcat321.com
     port: 20027
     password: d7563108-615c-4338-a7bd-77f359869a4a
@@ -323,14 +318,6 @@ proxies:
     skip-cert-verify: false
   - type: ss
     name: 🇮🇹_IT_意大利_IPV4 (6)
-    server: 202.50.253.54
-    port: 19999
-    password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
-    cipher: aes-256-gcm
-    tls: false
-    skip-cert-verify: false
-  - type: ss
-    name: 🇮🇹_IT_意大利_IPV4 (7)
     server: 202.50.253.45
     port: 19999
     password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
@@ -338,7 +325,7 @@ proxies:
     tls: false
     skip-cert-verify: false
   - type: ss
-    name: 🇮🇹_IT_意大利_IPV4 (8)
+    name: 🇮🇹_IT_意大利_IPV4 (7)
     server: 202.50.253.99
     port: 19999
     password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
@@ -346,7 +333,7 @@ proxies:
     tls: false
     skip-cert-verify: false
   - type: ss
-    name: 🇮🇹_IT_意大利_IPV4 (9)
+    name: 🇮🇹_IT_意大利_IPV4 (8)
     server: 202.50.253.81
     port: 19999
     password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
@@ -354,7 +341,7 @@ proxies:
     tls: false
     skip-cert-verify: false
   - type: ss
-    name: 🇮🇹_IT_意大利_IPV4 (10)
+    name: 🇮🇹_IT_意大利_IPV4 (9)
     server: 202.50.253.72
     port: 19999
     password: ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4=
@@ -367,15 +354,14 @@ proxy-groups:
     proxies:
       - ♻️ 自动选择
       - DIRECT
+      - 🇨🇳_CN_中国->🇭🇰_HK_香港_IPV4
       - 🇺🇸_US_美国_IPV4
-      - 🇸🇬_SG_新加坡_IPV4
-      - 🇩🇪_DE_德国->🇳🇱_NL_荷兰_IPV4
+      - 🇳🇱_NL_荷兰_IPV4
       - 🇹🇼_TW_台湾->🇩🇪_DE_德国_IPV4
       - 🇯🇵_JP_日本_IPV4
       - 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
       - 🇺🇸 机场推荐:dafei.de 美国 89_IPV4
       - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4
-      - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4 (2)
       - 🇺🇸_US_美国_IPV4 (2)
       - "@DeltaKroneckerGithub_3021_IPV4"
       - 🇺🇸 机场推荐:dafei.de 美国 15_IPV4
@@ -395,19 +381,17 @@ proxy-groups:
       - 🇮🇹_IT_意大利_IPV4 (7)
       - 🇮🇹_IT_意大利_IPV4 (8)
       - 🇮🇹_IT_意大利_IPV4 (9)
-      - 🇮🇹_IT_意大利_IPV4 (10)
   - name: ♻️ 自动选择
     type: url-test
     proxies:
+      - 🇨🇳_CN_中国->🇭🇰_HK_香港_IPV4
       - 🇺🇸_US_美国_IPV4
-      - 🇸🇬_SG_新加坡_IPV4
-      - 🇩🇪_DE_德国->🇳🇱_NL_荷兰_IPV4
+      - 🇳🇱_NL_荷兰_IPV4
       - 🇹🇼_TW_台湾->🇩🇪_DE_德国_IPV4
       - 🇯🇵_JP_日本_IPV4
       - 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
       - 🇺🇸 机场推荐:dafei.de 美国 89_IPV4
       - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4
-      - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4 (2)
       - 🇺🇸_US_美国_IPV4 (2)
       - "@DeltaKroneckerGithub_3021_IPV4"
       - 🇺🇸 机场推荐:dafei.de 美国 15_IPV4
@@ -427,7 +411,6 @@ proxy-groups:
       - 🇮🇹_IT_意大利_IPV4 (7)
       - 🇮🇹_IT_意大利_IPV4 (8)
       - 🇮🇹_IT_意大利_IPV4 (9)
-      - 🇮🇹_IT_意大利_IPV4 (10)
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
@@ -437,15 +420,14 @@ proxy-groups:
       - 🚀 节点选择
       - ♻️ 自动选择
       - 🎯 全球直连
+      - 🇨🇳_CN_中国->🇭🇰_HK_香港_IPV4
       - 🇺🇸_US_美国_IPV4
-      - 🇸🇬_SG_新加坡_IPV4
-      - 🇩🇪_DE_德国->🇳🇱_NL_荷兰_IPV4
+      - 🇳🇱_NL_荷兰_IPV4
       - 🇹🇼_TW_台湾->🇩🇪_DE_德国_IPV4
       - 🇯🇵_JP_日本_IPV4
       - 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
       - 🇺🇸 机场推荐:dafei.de 美国 89_IPV4
       - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4
-      - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4 (2)
       - 🇺🇸_US_美国_IPV4 (2)
       - "@DeltaKroneckerGithub_3021_IPV4"
       - 🇺🇸 机场推荐:dafei.de 美国 15_IPV4
@@ -465,21 +447,19 @@ proxy-groups:
       - 🇮🇹_IT_意大利_IPV4 (7)
       - 🇮🇹_IT_意大利_IPV4 (8)
       - 🇮🇹_IT_意大利_IPV4 (9)
-      - 🇮🇹_IT_意大利_IPV4 (10)
   - name: 📲 电报信息
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
+      - 🇨🇳_CN_中国->🇭🇰_HK_香港_IPV4
       - 🇺🇸_US_美国_IPV4
-      - 🇸🇬_SG_新加坡_IPV4
-      - 🇩🇪_DE_德国->🇳🇱_NL_荷兰_IPV4
+      - 🇳🇱_NL_荷兰_IPV4
       - 🇹🇼_TW_台湾->🇩🇪_DE_德国_IPV4
       - 🇯🇵_JP_日本_IPV4
       - 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
       - 🇺🇸 机场推荐:dafei.de 美国 89_IPV4
       - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4
-      - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4 (2)
       - 🇺🇸_US_美国_IPV4 (2)
       - "@DeltaKroneckerGithub_3021_IPV4"
       - 🇺🇸 机场推荐:dafei.de 美国 15_IPV4
@@ -499,21 +479,19 @@ proxy-groups:
       - 🇮🇹_IT_意大利_IPV4 (7)
       - 🇮🇹_IT_意大利_IPV4 (8)
       - 🇮🇹_IT_意大利_IPV4 (9)
-      - 🇮🇹_IT_意大利_IPV4 (10)
   - name: Ⓜ️ 微软服务
     type: select
     proxies:
       - 🎯 全球直连
       - 🚀 节点选择
+      - 🇨🇳_CN_中国->🇭🇰_HK_香港_IPV4
       - 🇺🇸_US_美国_IPV4
-      - 🇸🇬_SG_新加坡_IPV4
-      - 🇩🇪_DE_德国->🇳🇱_NL_荷兰_IPV4
+      - 🇳🇱_NL_荷兰_IPV4
       - 🇹🇼_TW_台湾->🇩🇪_DE_德国_IPV4
       - 🇯🇵_JP_日本_IPV4
       - 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
       - 🇺🇸 机场推荐:dafei.de 美国 89_IPV4
       - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4
-      - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4 (2)
       - 🇺🇸_US_美国_IPV4 (2)
       - "@DeltaKroneckerGithub_3021_IPV4"
       - 🇺🇸 机场推荐:dafei.de 美国 15_IPV4
@@ -533,21 +511,19 @@ proxy-groups:
       - 🇮🇹_IT_意大利_IPV4 (7)
       - 🇮🇹_IT_意大利_IPV4 (8)
       - 🇮🇹_IT_意大利_IPV4 (9)
-      - 🇮🇹_IT_意大利_IPV4 (10)
   - name: 🍎 苹果服务
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
+      - 🇨🇳_CN_中国->🇭🇰_HK_香港_IPV4
       - 🇺🇸_US_美国_IPV4
-      - 🇸🇬_SG_新加坡_IPV4
-      - 🇩🇪_DE_德国->🇳🇱_NL_荷兰_IPV4
+      - 🇳🇱_NL_荷兰_IPV4
       - 🇹🇼_TW_台湾->🇩🇪_DE_德国_IPV4
       - 🇯🇵_JP_日本_IPV4
       - 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
       - 🇺🇸 机场推荐:dafei.de 美国 89_IPV4
       - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4
-      - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4 (2)
       - 🇺🇸_US_美国_IPV4 (2)
       - "@DeltaKroneckerGithub_3021_IPV4"
       - 🇺🇸 机场推荐:dafei.de 美国 15_IPV4
@@ -567,7 +543,6 @@ proxy-groups:
       - 🇮🇹_IT_意大利_IPV4 (7)
       - 🇮🇹_IT_意大利_IPV4 (8)
       - 🇮🇹_IT_意大利_IPV4 (9)
-      - 🇮🇹_IT_意大利_IPV4 (10)
   - name: 🎯 全球直连
     type: select
     proxies:
@@ -590,15 +565,14 @@ proxy-groups:
       - 🚀 节点选择
       - 🎯 全球直连
       - ♻️ 自动选择
+      - 🇨🇳_CN_中国->🇭🇰_HK_香港_IPV4
       - 🇺🇸_US_美国_IPV4
-      - 🇸🇬_SG_新加坡_IPV4
-      - 🇩🇪_DE_德国->🇳🇱_NL_荷兰_IPV4
+      - 🇳🇱_NL_荷兰_IPV4
       - 🇹🇼_TW_台湾->🇩🇪_DE_德国_IPV4
       - 🇯🇵_JP_日本_IPV4
       - 🇸🇨_SC_塞舌尔->🇳🇱_NL_荷兰_IPV4
       - 🇺🇸 机场推荐:dafei.de 美国 89_IPV4
       - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4
-      - 🇨🇳_CN_中国->🇹🇷_TR_土耳其_IPV4 (2)
       - 🇺🇸_US_美国_IPV4 (2)
       - "@DeltaKroneckerGithub_3021_IPV4"
       - 🇺🇸 机场推荐:dafei.de 美国 15_IPV4
@@ -618,7 +592,6 @@ proxy-groups:
       - 🇮🇹_IT_意大利_IPV4 (7)
       - 🇮🇹_IT_意大利_IPV4 (8)
       - 🇮🇹_IT_意大利_IPV4 (9)
-      - 🇮🇹_IT_意大利_IPV4 (10)
 rule-providers:
   LocalAreaNetwork:
     type: http
