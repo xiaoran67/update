@@ -6,114 +6,69 @@ log-level: info
 external-controller: '127.0.0.1:9090'
 
 proxies:
-  - name: "节点日期：2026-11-25"
-    type: ss
-    server: "47.254.167.157"
-    port: 443
-    cipher: "2022-blake3-chacha20-poly1305"
-    password: "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y="
-    udp: true
-  - name: "US【高速节点：https://vip.a3f.xyz】1"
-    type: ss
-    server: "47.85.238.210"
-    port: 443
-    cipher: "2022-blake3-chacha20-poly1305"
-    password: "3NBsnBLanPfG6i3S2GTHineswr6EeSJPb0PCeMQoGoA="
-    udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】2"
+  - name: "节点日期：2026-11-26"
     type: ss
     server: "202.50.253.72"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】3"
-    type: ss
-    server: "202.50.253.36"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】4"
-    type: ss
-    server: "202.50.253.81"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】5"
-    type: ss
-    server: "202.50.253.63"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】6"
-    type: ss
-    server: "202.50.253.99"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】7"
-    type: ss
-    server: "202.50.253.90"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】8"
-    type: ss
-    server: "202.50.253.45"
-    port: 19999
-    cipher: "aes-256-gcm"
-    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
-    udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】9"
+  - name: "IT【高速节点：https://vip.a3f.xyz】1"
     type: ss
     server: "202.50.253.27"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】10"
+  - name: "IT【高速节点：https://vip.a3f.xyz】2"
     type: ss
-    server: "202.50.253.54"
+    server: "202.50.253.36"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
-  - name: "IT【高速节点：https://vip.a3f.xyz】11"
+  - name: "IT【高速节点：https://vip.a3f.xyz】3"
     type: ss
-    server: "202.50.253.18"
+    server: "202.50.253.81"
     port: 19999
     cipher: "aes-256-gcm"
     password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
     udp: true
-  - name: "FR【高速节点：https://vip.a3f.xyz】12"
+  - name: "LY【高速节点：https://vip.a3f.xyz】4"
     type: vless
-    server: "136.148.83.70"
+    server: "196.199.122.2"
+    port: 443
+    uuid: "4201786b-d99b-4147-a5f0-20d47acddb81"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "chrome"
+    servername: "7aa271t.es1.h1clayd.click"
+    reality-opts:
+      public-key: "ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE"
+      short-id: "42426c882c5fcd41"
+  - name: "DE【高速节点：https://vip.a3f.xyz】5"
+    type: vless
+    server: "5d0319t.nl7.h1clayd.click"
+    port: 443
+    uuid: "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
+    udp: true
+    tls: true
+    client-fingerprint: "firefox"
+    servername: "5d0319t.nl7.h1clayd.click"
+    reality-opts:
+      public-key: "l-GzBDuNuhnjxoRlZqKvT7jAt_sbVAxhGFsAttO5kXs"
+      short-id: "361d0dd59c70516f"
+  - name: "FR【高速节点：https://vip.a3f.xyz】6"
+    type: vless
+    server: "136.148.83.71"
     port: 443
     uuid: "00000000-0000-0001-0000-000000000000"
     udp: true
     tls: true
     skip-cert-verify: false
-    servername: "aszbk-ru-78dc.my-fade.cloud"
-  - name: "US【高速节点：https://vip.a3f.xyz】13"
-    type: ss
-    server: "47.85.227.36"
-    port: 443
-    cipher: "2022-blake3-chacha20-poly1305"
-    password: "3NBsnBLanPfG6i3S2GTHineswr6EeSJPb0PCeMQoGoA="
-    udp: true
-  - name: "DE【高速节点：https://vip.a3f.xyz】14"
-    type: ss
-    server: "47.254.128.109"
-    port: 443
-    cipher: "2022-blake3-chacha20-poly1305"
-    password: "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y="
-    udp: true
-  - name: "DE【高速节点：https://vip.a3f.xyz】15"
+    servername: "wccfu-ru-79dc.my-fade.cloud"
+  - name: "DE【高速节点：https://vip.a3f.xyz】7"
     type: vless
     server: "2.26.251.236"
     port: 443
@@ -126,57 +81,145 @@ proxies:
     reality-opts:
       public-key: "1iVMMhJZgXHRY7tRlR-1kypF0YeaBcB7EjcfHRsYZX4"
       short-id: "4ff31b18d1bd8227"
-  - name: "RO【高速节点：https://vip.a3f.xyz】16"
+  - name: "IT【高速节点：https://vip.a3f.xyz】8"
+    type: ss
+    server: "202.50.253.18"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://vip.a3f.xyz】9"
+    type: ss
+    server: "202.50.253.90"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "RU【高速节点：https://vip.a3f.xyz】10"
     type: vless
-    server: "a80b5386.fi2.h1clayd.click"
-    port: 443
-    uuid: "2ccb06b6-9eac-44eb-ade7-c1e5afb8e7df"
+    server: "213.183.41.31"
+    port: 8459
+    uuid: "eb62cabf-5901-403a-aa0c-b1d9ed1b346d"
     udp: true
     tls: true
-    client-fingerprint: "firefox"
-    servername: "a80b5386.fi2.h1clayd.click"
-    reality-opts:
-      public-key: "PslSaSQWP4BZZmkL7irab4FMti8sW6BvoC7ytFjJFyc"
-      short-id: "cc678f10161992a9"
-  - name: "NE【高速节点：https://vip.a3f.xyz】17"
+    skip-cert-verify: false
+    servername: "photos.plumstatic.com"
+    network: ws
+    ws-opts:
+      path: "/ws"
+  - name: "RU【高速节点：https://vip.a3f.xyz】11"
     type: vless
-    server: "196.196.148.85"
+    server: "213.183.41.31"
+    port: 8463
+    uuid: "eb62cabf-5901-403a-aa0c-b1d9ed1b346d"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "share.plumstatic.com"
+    network: ws
+    ws-opts:
+      path: "/ws"
+  - name: "RU【高速节点：https://vip.a3f.xyz】12"
+    type: vless
+    server: "213.183.45.23"
+    port: 8444
+    uuid: "eb62cabf-5901-403a-aa0c-b1d9ed1b346d"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "media.plumstatic.com"
+    network: ws
+    ws-opts:
+      path: "/ws"
+  - name: "US【高速节点：https://vip.a3f.xyz】13"
+    type: vless
+    server: "179.254.92.134"
     port: 443
-    uuid: "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
+    uuid: "7ad63b26-bf70-4872-8fab-ebaf73a1e19d"
+    flow: "xtls-rprx-vision"
     udp: true
     tls: true
     client-fingerprint: "chrome"
-    servername: "5d0319t.nl7.h1clayd.click"
+    servername: "assets-70.topp-con.xyz"
     reality-opts:
-      public-key: "l-GzBDuNuhnjxoRlZqKvT7jAt_sbVAxhGFsAttO5kXs"
-      short-id: "361d0dd59c70516f"
-  - name: "NE【高速节点：https://vip.a3f.xyz】18"
-    type: vless
-    server: "196.196.148.76"
+      public-key: "OQu-e59wDwOSwiBBawquNAPhg8Li1hmioWU2Up1TGDw"
+      short-id: "c33807f76b689c9a"
+  - name: "DE【高速节点：https://vip.a3f.xyz】14"
+    type: ss
+    server: "47.254.167.157"
     port: 443
-    uuid: "4201786b-d99b-4147-a5f0-20d47acddb81"
+    cipher: "2022-blake3-chacha20-poly1305"
+    password: "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y="
+    udp: true
+  - name: "US【高速节点：https://vip.a3f.xyz】15"
+    type: ss
+    server: "47.85.227.36"
+    port: 443
+    cipher: "2022-blake3-chacha20-poly1305"
+    password: "3NBsnBLanPfG6i3S2GTHineswr6EeSJPb0PCeMQoGoA="
+    udp: true
+  - name: "IT【高速节点：https://vip.a3f.xyz】16"
+    type: ss
+    server: "202.50.253.63"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://vip.a3f.xyz】17"
+    type: ss
+    server: "202.50.253.99"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://vip.a3f.xyz】18"
+    type: ss
+    server: "202.50.253.45"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "IT【高速节点：https://vip.a3f.xyz】19"
+    type: ss
+    server: "202.50.253.54"
+    port: 19999
+    cipher: "aes-256-gcm"
+    password: "ZRpgaBeGxtENIXgvhpkZBKz9GnWRS2dYcx9O+a2iwN4="
+    udp: true
+  - name: "DE【高速节点：https://vip.a3f.xyz】20"
+    type: ss
+    server: "47.254.128.109"
+    port: 443
+    cipher: "2022-blake3-chacha20-poly1305"
+    password: "8yO3ANWefuuGs1lRKXECQA1FEhxlWFV2ppQMcBaZo5Y="
+    udp: true
+  - name: "TW【高速节点：https://vip.a3f.xyz】21"
+    type: vless
+    server: "free.fugui.lol"
+    port: 51283
+    uuid: "ead3595f-4020-4e76-a3ec-c248e1a2f2f7"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "ios"
+    servername: "swdist.apple.com"
+    reality-opts:
+      public-key: "IjWYbHNrZb3UCQxsTJyekEOA3tHq42L6Jw3O8MmLYVQ"
+      short-id: "fa514b83"
+  - name: "RU【高速节点：https://vip.a3f.xyz】22"
+    type: vless
+    server: "178.248.236.229"
+    port: 443
+    uuid: "a71d6c6d-c95e-4ec1-a892-22e21733bf09"
     flow: "xtls-rprx-vision"
     udp: true
     tls: true
     client-fingerprint: "firefox"
-    servername: "8a2e72t.nl20.h1clayd.shop"
+    servername: "144.hexdey.com"
     reality-opts:
-      public-key: "VZS639V1i-35g7VXb9EoTYL-Srm7858sxcvFAunncmA"
-      short-id: "8d0d0679f42ffd98"
-  - name: "NE【高速节点：https://vip.a3f.xyz】19"
-    type: vless
-    server: "196.196.148.90"
-    port: 443
-    uuid: "4201786b-d99b-4147-a5f0-20d47acddb81"
-    flow: "xtls-rprx-vision"
-    udp: true
-    tls: true
-    client-fingerprint: "firefox"
-    servername: "7aa271t.es9.h1clayd.click"
-    reality-opts:
-      public-key: "ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE"
-      short-id: "42426c882c5fcd41"
-  - name: "NG【高速节点：https://vip.a3f.xyz】20"
+      public-key: "_3mkK8SY6YVqws73SUVPKL77tzxDVNUt4ag9J9ec-D0"
+      short-id: "d05a120d3506d2cc"
+  - name: "NG【高速节点：https://vip.a3f.xyz】23"
     type: vless
     server: "196.196.149.80"
     port: 443
@@ -189,71 +232,7 @@ proxies:
     reality-opts:
       public-key: "ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE"
       short-id: "42426c882c5fcd41"
-  - name: "CA【高速节点：https://vip.a3f.xyz】21"
-    type: vmess
-    server: "www.shopify.com"
-    port: 443
-    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
-    cipher: "auto"
-    alterId: 0
-    udp: true
-    tls: true
-    skip-cert-verify: true
-    servername: "guanwang.awsno.com"
-    network: ws
-    ws-opts:
-      path: "/hls/cctv5phd.m3u8"
-      headers:
-        Host: "guanwang.awsno.com"
-  - name: "US【高速节点：https://vip.a3f.xyz】22"
-    type: vmess
-    server: "188.114.99.137"
-    port: 443
-    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
-    cipher: "auto"
-    alterId: 0
-    udp: true
-    tls: true
-    skip-cert-verify: true
-    servername: "guanwang.awsno.com"
-    network: ws
-    ws-opts:
-      path: "/hls/cctv5phd.m3u8"
-      headers:
-        Host: "guanwang.awsno.com"
-  - name: "CA【高速节点：https://vip.a3f.xyz】23"
-    type: vmess
-    server: "172.67.190.164"
-    port: 443
-    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
-    cipher: "auto"
-    alterId: 0
-    udp: true
-    tls: true
-    skip-cert-verify: true
-    servername: "guanwang.awsno.com"
-    network: ws
-    ws-opts:
-      path: "/hls/cctv5phd.m3u8"
-      headers:
-        Host: "guanwang.awsno.com"
-  - name: "CA【高速节点：https://vip.a3f.xyz】24"
-    type: vmess
-    server: "172.64.145.93"
-    port: 443
-    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
-    cipher: "auto"
-    alterId: 0
-    udp: true
-    tls: true
-    skip-cert-verify: true
-    servername: "guanwang.awsno.com"
-    network: ws
-    ws-opts:
-      path: "/hls/cctv5phd.m3u8"
-      headers:
-        Host: "guanwang.awsno.com"
-  - name: "TR【高速节点：https://vip.a3f.xyz】25"
+  - name: "TR【高速节点：https://vip.a3f.xyz】24"
     type: vless
     server: "8a2e72t.nl20.h1clayd.shop"
     port: 443
@@ -261,7 +240,20 @@ proxies:
     flow: "xtls-rprx-vision"
     udp: true
     tls: true
-    client-fingerprint: "chrome"
+    client-fingerprint: "random"
+    servername: "8a2e72t.nl20.h1clayd.shop"
+    reality-opts:
+      public-key: "VZS639V1i-35g7VXb9EoTYL-Srm7858sxcvFAunncmA"
+      short-id: "8d0d0679f42ffd98"
+  - name: "NE【高速节点：https://vip.a3f.xyz】25"
+    type: vless
+    server: "196.196.148.76"
+    port: 443
+    uuid: "4201786b-d99b-4147-a5f0-20d47acddb81"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "firefox"
     servername: "8a2e72t.nl20.h1clayd.shop"
     reality-opts:
       public-key: "VZS639V1i-35g7VXb9EoTYL-Srm7858sxcvFAunncmA"
@@ -278,7 +270,121 @@ proxies:
     reality-opts:
       public-key: "UoS8qZ74hP_ECcncCz55lzvlcVss3R7VA0WYZE0YQCY"
       short-id: "ba2a3dce62b99092"
-  - name: "CA【高速节点：https://vip.a3f.xyz】27"
+  - name: "TW【高速节点：https://vip.a3f.xyz】27"
+    type: vless
+    server: "free.fugui.lol"
+    port: 19482
+    uuid: "ead3595f-4020-4e76-a3ec-c248e1a2f2f7"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "ios"
+    servername: "swdist.apple.com"
+    reality-opts:
+      public-key: "IjWYbHNrZb3UCQxsTJyekEOA3tHq42L6Jw3O8MmLYVQ"
+      short-id: "fa514b83"
+  - name: "NE【高速节点：https://vip.a3f.xyz】28"
+    type: vless
+    server: "196.196.148.85"
+    port: 443
+    uuid: "cda0862a-0f87-4be9-8ed8-1d0c9e382839"
+    udp: true
+    tls: true
+    client-fingerprint: "firefox"
+    servername: "5d0319t.nl7.h1clayd.click"
+    reality-opts:
+      public-key: "l-GzBDuNuhnjxoRlZqKvT7jAt_sbVAxhGFsAttO5kXs"
+      short-id: "361d0dd59c70516f"
+  - name: "RO【高速节点：https://vip.a3f.xyz】29"
+    type: vless
+    server: "a80b5386.fi2.h1clayd.click"
+    port: 443
+    uuid: "2ccb06b6-9eac-44eb-ade7-c1e5afb8e7df"
+    udp: true
+    tls: true
+    client-fingerprint: "firefox"
+    servername: "a80b5386.fi2.h1clayd.click"
+    reality-opts:
+      public-key: "PslSaSQWP4BZZmkL7irab4FMti8sW6BvoC7ytFjJFyc"
+      short-id: "cc678f10161992a9"
+  - name: "CA【高速节点：https://vip.a3f.xyz】30"
+    type: vmess
+    server: "www.shopify.com"
+    port: 443
+    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
+    cipher: "auto"
+    alterId: 0
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: "guanwang.awsno.com"
+    network: ws
+    ws-opts:
+      path: "/hls/cctv5phd.m3u8"
+      headers:
+        Host: "guanwang.awsno.com"
+  - name: "NE【高速节点：https://vip.a3f.xyz】31"
+    type: vless
+    server: "196.196.148.90"
+    port: 443
+    uuid: "4201786b-d99b-4147-a5f0-20d47acddb81"
+    flow: "xtls-rprx-vision"
+    udp: true
+    tls: true
+    client-fingerprint: "firefox"
+    servername: "7aa271t.es9.h1clayd.click"
+    reality-opts:
+      public-key: "ZSmetD4e9QG5CiXhniHg5HJB68L4kwbgAkJmMHtVwEE"
+      short-id: "42426c882c5fcd41"
+  - name: "US【高速节点：https://vip.a3f.xyz】32"
+    type: vmess
+    server: "188.114.99.137"
+    port: 443
+    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
+    cipher: "auto"
+    alterId: 0
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: "guanwang.awsno.com"
+    network: ws
+    ws-opts:
+      path: "/hls/cctv5phd.m3u8"
+      headers:
+        Host: "guanwang.awsno.com"
+  - name: "CA【高速节点：https://vip.a3f.xyz】33"
+    type: vmess
+    server: "172.67.190.164"
+    port: 443
+    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
+    cipher: "auto"
+    alterId: 0
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: "guanwang.awsno.com"
+    network: ws
+    ws-opts:
+      path: "/hls/cctv5phd.m3u8"
+      headers:
+        Host: "guanwang.awsno.com"
+  - name: "CA【高速节点：https://vip.a3f.xyz】34"
+    type: vmess
+    server: "172.64.145.93"
+    port: 443
+    uuid: "6a89a215-22bf-4bd7-9642-b95b2e09583a"
+    cipher: "auto"
+    alterId: 0
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: "guanwang.awsno.com"
+    network: ws
+    ws-opts:
+      path: "/hls/cctv5phd.m3u8"
+      headers:
+        Host: "guanwang.awsno.com"
+  - name: "CA【高速节点：https://vip.a3f.xyz】35"
     type: vmess
     server: "104.18.42.163"
     port: 443
@@ -294,6 +400,18 @@ proxies:
       path: "/hls/cctv5phd.m3u8"
       headers:
         Host: "guanwang.awsno.com"
+  - name: "RU【高速节点：https://vip.a3f.xyz】36"
+    type: vless
+    server: "213.183.45.23"
+    port: 8454
+    uuid: "eb62cabf-5901-403a-aa0c-b1d9ed1b346d"
+    udp: true
+    tls: true
+    skip-cert-verify: false
+    servername: "store.plumstatic.com"
+    network: ws
+    ws-opts:
+      path: "/ws"
 
 proxy-groups:
   - name: "🚀 节点选择"
@@ -301,68 +419,86 @@ proxy-groups:
     proxies:
       - "♻️ 自动选择"
       - "🎯 直连模式"
-      - "节点日期：2026-11-25"
-      - "US【高速节点：https://vip.a3f.xyz】1"
+      - "节点日期：2026-11-26"
+      - "IT【高速节点：https://vip.a3f.xyz】1"
       - "IT【高速节点：https://vip.a3f.xyz】2"
       - "IT【高速节点：https://vip.a3f.xyz】3"
-      - "IT【高速节点：https://vip.a3f.xyz】4"
-      - "IT【高速节点：https://vip.a3f.xyz】5"
-      - "IT【高速节点：https://vip.a3f.xyz】6"
-      - "IT【高速节点：https://vip.a3f.xyz】7"
+      - "LY【高速节点：https://vip.a3f.xyz】4"
+      - "DE【高速节点：https://vip.a3f.xyz】5"
+      - "FR【高速节点：https://vip.a3f.xyz】6"
+      - "DE【高速节点：https://vip.a3f.xyz】7"
       - "IT【高速节点：https://vip.a3f.xyz】8"
       - "IT【高速节点：https://vip.a3f.xyz】9"
-      - "IT【高速节点：https://vip.a3f.xyz】10"
-      - "IT【高速节点：https://vip.a3f.xyz】11"
-      - "FR【高速节点：https://vip.a3f.xyz】12"
+      - "RU【高速节点：https://vip.a3f.xyz】10"
+      - "RU【高速节点：https://vip.a3f.xyz】11"
+      - "RU【高速节点：https://vip.a3f.xyz】12"
       - "US【高速节点：https://vip.a3f.xyz】13"
       - "DE【高速节点：https://vip.a3f.xyz】14"
-      - "DE【高速节点：https://vip.a3f.xyz】15"
-      - "RO【高速节点：https://vip.a3f.xyz】16"
-      - "NE【高速节点：https://vip.a3f.xyz】17"
-      - "NE【高速节点：https://vip.a3f.xyz】18"
-      - "NE【高速节点：https://vip.a3f.xyz】19"
-      - "NG【高速节点：https://vip.a3f.xyz】20"
-      - "CA【高速节点：https://vip.a3f.xyz】21"
-      - "US【高速节点：https://vip.a3f.xyz】22"
-      - "CA【高速节点：https://vip.a3f.xyz】23"
-      - "CA【高速节点：https://vip.a3f.xyz】24"
-      - "TR【高速节点：https://vip.a3f.xyz】25"
+      - "US【高速节点：https://vip.a3f.xyz】15"
+      - "IT【高速节点：https://vip.a3f.xyz】16"
+      - "IT【高速节点：https://vip.a3f.xyz】17"
+      - "IT【高速节点：https://vip.a3f.xyz】18"
+      - "IT【高速节点：https://vip.a3f.xyz】19"
+      - "DE【高速节点：https://vip.a3f.xyz】20"
+      - "TW【高速节点：https://vip.a3f.xyz】21"
+      - "RU【高速节点：https://vip.a3f.xyz】22"
+      - "NG【高速节点：https://vip.a3f.xyz】23"
+      - "TR【高速节点：https://vip.a3f.xyz】24"
+      - "NE【高速节点：https://vip.a3f.xyz】25"
       - "ES【高速节点：https://vip.a3f.xyz】26"
-      - "CA【高速节点：https://vip.a3f.xyz】27"
+      - "TW【高速节点：https://vip.a3f.xyz】27"
+      - "NE【高速节点：https://vip.a3f.xyz】28"
+      - "RO【高速节点：https://vip.a3f.xyz】29"
+      - "CA【高速节点：https://vip.a3f.xyz】30"
+      - "NE【高速节点：https://vip.a3f.xyz】31"
+      - "US【高速节点：https://vip.a3f.xyz】32"
+      - "CA【高速节点：https://vip.a3f.xyz】33"
+      - "CA【高速节点：https://vip.a3f.xyz】34"
+      - "CA【高速节点：https://vip.a3f.xyz】35"
+      - "RU【高速节点：https://vip.a3f.xyz】36"
   - name: "♻️ 自动选择"
     type: url-test
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
     proxies:
-      - "节点日期：2026-11-25"
-      - "US【高速节点：https://vip.a3f.xyz】1"
+      - "节点日期：2026-11-26"
+      - "IT【高速节点：https://vip.a3f.xyz】1"
       - "IT【高速节点：https://vip.a3f.xyz】2"
       - "IT【高速节点：https://vip.a3f.xyz】3"
-      - "IT【高速节点：https://vip.a3f.xyz】4"
-      - "IT【高速节点：https://vip.a3f.xyz】5"
-      - "IT【高速节点：https://vip.a3f.xyz】6"
-      - "IT【高速节点：https://vip.a3f.xyz】7"
+      - "LY【高速节点：https://vip.a3f.xyz】4"
+      - "DE【高速节点：https://vip.a3f.xyz】5"
+      - "FR【高速节点：https://vip.a3f.xyz】6"
+      - "DE【高速节点：https://vip.a3f.xyz】7"
       - "IT【高速节点：https://vip.a3f.xyz】8"
       - "IT【高速节点：https://vip.a3f.xyz】9"
-      - "IT【高速节点：https://vip.a3f.xyz】10"
-      - "IT【高速节点：https://vip.a3f.xyz】11"
-      - "FR【高速节点：https://vip.a3f.xyz】12"
+      - "RU【高速节点：https://vip.a3f.xyz】10"
+      - "RU【高速节点：https://vip.a3f.xyz】11"
+      - "RU【高速节点：https://vip.a3f.xyz】12"
       - "US【高速节点：https://vip.a3f.xyz】13"
       - "DE【高速节点：https://vip.a3f.xyz】14"
-      - "DE【高速节点：https://vip.a3f.xyz】15"
-      - "RO【高速节点：https://vip.a3f.xyz】16"
-      - "NE【高速节点：https://vip.a3f.xyz】17"
-      - "NE【高速节点：https://vip.a3f.xyz】18"
-      - "NE【高速节点：https://vip.a3f.xyz】19"
-      - "NG【高速节点：https://vip.a3f.xyz】20"
-      - "CA【高速节点：https://vip.a3f.xyz】21"
-      - "US【高速节点：https://vip.a3f.xyz】22"
-      - "CA【高速节点：https://vip.a3f.xyz】23"
-      - "CA【高速节点：https://vip.a3f.xyz】24"
-      - "TR【高速节点：https://vip.a3f.xyz】25"
+      - "US【高速节点：https://vip.a3f.xyz】15"
+      - "IT【高速节点：https://vip.a3f.xyz】16"
+      - "IT【高速节点：https://vip.a3f.xyz】17"
+      - "IT【高速节点：https://vip.a3f.xyz】18"
+      - "IT【高速节点：https://vip.a3f.xyz】19"
+      - "DE【高速节点：https://vip.a3f.xyz】20"
+      - "TW【高速节点：https://vip.a3f.xyz】21"
+      - "RU【高速节点：https://vip.a3f.xyz】22"
+      - "NG【高速节点：https://vip.a3f.xyz】23"
+      - "TR【高速节点：https://vip.a3f.xyz】24"
+      - "NE【高速节点：https://vip.a3f.xyz】25"
       - "ES【高速节点：https://vip.a3f.xyz】26"
-      - "CA【高速节点：https://vip.a3f.xyz】27"
+      - "TW【高速节点：https://vip.a3f.xyz】27"
+      - "NE【高速节点：https://vip.a3f.xyz】28"
+      - "RO【高速节点：https://vip.a3f.xyz】29"
+      - "CA【高速节点：https://vip.a3f.xyz】30"
+      - "NE【高速节点：https://vip.a3f.xyz】31"
+      - "US【高速节点：https://vip.a3f.xyz】32"
+      - "CA【高速节点：https://vip.a3f.xyz】33"
+      - "CA【高速节点：https://vip.a3f.xyz】34"
+      - "CA【高速节点：https://vip.a3f.xyz】35"
+      - "RU【高速节点：https://vip.a3f.xyz】36"
   - name: "🎯 直连模式"
     type: select
     proxies:
